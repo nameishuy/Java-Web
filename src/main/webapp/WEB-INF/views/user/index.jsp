@@ -29,4 +29,130 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div> <!-- End Banner-->
+    
+        <p class="Title">SÁCH BÁN CHẠY</p> <!-- Start Selling Books -->
+    <div id="carouselListSelling" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="Slide__Book">
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="Slide__Book">
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                    <div class="SellingBook">
+                        <div class="ImgBook">
+                            <img src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg" alt="">
+                        </div>
+                        <div class="BookContent">
+                            <p class="BookTitle">
+                                abc
+                            </p>
+                            <p class="Author">
+                                abc
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev btnCarousel" type="button" data-bs-target="#carouselListSelling" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next btnCarousel" type="button" data-bs-target="#carouselListSelling" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div> <!-- End Selling Book -->
 </body>
