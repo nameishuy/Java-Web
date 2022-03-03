@@ -23,10 +23,10 @@
 
 	<!-- Header -->
 	<%@include file="/WEB-INF/views/layouts/user/header.jsp"%>
-	
+
 	<!-- Body -->
 	<decorator:body />
-	
+
 	<!-- Footer -->
 	<%@include file="/WEB-INF/views/layouts/user/footer.jsp"%>
 
@@ -37,7 +37,7 @@
 		crossorigin="anonymous"></script>
 	<script type="module"
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule
+	<script type="module"
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
