@@ -6,11 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>MBook</title>
 
 <!-- CSS -->
 <link rel="stylesheet" href="css/layouts.css" />
 <link rel="stylesheet" href="css/index.css" />
+<link rel="stylesheet" href="css/login.css" />
 <!-- Bootstrap 5 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"

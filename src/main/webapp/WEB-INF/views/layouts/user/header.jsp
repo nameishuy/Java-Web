@@ -14,7 +14,7 @@
             <div class="collapse navbar-collapse justify-content-md-center" id="navbarMenu">
                 <ul class="navbar-nav text-center p-md-3 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" aria-current="page" href="home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Product</a>
@@ -40,8 +40,8 @@
                 </ul>
             </div>
             <div class="Account__Area align-items-center" id="Account_Area">
-                <a class="text-decoration-none link-dark border border-dark rounded-1 pe-3 ps-3 pt-1 pb-1" id="SignIn" href="">Sign in</a> /
-                <a class="text-decoration-none link-light bg-dark border border-dark rounded-1 pe-3 ps-3 pt-1 pb-1" id="SignUp" href="">Sign up</a>
+                <a class="text-decoration-none link-dark border border-dark rounded-1 pe-3 ps-3 pt-1 pb-1" id="SignIn" href="signin">Sign in</a> /
+                <a class="text-decoration-none link-light bg-dark border border-dark rounded-1 pe-3 ps-3 pt-1 pb-1" id="SignUp" href="signup">Sign up</a>
             </div>
         </div>
     </nav>

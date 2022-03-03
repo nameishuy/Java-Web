@@ -14,8 +14,17 @@ public class HomeController {
 		return mv;
 	}
 	
-	@RequestMapping("/hello")
-	public String Admin() {
-		return "admin";
+	@RequestMapping(value={"/signin"})
+	public ModelAndView Login() {
+		
+		ModelAndView mv = new ModelAndView("/user/signin");
+		return mv;
+	}
+	
+	@RequestMapping(value={"/signup"})
+	public ModelAndView Signup() {
+		
+		ModelAndView mv = new ModelAndView("/user/signup");
+		return mv;
 	}
 }
