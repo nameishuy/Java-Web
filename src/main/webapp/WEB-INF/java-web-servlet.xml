@@ -13,7 +13,7 @@
 	<context:annotation-config/>
 	 <mvc:annotation-driven />
 	
-	<bean id="viewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp"
+	<bean id="viewResolver" p:prefix="/WEB-INF/views" p:suffix=".jsp"
 	class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
 	<context:component-scan base-package="JavaWebMVC"></context:component-scan>
 	
