@@ -35,7 +35,14 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.3.1</version>
 			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 		</plugins>
-		<finalName>check</finalName>
+		<finalName>JavaWebMVC</finalName>
 	</build>
 </project>
