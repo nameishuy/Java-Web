@@ -2,6 +2,8 @@ package JavaWebMVC.Controller;
 
 import JavaWebMVC.API.Login;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -39,7 +41,7 @@ public class HomeController {
 
 		String link = "https://bookingapiiiii.herokuapp.com/login";
 
-		JSONObject json = new JSONObject(JavaWebMVC.API.Login.login(link, data).toString());
+		JSONObject json = new JSONObject(JavaWebMVC.API.Login.post(link, data).toString());
 
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Nhập Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
@@ -56,11 +58,37 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = { "/signup" })
+	@RequestMapping(value = { "/signup" }, method = RequestMethod.GET)
 	public ModelAndView Signup() {
 
 		ModelAndView mv = new ModelAndView("/user/signup");
 		return mv;
+	}
+
+	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
+	public ModelAndView Signup(HttpServletRequest req, HttpSession session) throws UnsupportedEncodingException {
+		req.setCharacterEncoding("UTF-8");
+		System.out.println(req.getParameter("fullname"));
+		String data = "{\n \"HoTen\": \"" + req.getParameter("fullname") + "\", \n \"Taikhoan\": \""
+				+ req.getParameter("username") + "\",\n \"Matkhau\": \"" + req.getParameter("pass")
+				+ "\",\n \"ConfirmMatKhau\" : \"" + req.getParameter("compass") + "\"\n}";
+
+		String link = "https://bookingapiiiii.herokuapp.com/khachhang";
+
+		JSONObject json = new JSONObject(JavaWebMVC.API.Login.post(link, data).toString());
+
+		if (json.getString("Messenger").equalsIgnoreCase("Đăng Ký Thành Công")) {
+			session.setAttribute("id", json.getString("id"));
+			session.setAttribute("User", json.getString("HoTen"));
+
+			ModelAndView mv = new ModelAndView("/user/index");
+			mv.addObject("HoTen", session.getAttribute("User"));
+			return mv;
+		} else {
+			ModelAndView mv = new ModelAndView("/user/signup");
+			mv.addObject("Messenger", json.getString("Messenger"));
+			return mv;
+		}
 	}
 
 	@RequestMapping(value = { "/signout" })

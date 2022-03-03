@@ -7,10 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-
 public class Login {
 	// Call API
-	public static StringBuffer login(String link, String data) {
+	public static StringBuffer post(String link, String data) {
 		try {
 			URL url = new URL(link);
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -20,7 +19,7 @@ public class Login {
 			http.setRequestProperty("Content-Type", "application/json");
 
 			byte[] out = data.getBytes(StandardCharsets.UTF_8);
-
+			
 			OutputStream stream = http.getOutputStream();
 			stream.write(out);
 			BufferedReader in = new BufferedReader(
@@ -31,7 +30,7 @@ public class Login {
 				response.append(inputLine);
 			}
 			in.close();
-			http.disconnect();			
+			http.disconnect();
 			System.out.println(http.getResponseMessage());
 			return response;
 		} catch (Exception e) {
