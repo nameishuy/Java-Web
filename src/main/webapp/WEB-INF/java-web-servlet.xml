@@ -18,5 +18,5 @@
 	<context:component-scan base-package="JavaWebMVC"></context:component-scan>
 	
 	<mvc:resources mapping="/css/**" location="/css/" />
-
+	<mvc:resources mapping="/js/**" location="/js/" />
 </beans>
