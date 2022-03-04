@@ -96,4 +96,9 @@ public class HomeController {
 		session.removeAttribute("id");
 		return "/user/index";
 	}
+	
+	@RequestMapping(value = {"/myprofile"})
+	public String Profile() {
+		return "/user/profile";
+	}
 }
