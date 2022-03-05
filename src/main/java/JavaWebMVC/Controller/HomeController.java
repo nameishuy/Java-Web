@@ -101,4 +101,9 @@ public class HomeController {
 	public String Profile() {
 		return "/user/profile";
 	}
+	
+	@RequestMapping(value = {"/products"})
+	public String Products() {
+		return "/user/products";
+	}
 }

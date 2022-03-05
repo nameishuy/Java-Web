@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<body>	
+<body>
 	<div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
 		<!-- Start Banner -->
 		<div class="carousel-indicators">
@@ -45,7 +45,7 @@
 
 	<p class="Title">SÁCH BÁN CHẠY</p>
 	<!-- Start Selling Books -->
-	<div id="carouselListSelling" class="carousel slide"
+	<div class="carousel slide" id="carouselListSelling"
 		data-bs-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
@@ -157,4 +157,79 @@
 		</button>
 	</div>
 	<!-- End Selling Book -->
+
+	<p class="Title">SÁCH HAY</p>
+	<div id="carouselGoodBook" class="carousel slide"
+		data-bs-ride="carousel">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<div class="Good__Book">
+					<div class="Good__Book-image">
+						<img src="https://cdn-amz.fadoglobal.io/images/I/81HFDSoLWtL.jpg"
+							alt="">
+					</div>
+					<div class="Good__Book-about">
+						<div class="Good__Book-header">
+							<h3>Kimi na wa</h3>
+							<p>Tác Giả: ...</p>
+						</div>
+						<div class="Good__Book-body">
+							Lorem Ipsum is simply dummy
+							text of the printing and typesetting industry. Lorem Ipsum has
+							been the industry's standard dummy text ever since the 1500s,
+							when an unknown printer took a galley of type and scrambled it to
+							make a type specimen book. It has survived not only five
+							centuries, but also the leap into electronic typesetting,
+							remaining essentially unchanged. It was popularised in the 1960s
+							with the release of Letraset sheets containing Lorem Ipsum
+							passages, and more recently with desktop publishing software like
+							Aldus PageMaker including versions of Lorem Ipsum
+						</div>
+						<div class="Good__Book-readnow">
+							<a>Đọc Ngay</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<div class="Good__Book">
+					<div class="Good__Book-image">
+						<img src="https://cdn-amz.fadoglobal.io/images/I/81HFDSoLWtL.jpg"
+							alt="">
+					</div>
+					<div class="Good__Book-about">
+						<div class="Good__Book-header">
+							<h3>Kimi na wa</h3>
+							<p>Tác Giả: ...</p>
+						</div>
+						<div class="Good__Book-body">
+							Lorem Ipsum is simply dummy
+							text of the printing and typesetting industry. Lorem Ipsum has
+							been the industry's standard dummy text ever since the 1500s,
+							when an unknown printer took a galley of type and scrambled it to
+							make a type specimen book. It has survived not only five
+							centuries, but also the leap into electronic typesetting,
+							remaining essentially unchanged. It was popularised in the 1960s
+							with the release of Letraset sheets containing Lorem Ipsum
+							passages, and more recently with desktop publishing software like
+							Aldus PageMaker including versions of Lorem Ipsum
+						</div>
+						<div class="Good__Book-readnow">
+							<a>Đọc Ngay</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button class="carousel-control-prev btnCarousel" type="button"
+			data-bs-target="#carouselGoodBook" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+				class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next btnCarousel" type="button"
+			data-bs-target="#carouselGoodBook" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+				class="visually-hidden">Next</span>
+		</button>
+	</div>
 </body>
