@@ -94,12 +94,13 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/myprofile" }, method = RequestMethod.GET)
-	public ModelAndView Profile(HttpSession session) {
+	public ModelAndView Profile(HttpSession session, String mess) {
 
 		if (session.getAttribute("id") != null) {
 			String link = "https://bookingapiiiii.herokuapp.com/khachhangbyid/" + session.getAttribute("id");
-			if (JavaWebMVC.API.CallAPI.Get(link) != null) {
-				JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.Get(link).toString());
+			String res = JavaWebMVC.API.CallAPI.Get(link).toString();
+			if (res != null) {
+				JSONObject json = new JSONObject(res);
 				ModelAndView mv = new ModelAndView("/user/profile");
 				mv.addObject("HoTen", json.getString("HoTen"));
 				mv.addObject("Email", json.getString("Email"));
@@ -107,6 +108,7 @@ public class HomeController {
 				mv.addObject("DiachiKH", json.getString("DiachiKH"));
 				mv.addObject("DienthoaiKH", json.getString("DienthoaiKH"));
 				mv.addObject("Ngaysinh", json.getString("Ngaysinh"));
+				mv.addObject("Messenger", mess);
 				return mv;
 			}
 		} else {
@@ -118,55 +120,86 @@ public class HomeController {
 		return mv;
 	}
 
+	// MultipartFile photo Để Lấy Dữ Liệu Của ảnh
 	@RequestMapping(value = { "/myprofile" }, method = RequestMethod.POST)
 	public ModelAndView Profile(HttpServletRequest req, HttpSession session,
 			@RequestParam(value = "imgchoose", required = false) MultipartFile photo) {
 
 		try {
 			String data;
+			// setCharacterEncoding để định dạng UTF-8 Nhưng Code Nó không hiểu
 			req.setCharacterEncoding("UTF-8");
 			if (photo.getOriginalFilename() == "") {
+
+				// Json Được Chuyển Thành Dạng String vào https://jsontostring.com
 				data = "{\n\"id\" : \"" + session.getAttribute("id") + "\",\n \"HoTen\": \"" + req.getParameter("HoTen")
 						+ "\", \n \"Email\": \"" + req.getParameter("Email") + "\",\n \"DiachiKH\": \""
 						+ req.getParameter("DiaChi") + "\",\n \"DienthoaiKH\" : \"" + req.getParameter("SDT")
 						+ "\",\n \"Ngaysinh\": \"" + req.getParameter("Date") + "\"\n}";
 			} else {
+
+				// Chỉ Nhận ảnh JPG Và Chuyển ảnh thành dạng Base64 để Lưu Vô cơ sở dữ liệu
 				byte[] encodedBytes = Base64.getEncoder().encode(photo.getBytes());
 				String originalString = new String(encodedBytes, StandardCharsets.UTF_8);
 				String base64img = "data:image/jpeg;base64," + originalString;
 
+				// Json Được Chuyển Thành Dạng String vào https://jsontostring.com
 				data = "{\n\"id\" : \"" + session.getAttribute("id") + "\",\n \"HoTen\": \"" + req.getParameter("HoTen")
 						+ "\", \n \"Email\": \"" + req.getParameter("Email") + "\",\n \"DiachiKH\": \""
 						+ req.getParameter("DiaChi") + "\",\n \"DienthoaiKH\" : \"" + req.getParameter("SDT")
 						+ "\",\n \"Ngaysinh\": \"" + req.getParameter("Date") + "\",\n \"Anh\":\"" + base64img
 						+ "\"\n}";
 			}
+			// Link đăng Kí Có Trên PostMan
+			String link = "https://bookingapiiiii.herokuapp.com/khachhang";
+			String res = JavaWebMVC.API.CallAPI.put(link, data).toString();
+			// Gọi hàm put bên Package API nếu trả về Null là Call tới Api Thất Bại
+			if (res != null) {
 
-			String link = "https://bookingapiiiii.herokuapp.com/khachhang";		
-			if (JavaWebMVC.API.CallAPI.put(link, data) != null) {
-				JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.put(link, data).toString());
-				ModelAndView mv = new ModelAndView();
-				mv.setViewName("/user/profile");
-				return mv;
+				// Json là dữ Liệu Khi Được Trả về khi call api
+				JSONObject json = new JSONObject(res);
+
+				// sửa lại session để đồng bộ với DB
+				session.setAttribute("User", json.getString("HoTen"));
+
+				// gọi lại hàm Get Phía Trên để có thể hiển thị thông tin vì t không biết return
+				// back
+				return Profile(session, json.getString("Messenger"));
 			} else {
-				ModelAndView mv = new ModelAndView("/user/profile");
-				mv.addObject("Messenger", data);
-				return mv;
+				// để báo lỗi
+				return Profile(session, "Không Thể Call API");
 			}
 		} catch (Exception e) {
-			ModelAndView mv = new ModelAndView("/user/profile");
-			mv.addObject("Messenger", e);
-			return mv;
+			return Profile(session, e.getMessage());
 		}
 	}
 
 	@RequestMapping(value = { "/changepass" }, method = RequestMethod.POST)
-	public String changepass(HttpServletRequest req, HttpSession session) {
+	public ModelAndView changepass(HttpServletRequest req, HttpSession session) {
 		try {
 			req.setCharacterEncoding("UTF-8");
-			return "/user/profile";
+
+			String data = "{\"id\":\"" + session.getAttribute("id") + "\",\"Matkhaued\":\""
+					+ req.getParameter("oldpass") + "\",\"newMatkhau\":\"" + req.getParameter("newpass")
+					+ "\",\"ConfirmMatKhau\":\"" + req.getParameter("compass") + "\"}";
+
+			String link = "https://bookingapiiiii.herokuapp.com/khachhangmk";
+			String res = JavaWebMVC.API.CallAPI.put(link, data).toString();
+			if (res != null) {
+
+				// Json là dữ Liệu Khi Được Trả về khi call api
+				JSONObject json = new JSONObject(res);
+				System.out.println(data);
+				System.out.println(json);
+				// gọi lại hàm Get Phía Trên để có thể hiển thị thông tin vì t không biết return
+				// back
+				return Profile(session, json.getString("Messenger"));
+			} else {
+				// để báo lỗi
+				return Profile(session, "Không Thể Call API");
+			}
 		} catch (Exception e) {
-			return "/user/profile";
+			return Profile(session, e.getMessage());
 		}
 	}
 
