@@ -12,7 +12,7 @@
 						<div class="img-circle text-center mb-3">
 							<img src="${Anh }" alt="Image" class="shadow">
 						</div>
-						<h4 class="text-center">UserNAme</h4>
+						<h4 class="text-center">${HoTen }</h4>
 						<input type="file" name="imgchoose" accept="image/*">
 					</div>
 					<div class="nav flex-column nav-pills" id="v-pills-tab"
