@@ -78,7 +78,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Mật Khẩu Hiện Tại</label> <input type="password"
-										class="form-control" required>
+										class="form-control" name="oldpass" required>
 								</div>
 							</div>
 						</div>
@@ -86,13 +86,13 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Mật Khẩu Mới</label> <input type="password"
-										class="form-control" required>
+										class="form-control" name="newpass" required>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Xác Nhận Mật Khẩu</label> <input type="password"
-										class="form-control" required>
+										class="form-control" name="compass" required>
 								</div>
 							</div>
 						</div>

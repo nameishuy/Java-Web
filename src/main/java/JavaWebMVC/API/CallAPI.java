@@ -14,7 +14,7 @@ public class CallAPI {
 			URL url = new URL(link);
 			HttpURLConnection http = (HttpURLConnection) url.openConnection();
 			http.setRequestMethod("GET");
-		
+
 			BufferedReader in = new BufferedReader(
 					new InputStreamReader(http.getInputStream(), StandardCharsets.UTF_8));
 			String inputLine;
@@ -41,7 +41,7 @@ public class CallAPI {
 			http.setRequestProperty("Content-Type", "application/json");
 
 			byte[] out = data.getBytes(StandardCharsets.UTF_8);
-			
+
 			OutputStream stream = http.getOutputStream();
 			stream.write(out);
 			BufferedReader in = new BufferedReader(
@@ -53,7 +53,6 @@ public class CallAPI {
 			}
 			in.close();
 			http.disconnect();
-			System.out.println(http.getResponseMessage());
 			return response;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -71,7 +70,7 @@ public class CallAPI {
 			http.setRequestProperty("Content-Type", "application/json");
 
 			byte[] out = data.getBytes(StandardCharsets.UTF_8);
-			
+
 			OutputStream stream = http.getOutputStream();
 			stream.write(out);
 			BufferedReader in = new BufferedReader(
@@ -82,8 +81,9 @@ public class CallAPI {
 				response.append(inputLine);
 			}
 			in.close();
+			int i = 0;
+			System.out.println(i += 1);
 			http.disconnect();
-			System.out.println(http.getResponseMessage());
 			return response;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
