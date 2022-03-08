@@ -12,7 +12,7 @@
 			<div class="Product__ListProduct-Sort">
 				<input type="text" class="form-control" placeholder="Search..." />
 				<div class="Product__ListProduct-SortArea">
-					<p>Sắp xếp theo:</p>
+					<h4>Sắp xếp theo:</h4>
 					<select class="form-select" aria-label="-- Loại Sắp Xếp --">
 						<option selected>Giá Tăng Dần</option>
 						<option value="1">Giá Giảm Dần</option>

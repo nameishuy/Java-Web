@@ -63,14 +63,14 @@
     height: fit-content;
 }
 
-.Product__ListProduct-Features {
+.Product__ListProduct-Sort {
     display: flex;
     flex-flow: column wrap;
     padding: 50px;
     position: relative;
 }
 
-.Product__ListProduct-Features::after {
+.Product__ListProduct-Sort::after {
     content: "";
     width: 90%;
     height: 1px;
@@ -80,13 +80,13 @@
     bottom: 0;
     transform: translateY(-50px);
 }
-.Product__ListProduct-Sort{
+.Product__ListProduct-SortArea{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin: 20px 0 20px 0;
 }
-    .Product__ListProduct-Sort h4 {
+    .Product__ListProduct-SortArea h4 {
         font-weight: 600;
         margin-right: 10px;
     }
@@ -111,6 +111,7 @@
 
 .Book:hover {
     box-shadow: 0 0 10px 4px rgba(163, 163, 163, 0.733);
+    transform: translateY(-10px);
 }
 
 .Book__Img {
@@ -142,7 +143,7 @@
 
 .Book__Content-Author {
     font-size: 11px;
-    margin-top: -20px;
+    margin-top: -10px;
 }
 
 .Book__Content-Price {
