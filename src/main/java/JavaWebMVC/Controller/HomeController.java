@@ -207,4 +207,9 @@ public class HomeController {
 	public String Products() {
 		return "/user/products";
 	}
+	
+	@RequestMapping(value = {"/details"})
+	public String Details() {
+		return "/user/details";
+	}
 }
