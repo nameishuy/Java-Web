@@ -2,9 +2,12 @@ package JavaWebMVC.Controller;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,23 +16,73 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import Model.Book;
+
 @Controller
 public class HomeController {
-	// Data String data = "{\n \"Taikhoan\": \"dung\",\n \"Matkhau\":
-	// \"123456\"\n}";
 	@RequestMapping(value = { "/", "/home" })
 	public ModelAndView Index() {
+		String link = "https://bookingapiiiii.herokuapp.com/sachbanchayfirst";
+		String link2 = "https://bookingapiiiii.herokuapp.com/sachbanchaysecond";
+		String link3 = "https://bookingapiiiii.herokuapp.com/sachtimestamps";
+		JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(link).toString());
+		JSONArray json2 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link2).toString());
+		JSONArray json3 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link3).toString());
+
+		ArrayList<Book> book1 = new ArrayList<Book>();
+		ArrayList<Book> book2 = new ArrayList<Book>();
+		ArrayList<Book> book3 = new ArrayList<Book>();
+
+		if (json != null) {
+			json.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				Book book = new Book();
+				book.setID(jsonobject.getString("id"));
+				book.setTensach(jsonobject.getString("Tensach"));
+				book.setAnh(jsonobject.getString("Anh"));
+				book.setTenTG(jsonobject.getString("TenTG"));
+				book1.add(book);
+			});
+		}
+		if (json2 != null) {
+			json2.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				Book book = new Book();
+				book.setID(jsonobject.getString("id"));
+				book.setTensach(jsonobject.getString("Tensach"));
+				book.setAnh(jsonobject.getString("Anh"));
+				book.setTenTG(jsonobject.getString("TenTG"));
+				book2.add(book);
+			});
+		}
+		if (json3 != null) {
+			json3.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				Book book = new Book();
+				book.setID(jsonobject.getString("id"));
+				book.setTensach(jsonobject.getString("Tensach"));
+				book.setAnh(jsonobject.getString("Anh"));
+				book.setTenTG(jsonobject.getString("TenTG"));
+				book.setMota(jsonobject.getString("Mota"));
+				book3.add(book);
+			});
+		}
+
 		ModelAndView mv = new ModelAndView("/user/index");
+		mv.addObject("book1", book1);
+		mv.addObject("book2", book2);
+		mv.addObject("book3", book3);
+		mv.addObject("chek", 1);
 		return mv;
 	}
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.GET)
-	public String Login(HttpSession session) {
+	public ModelAndView Login(HttpSession session) {
 		if (session.getAttribute("id") == null) {
-			return "/user/signin";
+			ModelAndView mv = new ModelAndView("/user/signin");
+			return mv;
 		}
-		System.out.println(session.getAttribute("id"));
-		return "/user/index";
+		return this.Index();
 	}
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.POST)
@@ -45,9 +98,7 @@ public class HomeController {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
 
-			ModelAndView mv = new ModelAndView("/user/index");
-			mv.addObject("HoTen", session.getAttribute("User"));
-			return mv;
+			return this.Index();
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signin");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -57,10 +108,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.GET)
-	public ModelAndView Signup() {
-
-		ModelAndView mv = new ModelAndView("/user/signup");
-		return mv;
+	public ModelAndView Signup(HttpSession session) {
+		if (session.getAttribute("id") == null) {
+			ModelAndView mv = new ModelAndView("/user/signup");
+			return mv;
+		}
+		return this.Index();
 	}
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
@@ -77,9 +130,7 @@ public class HomeController {
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Ký Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
-			ModelAndView mv = new ModelAndView("/user/index");
-			mv.addObject("HoTen", session.getAttribute("User"));
-			return mv;
+			return this.Index();
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signup");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -88,9 +139,9 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/signout" })
-	public String Signout(HttpSession session) {
+	public ModelAndView Signout(HttpSession session) {
 		session.removeAttribute("id");
-		return "/user/index";
+		return this.Index();
 	}
 
 	@RequestMapping(value = { "/myprofile" }, method = RequestMethod.GET)
@@ -207,8 +258,8 @@ public class HomeController {
 	public String Products() {
 		return "/user/products";
 	}
-	
-	@RequestMapping(value = {"/details"})
+
+	@RequestMapping(value = { "/details" })
 	public String Details() {
 		return "/user/details";
 	}
