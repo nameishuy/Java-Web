@@ -7,12 +7,13 @@ public class Book {
 	private String tenTG;
 	private String moTa;
 	private long daBan;
+	private Double Giaban;
 
 	public Book() {
 		super();
 	}
 
-	public Book(String id, String tensach, String anh, String tenTG, String moTa, long daBan) {
+	public Book(String id, String tensach, String anh, String tenTG, String moTa, long daBan, Double Giaban) {
 		super();
 		this.id = id;
 		this.tensach = tensach;
@@ -20,6 +21,15 @@ public class Book {
 		this.tenTG = tenTG;
 		this.moTa = moTa;
 		this.daBan = daBan;
+		this.Giaban = Giaban;
+	}
+
+	public Double getGiaban() {
+		return Giaban;
+	}
+
+	public void setGiaban(Double value) {
+		this.Giaban = value;
 	}
 
 	public String getMota() {

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import Model.Book;
+import Model.Chude;
 
 @Controller
 public class HomeController {
@@ -25,15 +24,17 @@ public class HomeController {
 		String link = "https://bookingapiiiii.herokuapp.com/sachbanchayfirst";
 		String link2 = "https://bookingapiiiii.herokuapp.com/sachbanchaysecond";
 		String link3 = "https://bookingapiiiii.herokuapp.com/sachtimestamps";
-		JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(link).toString());
-		JSONArray json2 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link2).toString());
-		JSONArray json3 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link3).toString());
+
+		String check1 = JavaWebMVC.API.CallAPI.Get(link).toString();
+		String check2 = JavaWebMVC.API.CallAPI.Get(link2).toString();
+		String check3 = JavaWebMVC.API.CallAPI.Get(link3).toString();
 
 		ArrayList<Book> book1 = new ArrayList<Book>();
 		ArrayList<Book> book2 = new ArrayList<Book>();
 		ArrayList<Book> book3 = new ArrayList<Book>();
 
-		if (json != null) {
+		if (check1 != null) {
+			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(link).toString());
 			json.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book book = new Book();
@@ -44,7 +45,8 @@ public class HomeController {
 				book1.add(book);
 			});
 		}
-		if (json2 != null) {
+		if (check2 != null) {
+			JSONArray json2 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link2).toString());
 			json2.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book book = new Book();
@@ -55,7 +57,8 @@ public class HomeController {
 				book2.add(book);
 			});
 		}
-		if (json3 != null) {
+		if (check3 != null) {
+			JSONArray json3 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link3).toString());
 			json3.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book book = new Book();
@@ -255,8 +258,60 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/products" })
-	public String Products() {
-		return "/user/products";
+	public ModelAndView Products() {
+		String link = "https://bookingapiiiii.herokuapp.com/chude";
+		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+
+		ArrayList<Chude> CD = new ArrayList<Chude>();
+		if (check != null) {
+			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(link).toString());
+
+			json.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				Chude chude = new Chude();
+				chude.set_id(jsonobject.getString("_id"));
+				chude.setTenChuDe(jsonobject.getString("TenChuDe"));
+				CD.add(chude);
+			});
+		}
+		ModelAndView mv = new ModelAndView("/user/products");
+		mv.addObject("Chude", CD);
+		return mv;
+	}
+
+	public int Cout(String MaCD) {
+		String linkbook = null;
+		if (MaCD == null) {
+			linkbook = "https://bookingapiiiii.herokuapp.com/sach";
+		} else {
+			linkbook = "https://bookingapiiiii.herokuapp.com/sachbyCD/" + MaCD;
+		}
+
+		JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
+		return json.length();
+
+	}
+
+	public ArrayList<Book> getList(String link, int Frist, int Last) {
+
+		String linkbook = "https://bookingapiiiii.herokuapp.com/" + link + "/" + Frist + "/" + Last;
+		String check = JavaWebMVC.API.CallAPI.Get(linkbook).toString();
+		ArrayList<Book> book = new ArrayList<Book>();
+
+		if (check != null) {
+			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
+			json.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				Book modelbook = new Book();
+				modelbook.setID(jsonobject.getString("id"));
+				modelbook.setTensach(jsonobject.getString("Tensach"));
+				modelbook.setAnh(jsonobject.getString("Anh"));
+				modelbook.setTenTG(jsonobject.getString("TenTG"));
+				modelbook.setGiaban(jsonobject.getDouble("Giaban"));
+				book.add(modelbook);
+			});
+		}
+		return book;
 	}
 
 	@RequestMapping(value = { "/details" })
