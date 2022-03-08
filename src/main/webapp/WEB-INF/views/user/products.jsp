@@ -12,7 +12,7 @@
 			<div class="Product__ListProduct-Sort">
 				<input type="text" class="form-control" placeholder="Search..." />
 				<div class="Product__ListProduct-SortArea">
-					<h4>Sắp xếp theo:</h4>
+					<h5>Sắp xếp theo:</h5>
 					<select class="form-select" aria-label="-- Loại Sắp Xếp --">
 						<option selected>Giá Tăng Dần</option>
 						<option value="1">Giá Giảm Dần</option>
@@ -35,6 +35,21 @@
 					</div>
 				</div>
 			</div>
+				<ul class="pagination" id="pagination">
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+						</a>
+					</li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Next"> 
+							<span class="sr-only">Next</span> <span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
 		</div>
 	</div>
 </body>

@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 
 <nav
-	class="navbar navbar-expand-md navbar-light border-bottom border-3 align-items-center">
+	class="navbar navbar-expand-md navbar-light border-bottom border-3 align-items-center flex-nowrap">
 	<div class="container-fluid justify-content-around align-items-center">
 		<a class="navbar-brand d-flex align-items-center me-md-auto ms-md-5"
 			href="home"> <ion-icon name="book-outline"></ion-icon> MBook
@@ -25,7 +25,7 @@
 		<%
 		if (session.getAttribute("id") != null) {
 		%>
-		<div class="dropdown " id="Account_Info">
+		<div class="dropdown" id="Account_Info">
 			<button
 				class="dropdown-toggle bg-dark text-white rounded-pill ms-5 d-flex align-items-center"
 				type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
