@@ -44,23 +44,23 @@
 				List<Model.Book> list = new HomeController().getList(link, pages, last);
 				for (Model.Book item : list) {
 				%>
-				<div class="Product__List">
-					<div class="Book">
-						<div class="Book__Img">
-							<img src="<%=item.getAnh()%>" alt="">
-						</div>
-						<div class="Book__Content">
-							<div class="Book__Content-BookName">
-								<h3><%=item.getTensach()%></h3>
-								<p class="Book__Content-Author"><%=item.getTenTG()%></p>
-								<p class="Book__Content-Price">
-									<fmt:formatNumber type="number" pattern="#,###0.000"
-										value="<%=item.getGiaban()%>" />
-								</p>
-							</div>
+
+				<div class="Book">
+					<div class="Book__Img">
+						<img src="<%=item.getAnh()%>" alt="">
+					</div>
+					<div class="Book__Content">
+						<div class="Book__Content-BookName">
+							<h3><%=item.getTensach()%></h3>
+							<p class="Book__Content-Author"><%=item.getTenTG()%></p>
+							<p class="Book__Content-Price">
+								<fmt:formatNumber type="number" pattern="#,###0.000"
+									value="<%=item.getGiaban()%>" />
+							</p>
 						</div>
 					</div>
 				</div>
+
 				<%
 				}
 				%>

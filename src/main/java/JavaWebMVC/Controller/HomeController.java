@@ -21,61 +21,7 @@ import Model.Chude;
 public class HomeController {
 	@RequestMapping(value = { "/", "/home" })
 	public ModelAndView Index() {
-		String link = "https://bookingapiiiii.herokuapp.com/sachbanchayfirst";
-		String link2 = "https://bookingapiiiii.herokuapp.com/sachbanchaysecond";
-		String link3 = "https://bookingapiiiii.herokuapp.com/sachtimestamps";
-
-		String check1 = JavaWebMVC.API.CallAPI.Get(link).toString();
-		String check2 = JavaWebMVC.API.CallAPI.Get(link2).toString();
-		String check3 = JavaWebMVC.API.CallAPI.Get(link3).toString();
-
-		ArrayList<Book> book1 = new ArrayList<Book>();
-		ArrayList<Book> book2 = new ArrayList<Book>();
-		ArrayList<Book> book3 = new ArrayList<Book>();
-
-		if (check1 != null) {
-			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(link).toString());
-			json.forEach(data -> {
-				JSONObject jsonobject = (JSONObject) data;
-				Book book = new Book();
-				book.setID(jsonobject.getString("id"));
-				book.setTensach(jsonobject.getString("Tensach"));
-				book.setAnh(jsonobject.getString("Anh"));
-				book.setTenTG(jsonobject.getString("TenTG"));
-				book1.add(book);
-			});
-		}
-		if (check2 != null) {
-			JSONArray json2 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link2).toString());
-			json2.forEach(data -> {
-				JSONObject jsonobject = (JSONObject) data;
-				Book book = new Book();
-				book.setID(jsonobject.getString("id"));
-				book.setTensach(jsonobject.getString("Tensach"));
-				book.setAnh(jsonobject.getString("Anh"));
-				book.setTenTG(jsonobject.getString("TenTG"));
-				book2.add(book);
-			});
-		}
-		if (check3 != null) {
-			JSONArray json3 = new JSONArray(JavaWebMVC.API.CallAPI.Get(link3).toString());
-			json3.forEach(data -> {
-				JSONObject jsonobject = (JSONObject) data;
-				Book book = new Book();
-				book.setID(jsonobject.getString("id"));
-				book.setTensach(jsonobject.getString("Tensach"));
-				book.setAnh(jsonobject.getString("Anh"));
-				book.setTenTG(jsonobject.getString("TenTG"));
-				book.setMota(jsonobject.getString("Mota"));
-				book3.add(book);
-			});
-		}
-
-		ModelAndView mv = new ModelAndView("/user/index");
-		mv.addObject("book1", book1);
-		mv.addObject("book2", book2);
-		mv.addObject("book3", book3);
-		mv.addObject("chek", 1);
+		ModelAndView mv = new ModelAndView("/user/index");		
 		return mv;
 	}
 
@@ -85,7 +31,8 @@ public class HomeController {
 			ModelAndView mv = new ModelAndView("/user/signin");
 			return mv;
 		}
-		return this.Index();
+		ModelAndView mv = new ModelAndView("/user/index");
+		return mv;
 	}
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.POST)
@@ -101,7 +48,8 @@ public class HomeController {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
 
-			return this.Index();
+			ModelAndView mv = new ModelAndView("/user/index");
+			return mv;
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signin");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -116,7 +64,8 @@ public class HomeController {
 			ModelAndView mv = new ModelAndView("/user/signup");
 			return mv;
 		}
-		return this.Index();
+		ModelAndView mv = new ModelAndView("/user/index");
+		return mv;
 	}
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
@@ -133,7 +82,8 @@ public class HomeController {
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Ký Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
-			return this.Index();
+			ModelAndView mv = new ModelAndView("/user/index");
+			return mv;
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signup");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -144,7 +94,8 @@ public class HomeController {
 	@RequestMapping(value = { "/signout" })
 	public ModelAndView Signout(HttpSession session) {
 		session.removeAttribute("id");
-		return this.Index();
+		ModelAndView mv = new ModelAndView("/user/index");
+		return mv;
 	}
 
 	@RequestMapping(value = { "/myprofile" }, method = RequestMethod.GET)
