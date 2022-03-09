@@ -81,8 +81,8 @@
 					num = (total + 1) / 4;
 				}
 				//Nếu total lẻ thêm 1
-				if (total % 2 != 0) {				
-						loop = (total / 4) + 1;					
+				if (total % 2 != 0) {
+					loop = (total / 4) + 1;
 				} else {
 					//Nếu total chẵn nhỏ hơn fullpage và # fullPage thì thêm 1
 					if (total < (num * 4) + 4 && total != num * 4) {
@@ -91,11 +91,24 @@
 						//Nếu bằng fullPage thì không thêm
 						loop = (total / 4);
 					}
-				}			
+				}
 				//Lap so pages
 				for (int i = 1; i <= loop; i++) {
 				%>
 				<%
+				if (IDCHUDE == null) {
+					if (pages == i) {
+				%>
+				<li class="page-item active"><a class="page-link"
+					href="products?pages=<%=i%>"><%=i%></a></li>
+				<%
+				} else {
+				%>
+				<li class="page-item"><a class="page-link"
+					href="products?pages=<%=i%>"><%=i%></a></li>
+				<%
+				}
+				} else {
 				if (pages == i) {
 				%>
 				<li class="page-item active"><a class="page-link"
@@ -106,6 +119,7 @@
 				<li class="page-item"><a class="page-link"
 					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
 				<%
+				}
 				}
 				}
 				%>
