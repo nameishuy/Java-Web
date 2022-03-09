@@ -38,11 +38,16 @@
 					link = "sachpaginationbychude/" + request.getParameter("chude");
 					IDCHUDE = request.getParameter("chude");
 				}
-				//Lấy tổng sản phẩm trong data bằng query select count(id) from name_table với JDBC Connect
+				//Lấy tổng sản phẩm trong
 				int total = new HomeController().Cout(IDCHUDE);
 
 				List<Model.Book> list = new HomeController().getList(link, pages, last);
 				for (Model.Book item : list) {
+					if (item.getMessager() != null) {
+				%>
+				<h4><%=item.getMessager()%></h4>
+				<%
+				} else {
 				%>
 
 				<div class="Book">
@@ -63,6 +68,7 @@
 
 				<%
 				}
+				}
 				%>
 			</div>
 			<ul class="pagination" id="pagination">
@@ -75,9 +81,8 @@
 					num = (total + 1) / 4;
 				}
 				//Nếu total lẻ thêm 1
-				if (total % 2 != 0) {
-					loop = (total / 4) + 1;
-
+				if (total % 2 != 0) {				
+						loop = (total / 4) + 1;					
 				} else {
 					//Nếu total chẵn nhỏ hơn fullpage và # fullPage thì thêm 1
 					if (total < (num * 4) + 4 && total != num * 4) {
@@ -86,14 +91,14 @@
 						//Nếu bằng fullPage thì không thêm
 						loop = (total / 4);
 					}
-				}
+				}			
 				//Lap so pages
 				for (int i = 1; i <= loop; i++) {
 				%>
 				<%
 				if (pages == i) {
 				%>
-				<li class="page-item"><a class="page-link"
+				<li class="page-item active"><a class="page-link"
 					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
 				<%
 				} else {

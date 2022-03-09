@@ -21,7 +21,7 @@ import Model.Chude;
 public class HomeController {
 	@RequestMapping(value = { "/", "/home" })
 	public ModelAndView Index() {
-		ModelAndView mv = new ModelAndView("/user/index");		
+		ModelAndView mv = new ModelAndView("/user/index");
 		return mv;
 	}
 
@@ -254,11 +254,16 @@ public class HomeController {
 			json.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book modelbook = new Book();
-				modelbook.setID(jsonobject.getString("id"));
-				modelbook.setTensach(jsonobject.getString("Tensach"));
-				modelbook.setAnh(jsonobject.getString("Anh"));
-				modelbook.setTenTG(jsonobject.getString("TenTG"));
-				modelbook.setGiaban(jsonobject.getDouble("Giaban"));
+				if (jsonobject.has("Messager")) {
+					modelbook.setMessager(jsonobject.getString("Messager"));
+				} else {
+					modelbook.setID(jsonobject.getString("id"));
+					modelbook.setTensach(jsonobject.getString("Tensach"));
+					modelbook.setMessager(null);
+					modelbook.setAnh(jsonobject.getString("Anh"));
+					modelbook.setTenTG(jsonobject.getString("TenTG"));
+					modelbook.setGiaban(jsonobject.getDouble("Giaban"));
+				}
 				book.add(modelbook);
 			});
 		}

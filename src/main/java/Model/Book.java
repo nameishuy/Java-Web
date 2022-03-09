@@ -6,6 +6,7 @@ public class Book {
 	private String anh;
 	private String tenTG;
 	private String moTa;
+	private String Messager;
 	private long daBan;
 	private Double Giaban;
 
@@ -13,15 +14,25 @@ public class Book {
 		super();
 	}
 
-	public Book(String id, String tensach, String anh, String tenTG, String moTa, long daBan, Double Giaban) {
+	public Book(String id, String tensach, String anh, String tenTG, String moTa, String Messager, long daBan,
+			Double Giaban) {
 		super();
 		this.id = id;
 		this.tensach = tensach;
 		this.anh = anh;
 		this.tenTG = tenTG;
 		this.moTa = moTa;
+		this.Messager = Messager;
 		this.daBan = daBan;
 		this.Giaban = Giaban;
+	}
+
+	public String getMessager() {
+		return Messager;
+	}
+
+	public void setMessager(String value) {
+		this.Messager = value;
 	}
 
 	public Double getGiaban() {
