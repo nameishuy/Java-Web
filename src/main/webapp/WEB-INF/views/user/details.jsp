@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <body>
-<div class="container">
+<div class="Details__container">
     <div class="Book__details" *ngFor="let book of book">
         <div class="Book__image">
             <img src="{{book.Anh}}" alt="">
