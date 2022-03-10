@@ -109,11 +109,15 @@
     cursor: pointer;
     margin: 20px 20px 20px 20px;
     border: 1px solid rgba(0, 0, 0, 0.582);
+    text-decoration: none;
+    color:black;
+    transition:.5s;
 }
 
 .Book:hover {
     box-shadow: 0 0 10px 4px rgba(163, 163, 163, 0.733);
     transform: translateY(-10px);
+    color:black;
 }
 
 .Book__Img {

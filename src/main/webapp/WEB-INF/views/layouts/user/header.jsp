@@ -22,10 +22,10 @@
 				<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
 			</ul>
 		</div>
-		<div class="Cart">
+		<a class="Cart" href="my-cart">
 			<ion-icon name="cart-outline"></ion-icon>
 			<span class="countCart">0</span>
-		</div>
+		</a>
 
 
 		<%

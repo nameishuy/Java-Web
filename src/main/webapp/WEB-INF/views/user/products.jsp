@@ -28,7 +28,7 @@
 			</div>
 			<div class="Product__List">
 				<%
-				int last = 4, pages = 1;
+				int last = 8, pages = 1;
 				String link = "sachpagination", IDCHUDE = null;
 
 				if (request.getParameter("pages") != null) {
@@ -50,7 +50,7 @@
 				} else {
 				%>
 
-				<div class="Book">
+				<a class="Book" href="details">
 					<div class="Book__Img">
 						<img src="<%=item.getAnh()%>" alt="">
 					</div>
@@ -60,11 +60,11 @@
 							<p class="Book__Content-Author"><%=item.getTenTG()%></p>
 							<p class="Book__Content-Price">
 								<fmt:formatNumber type="number" pattern="#,###0.000"
-									value="<%=item.getGiaban()%>" />
+									value="<%=item.getGiaban()%>" />đ
 							</p>
 						</div>
 					</div>
-				</div>
+				</a>
 
 				<%
 				}

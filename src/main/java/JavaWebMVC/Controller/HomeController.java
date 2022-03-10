@@ -274,4 +274,9 @@ public class HomeController {
 	public String Details() {
 		return "/user/details";
 	}
+	
+	@RequestMapping(value = {"/my-cart"})
+	public String MyCart() {
+		return "/user/cart";
+	}
 }

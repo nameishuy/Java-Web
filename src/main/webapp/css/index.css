@@ -64,6 +64,7 @@
     margin-bottom: 40px;
     padding-bottom: 20px;
     box-shadow: 0 0 2px 0 black;
+    transition:.5s;
 }
     .SellingBook:hover{
         transform: translateY(-10px) !important;
@@ -117,6 +118,19 @@
         width: 30%;
         transform: rotate(-20deg) skew(-20deg,-3deg);
         box-shadow: -10px 0 20px 3px black;
+        transition:1;
+        animation: toUpAndDown 1s infinite;
+    }
+    @keyframes toUpAndDown{
+    	0%{
+    	   transform: rotate(-20deg) skew(-20deg,-3deg) translateY(0px);
+    	}
+    	50%{
+    		transform: rotate(-20deg) skew(-20deg,-3deg) translateY(10px);
+    	}
+    	100%{
+    	    		transform: rotate(-20deg) skew(-20deg,-3deg) translateY(0px);
+    	}
     }
         .Good__Book-image img{
             width: 100%;
@@ -144,15 +158,14 @@
             border-radius: 1rem;
             width: 100px;
             height: 40px;
-			display:flex;
-			justify-content:center !important;
-			align-items:center !important;
-            padding-top: 10px;
+            text-align: center;
+            padding-top: 5px;
             background-color: red;
             color: white;
             font-weight: 600;
             border: 1px solid red;
             margin: 10px 0 0 0;
+            transition:.5s;
         }
             .Good__Book-readnow:hover{
                 cursor: pointer;

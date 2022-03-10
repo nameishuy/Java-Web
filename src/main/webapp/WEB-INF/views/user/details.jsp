@@ -23,18 +23,18 @@
                 <b>Số Lượng:</b>
                 <div class="Book__info-Count">
                     <div class="Book__info-Button">
-                        <button>
+                        <button onclick="lessProducts()">
                             <img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"
                                 alt="remove-icon" width="20" height="20">
                         </button>
-                        <input type="text" value="1" placeholder="1" class="input">
-                        <button>
+                        <input type="text" id="inputNum" value="1" placeholder="1" class="input">
+                        <button onclick="moreProducts()">
                             <img src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"
                                 alt="add-icon" width="20" height="20">
                         </button>
                     </div>
                 </div>
-                <div class="Book__info-btnCart" (click)="addCart()">
+                <div class="Book__info-btnCart" onclick="addCart()">
                     <span>Chọn Mua</span>
                 </div>
             </div>
