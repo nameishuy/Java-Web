@@ -50,7 +50,7 @@
 				} else {
 				%>
 
-				<a class="Book" href="details">
+				<a class="Book" href="details?id=<%=item.getID()%>">
 					<div class="Book__Img">
 						<img src="<%=item.getAnh()%>" alt="">
 					</div>
@@ -65,7 +65,6 @@
 						</div>
 					</div>
 				</a>
-
 				<%
 				}
 				}

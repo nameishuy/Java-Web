@@ -5,28 +5,21 @@ public class Book {
 	private String tensach;
 	private String anh;
 	private String tenTG;
+	private String tenNXB;
 	private String moTa;
 	private String Messager;
 	private long daBan;
 	private Double Giaban;
 
-	public Book() {
-		super();
+	public String gettenNXB() {
+		return tenNXB;
 	}
 
-	public Book(String id, String tensach, String anh, String tenTG, String moTa, String Messager, long daBan,
-			Double Giaban) {
-		super();
-		this.id = id;
-		this.tensach = tensach;
-		this.anh = anh;
-		this.tenTG = tenTG;
-		this.moTa = moTa;
-		this.Messager = Messager;
-		this.daBan = daBan;
-		this.Giaban = Giaban;
+	public void settenNXB(String value) {
+		this.tenNXB = value;
 	}
 
+	
 	public String getMessager() {
 		return Messager;
 	}

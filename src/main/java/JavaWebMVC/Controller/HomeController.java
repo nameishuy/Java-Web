@@ -1,6 +1,7 @@
 package JavaWebMVC.Controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -270,14 +271,37 @@ public class HomeController {
 		return book;
 	}
 
-	@RequestMapping(value = { "/details" })
-	public String Details() {
-		return "/user/details";
-	}
+	@RequestMapping(value = { "/details" }, method = RequestMethod.GET)
+	public ModelAndView getvalue(HttpServletRequest req) {
 	
-	@RequestMapping(value = {"/my-cart"})
+		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" + req.getParameter("id");
+		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+
+		ArrayList<Book> detail = new ArrayList<Book>();
+		if (check != null) {
+			JSONArray json = new JSONArray(check);
+			json.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				Book book = new Book();
+				book.setID(jsonobject.getString("id"));
+				book.setTensach(jsonobject.getString("Tensach"));
+				book.setAnh(jsonobject.getString("Anh"));
+				book.setMota(jsonobject.getString("Mota"));
+				book.setGiaban(jsonobject.getDouble("Giaban"));
+				book.setTenTG(jsonobject.getString("TenTG"));
+				book.settenNXB(jsonobject.getString("TenNXB"));
+				detail.add(book);
+			});
+		}
+		
+		ModelAndView model = new ModelAndView("/user/details");
+		model.addObject("Book", detail);
+		return model;
+	}
+
+	@RequestMapping(value = { "/my-cart" })
 	public String MyCart() {
 		return "/user/cart";
 	}
-	
+
 }
