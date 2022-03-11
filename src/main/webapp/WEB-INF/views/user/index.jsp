@@ -56,7 +56,7 @@
 					List<Model.Book> list1 = new BookController().GetlistBook();
 					for (Model.Book item : list1) {
 					%>
-					<div class="SellingBook">
+					<a class="SellingBook" href="details?id=<%=item.getID()%>">
 						<div class="ImgBook">
 							<img src="<%=item.getAnh()%>" alt="">
 						</div>
@@ -68,7 +68,7 @@
 								<%=item.getTensach()%>
 							</p>
 						</div>
-					</div>
+					</a>
 					<%
 					}
 					%>
@@ -80,7 +80,7 @@
 					List<Model.Book> list2 = new BookController().GetlistBook2();
 					for (Model.Book item : list2) {
 					%>
-					<div class="SellingBook">
+					<a class="SellingBook" href="details?id=<%=item.getID()%>">
 						<div class="ImgBook">
 							<img src="<%=item.getAnh()%>" alt="">
 						</div>
@@ -92,7 +92,7 @@
 								<%=item.getTensach()%>
 							</p>
 						</div>
-					</div>
+					</a>
 					<%
 					}
 					%>
@@ -142,9 +142,9 @@
 						<div class="Good__Book-body">
 							<%=item.getMota()%>
 						</div>
-						<div class="Good__Book-readnow">
-							<a>Đọc Ngay</a>
-						</div>
+						<a class="Good__Book-readnow"  href="details?id=<%=item.getID()%>">
+							Đọc Ngay
+						</a>
 					</div>
 				</div>
 			</div>

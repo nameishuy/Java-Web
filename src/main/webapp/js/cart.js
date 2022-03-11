@@ -15,12 +15,15 @@ function  moreProducts() {
     inputNum.value++;
 };
 
-function  onCheckAll(){
+function onCheckAll(){
     let checkAll =  document.getElementById("checkbox__all-product");
     let checkItems = document.querySelectorAll("#checkbox__product");
+    let btnDeleteAll = document.getElementById("Cart__Products-Footer");
     if(checkAll && checkAll.checked){
-    checkItems.forEach(item => item.checked = true);
+	 	btnDeleteAll.style.display="flex";
+    	checkItems.forEach(item => item.checked = true);
     }else{
-    checkItems.forEach(item => item.checked = false);
+		btnDeleteAll.style.display="none";
+    	checkItems.forEach(item => item.checked = false);
     }
 }

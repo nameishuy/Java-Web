@@ -46,8 +46,8 @@
 
                 </div>
             </div>
-            <div class="Cart__Products-Footer">
-                Cập Nhật Giá
+            <div class="Cart__Products-Footer" id="Cart__Products-Footer">
+                Xóa Toàn Bộ
             </div>
         </div>
         <div class="Cart__Bill">
@@ -56,8 +56,11 @@
                 <span class="Cart__Bill-Info-Name">
                     Tên: Đông Gia Huy
                 </span>
-                <span class="Cart__Bill-Info-BillID">
-                    Mã Giao Dịch: E0534
+               <span class="Cart__Bill-Info-Email">
+                    Email: yourname@gmail.com
+                </span>
+                <span class="Cart__Bill-Info-Phone">
+                    SDT: 0933226682
                 </span>
                 <span class="Cart__Bill-Info-Date">
                     Ngày Giao Dịch: 09/03/2022
