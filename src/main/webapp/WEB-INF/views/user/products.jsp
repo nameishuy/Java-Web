@@ -1,6 +1,6 @@
+<%@page import="JavaWebMVC.Controller.BookController"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.List"%>
-<%@page import="JavaWebMVC.Controller.HomeController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -16,32 +16,32 @@
 			</ul>
 		</div>
 		<div class="Product__ListProduct">
-			<div class="Product__ListProduct-Sort">
-				<input type="text" class="form-control" placeholder="Search..." />
-				<div class="Product__ListProduct-SortArea">
-					<h5>Sắp xếp theo:</h5>
-					<select class="form-select" aria-label="-- Loại Sắp Xếp --">
-						<option selected>Giá Tăng Dần</option>
-						<option value="1">Giá Giảm Dần</option>
-					</select>
+			<form action="products" method="post">
+				<div class="Product__ListProduct-Sort">
+					<input type="text" name="keyword" class="form-control"
+						placeholder="Search..." />
+					<div class="Product__ListProduct-SortArea">
+						<h5>Sắp xếp theo:</h5>
+						<select class="form-select" name="Sort" aria-label="-- Loại Sắp Xếp --">
+							<option selected>Giá Tăng Dần</option>
+							<option value="1">Giá Giảm Dần</option>
+						</select>
+					</div>
 				</div>
-			</div>
+			</form>
 			<div class="Product__List">
 				<%
 				int last = 8, pages = 1;
-				String link = "sachpagination", IDCHUDE = null;
+				String IDCHUDE = request.getParameter("chude"), keyword = request.getParameter("keyword");
 
 				if (request.getParameter("pages") != null) {
 					pages = (int) Integer.parseInt(request.getParameter("pages"));
 				}
-				if (request.getParameter("chude") != null) {
-					link = "sachpaginationbychude/" + request.getParameter("chude");
-					IDCHUDE = request.getParameter("chude");
-				}
-				//Lấy tổng sản phẩm trong
-				int total = new HomeController().Cout(IDCHUDE);
 
-				List<Model.Book> list = new HomeController().getList(link, pages, last);
+				//Lấy tổng sản phẩm trong
+				int total = new BookController().Cout(request);
+
+				List<Model.Book> list = new BookController().getList(request, pages, last);
 				for (Model.Book item : list) {
 					if (item.getMessager() != null) {
 				%>
@@ -60,7 +60,8 @@
 							<p class="Book__Content-Author"><%=item.getTenTG()%></p>
 							<p class="Book__Content-Price">
 								<fmt:formatNumber type="number" pattern="#,###0.000"
-									value="<%=item.getGiaban()%>" />đ
+									value="<%=item.getGiaban()%>" />
+								đ
 							</p>
 						</div>
 					</div>
@@ -95,30 +96,43 @@
 				for (int i = 1; i <= loop; i++) {
 				%>
 				<%
-				if (IDCHUDE == null) {
+				if (IDCHUDE != null) {
 					if (pages == i) {
 				%>
 				<li class="page-item active"><a class="page-link"
-					href="products?pages=<%=i%>"><%=i%></a></li>
+					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
 				<%
 				} else {
 				%>
 				<li class="page-item"><a class="page-link"
-					href="products?pages=<%=i%>"><%=i%></a></li>
+					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
+				<%
+				}
+				} else if (keyword != null) {
+				if (pages == i) {
+				%>
+				<li class="page-item active"><a class="page-link"
+					href="products?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
+				<%
+				} else {
+				%>
+				<li class="page-item"><a class="page-link"
+					href="products?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
 				<%
 				}
 				} else {
 				if (pages == i) {
 				%>
 				<li class="page-item active"><a class="page-link"
-					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
+					href="products?pages=<%=i%>"><%=i%></a></li>
 				<%
 				} else {
 				%>
 				<li class="page-item"><a class="page-link"
-					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
+					href="products?pages=<%=i%>"><%=i%></a></li>
 				<%
 				}
+
 				}
 				}
 				%>

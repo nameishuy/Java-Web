@@ -21,7 +21,7 @@ public class CallAPI {
 			StringBuffer response = new StringBuffer();
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
-			}
+			}			
 			in.close();
 			http.disconnect();
 			return response;
@@ -82,7 +82,6 @@ public class CallAPI {
 			}
 			in.close();
 			int i = 0;
-			System.out.println(i += 1);
 			http.disconnect();
 			return response;
 		} catch (Exception e) {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <body>
 	<div class="Details__container">
 		<div class="Book__details">
@@ -20,9 +21,8 @@
 						</span>
 					</div>
 					<div class="Book__info-Price">
-						<b class="price">
-						
-						${data.getGiaban()}đ
+						<b class="price"> <fmt:formatNumber type="number"
+								pattern="#,###0.000" value="${data.getGiaban()}" />đ
 						</b>
 					</div>
 					<div class="Book__info-Pay">

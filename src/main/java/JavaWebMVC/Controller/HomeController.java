@@ -78,8 +78,7 @@ public class HomeController {
 
 		String link = "https://bookingapiiiii.herokuapp.com/khachhang";
 
-		JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(link, data).toString());
-		System.out.println(req.getParameter("fullname"));
+		JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(link, data).toString());	
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Ký Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
@@ -194,9 +193,7 @@ public class HomeController {
 			if (res != null) {
 
 				// Json là dữ Liệu Khi Được Trả về khi call api
-				JSONObject json = new JSONObject(res);
-				System.out.println(data);
-				System.out.println(json);
+				JSONObject json = new JSONObject(res);			
 				// gọi lại hàm Get Phía Trên để có thể hiển thị thông tin vì t không biết return
 				// back
 				return Profile(session, json.getString("Messenger"));
@@ -207,68 +204,6 @@ public class HomeController {
 		} catch (Exception e) {
 			return Profile(session, e.getMessage());
 		}
-	}
-
-	@RequestMapping(value = { "/products" })
-	public ModelAndView Products() {
-		String link = "https://bookingapiiiii.herokuapp.com/chude";
-		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
-
-		ArrayList<Chude> CD = new ArrayList<Chude>();
-		if (check != null) {
-			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(link).toString());
-
-			json.forEach(data -> {
-				JSONObject jsonobject = (JSONObject) data;
-				Chude chude = new Chude();
-				chude.set_id(jsonobject.getString("_id"));
-				chude.setTenChuDe(jsonobject.getString("TenChuDe"));
-				CD.add(chude);
-			});
-		}
-		ModelAndView mv = new ModelAndView("/user/products");
-		mv.addObject("Chude", CD);
-		return mv;
-	}
-
-	public int Cout(String MaCD) {
-		String linkbook = null;
-		if (MaCD == null) {
-			linkbook = "https://bookingapiiiii.herokuapp.com/sach";
-		} else {
-			linkbook = "https://bookingapiiiii.herokuapp.com/sachbyCD/" + MaCD;
-		}
-
-		JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
-		return json.length();
-
-	}
-
-	public ArrayList<Book> getList(String link, int Frist, int Last) {
-
-		String linkbook = "https://bookingapiiiii.herokuapp.com/" + link + "/" + Frist + "/" + Last;
-		String check = JavaWebMVC.API.CallAPI.Get(linkbook).toString();
-		ArrayList<Book> book = new ArrayList<Book>();
-
-		if (check != null) {
-			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
-			json.forEach(data -> {
-				JSONObject jsonobject = (JSONObject) data;
-				Book modelbook = new Book();
-				if (jsonobject.has("Messager")) {
-					modelbook.setMessager(jsonobject.getString("Messager"));
-				} else {
-					modelbook.setID(jsonobject.getString("id"));
-					modelbook.setTensach(jsonobject.getString("Tensach"));
-					modelbook.setMessager(null);
-					modelbook.setAnh(jsonobject.getString("Anh"));
-					modelbook.setTenTG(jsonobject.getString("TenTG"));
-					modelbook.setGiaban(jsonobject.getDouble("Giaban"));
-				}
-				book.add(modelbook);
-			});
-		}
-		return book;
 	}
 
 	@RequestMapping(value = { "/details" }, method = RequestMethod.GET)
