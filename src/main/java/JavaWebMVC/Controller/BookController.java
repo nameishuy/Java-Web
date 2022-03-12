@@ -119,7 +119,7 @@ public class BookController {
 		} else if (req.getParameter("keyword") != null) {
 			byte[] key = req.getParameter("keyword").getBytes();
 			String keyword = new String(key, "UTF-8");
-			linkbook = "http://localhost:3000/sachbyname/" + keyword;
+			linkbook = "https://bookingapiiiii.herokuapp.com/sachbyname/" + keyword;
 		} else {
 			linkbook = "https://bookingapiiiii.herokuapp.com/sach";
 		}
