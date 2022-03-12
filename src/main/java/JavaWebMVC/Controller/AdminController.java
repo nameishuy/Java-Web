@@ -10,4 +10,14 @@ public class AdminController {
 	public String Admin() {
 		return "/admin/index";
 	}
+	
+	@RequestMapping(value= {"/admin/account-manager"})
+	public String Acc_Manager() {
+		return "/admin/account-manager";
+	}
+	
+	@RequestMapping(value = {"/admin/bill-pay"})
+	public String Bill_Pay() {
+		return "/admin/billpay";
+	}
 }
