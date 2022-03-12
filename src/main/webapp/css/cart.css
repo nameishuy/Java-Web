@@ -165,7 +165,7 @@
                 color: red;
                 font-size: 20px;
             }
-    ion-icon{
+    .Cart__Products-group-product-info ion-icon{
         width: 25px;
         height: 25px;
         display: flex;
@@ -174,7 +174,7 @@
         cursor: pointer;
         transition: 1s;
     }
-    	ion-icon:hover{
+    	.Cart__Products-group-product-info ion-icon:hover{
     		            color: white;
             border-radius: 1rem;
             background-color: red;

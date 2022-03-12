@@ -128,7 +128,7 @@
 	transition: 1s;
 	display: none;
 	transition: 1s;
-	animation: toVisible 1s 1 ease-in-out;
+	animation: toVisible 2s 1 ease-in-out !important;
 }
 
 .DialogDetailsPay {
@@ -279,14 +279,14 @@
 	background-color: black;
 }
 
-@
-keyframes toVisible {from { opacity:0;
-	
-}
+@keyframes toVisible {
+	from { 
+		opacity:0;
+	}
 
-to {
-	opacity: 1;
-}
+	to {
+		opacity: 1;
+	}
 }
 </style>
 	<%@include file="/WEB-INF/views/layouts/admin/header.jsp"%>
