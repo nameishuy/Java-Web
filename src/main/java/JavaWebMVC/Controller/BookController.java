@@ -103,7 +103,6 @@ public class BookController {
 				CD.add(chude);
 			});
 		}
-		System.out.println(req.getParameter("Sort"));
 		ModelAndView mv = new ModelAndView("/user/products");
 		mv.addObject("Chude", CD);
 		mv.addObject("keyword", req.getParameter("keyword"));
@@ -111,44 +110,65 @@ public class BookController {
 	}
 
 	public int Cout(HttpServletRequest req) throws UnsupportedEncodingException {
-		String linkbook = null;
+		String linkbook = "https://bookingapiiiii.herokuapp.com/sach";
+		boolean check = JavaWebMVC.API.CallAPI.Get(linkbook) == null;
 		req.setCharacterEncoding("UTF-8");
+		int post = 0;
+		String data = null;
 		if (req.getParameter("chude") != null) {
 			linkbook = "https://bookingapiiiii.herokuapp.com/sachbyCD/" + req.getParameter("chude");
 
 		} else if (req.getParameter("keyword") != null) {
-			byte[] key = req.getParameter("keyword").getBytes();
-			String keyword = new String(key, "UTF-8");
-			linkbook = "https://bookingapiiiii.herokuapp.com/sachbyname/" + keyword;
-		} else {
-			linkbook = "https://bookingapiiiii.herokuapp.com/sach";
+			linkbook = "https://bookingapiiiii.herokuapp.com/sachbyname";
+			data = "{\"name\":\"" + req.getParameter("keyword") + "\"}";
+			check = JavaWebMVC.API.CallAPI.post(linkbook, data) == null;
+			post = 1;
 		}
-		boolean check = JavaWebMVC.API.CallAPI.Get(linkbook) == null;
+
 		if (!check) {
-			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
+			JSONArray json;
+			if (post == 1) {
+				json = new JSONArray(JavaWebMVC.API.CallAPI.post(linkbook, data).toString());
+			} else {
+				json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
+			}
+
 			return json.length();
 		}
 		return 0;
 	}
 
 	public ArrayList<Book> getList(HttpServletRequest req, int Frist, int Last) throws UnsupportedEncodingException {
-		String link = "sachpagination";
 		req.setCharacterEncoding("UTF-8");
-		if (req.getParameter("chude") != null) {
-			link = "sachpaginationbychude/" + req.getParameter("chude");
-		}
-		if (req.getParameter("keyword") != null) {
-			byte[] key = req.getParameter("keyword").getBytes();
-			String keyword = new String(key, "UTF-8");
-			link = "sachpaginationSearch/" + keyword;
-		}
 
-		String linkbook = "https://bookingapiiiii.herokuapp.com/" + link + "/" + Frist + "/" + Last;
-		boolean check = JavaWebMVC.API.CallAPI.Get(linkbook) == null;
 		ArrayList<Book> book = new ArrayList<Book>();
+		int post = 0;
+
+		String datapost = null;
+		String linkbook = "https://bookingapiiiii.herokuapp.com/sachpagination/" + Frist + "/" + Last;
+
+		boolean check = JavaWebMVC.API.CallAPI.Get(linkbook) == null;
+
+		if (req.getParameter("chude") != null) {
+			linkbook = "https://bookingapiiiii.herokuapp.com/sachpaginationbychude/" + req.getParameter("chude") + "/"
+					+ Frist + "/" + Last;
+
+		} else if (req.getParameter("keyword") != null) {
+			linkbook = "https://bookingapiiiii.herokuapp.com/sachpaginationSearch";
+			datapost = "{\"keyword\":\"" + req.getParameter("keyword") + "\",\"page\":" + Frist + ",\"limit\":" + Last
+					+ "}";
+			check = JavaWebMVC.API.CallAPI.post(linkbook, datapost) == null;
+			post = 1;
+		}
 
 		if (!check) {
-			JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
+			JSONArray json;
+			if (post == 1) {
+				json = new JSONArray(JavaWebMVC.API.CallAPI.post(linkbook, datapost).toString());
+			} else {
+				json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
+			}
+
 			json.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book modelbook = new Book();
