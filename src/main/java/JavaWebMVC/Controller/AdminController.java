@@ -107,7 +107,7 @@ public class AdminController {
 	
 	@RequestMapping(value = {"/admin/setting"})
 	public ModelAndView Setting(HttpSession session) {
-		if(session.getAttribute("Role") == "true") {
+		if(session.getAttribute("Role").toString() == "true") {
 			//Code more here:
 			
 			
