@@ -21,14 +21,14 @@ public class AdminController {
 	
 	@RequestMapping(value = {"/admin/index"})
 	public String Admin(HttpSession session) {
-		if(session.getAttribute("Role") == "true") return "/admin/index";
+		if(session.getAttribute("Role").toString() == "true") return "/admin/index";
 		else return "/admin/NoAdmin";
 
 	}
 	
 	@RequestMapping(value= {"/admin/account-manager"})
 	public ModelAndView Acc_Manager(HttpSession session) throws UnsupportedEncodingException {
-		if(session.getAttribute("Role") == "true") {
+		if(session.getAttribute("Role").toString() == "true") {
 			Boolean role = false;
 			String linkapi = "https://bookingapiiiii.herokuapp.com/khachhangforadmin/" + role;
 			String resAPI = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
@@ -65,7 +65,7 @@ public class AdminController {
 	
 	@RequestMapping(value = {"/admin/bill-pay"})
 	public ModelAndView Bill_Pay(HttpSession session) {
-		if(session.getAttribute("Role") == "true") {
+		if(session.getAttribute("Role").toString() == "true") {
 			String linkapi = "https://bookingapiiiii.herokuapp.com/DonHang/";
 			String resAPI = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
 			
@@ -93,7 +93,7 @@ public class AdminController {
 	
 	@RequestMapping(value = {"/admin/storage-products"})
 	public ModelAndView Storage(HttpSession session) {
-		if(session.getAttribute("Role") == "true") {
+		if(session.getAttribute("Role").toString() == "true") {
 			//Code more here:
 			
 			

@@ -42,7 +42,7 @@
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 				<li><a class="dropdown-item" id="Item__Account" href="myprofile">Profile</a></li>
 				<% if(session.getAttribute("Role").toString() == "true"){ %>
-					<li><a class="dropdown-item" id="Item__Account" href="#">Admin</a></li>
+					<li><a class="dropdown-item" id="Item__Account" href="/JavaWebMVC/admin/index">Admin</a></li>
 				<%} %>
 				<li>
 					<hr class="dropdown-divider">
