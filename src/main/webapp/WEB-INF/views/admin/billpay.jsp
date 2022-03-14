@@ -4,7 +4,7 @@
 
         <div class="Title__BillID">Mã Đơn</div>
         <div class="Title__Username">Tên Khách</div>
-        <div class="Title__role">Thời Gian Đặt</div>
+        <div class="Title__DatePay">Thời Gian Đặt</div>
 
         <div class="Title__Setting">Thiết Lập</div>
     </div>

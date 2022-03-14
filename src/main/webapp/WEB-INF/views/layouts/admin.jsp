@@ -126,6 +126,7 @@
   flex-basis: 30%;
 }
 .User__setting-deleteAccount{
+	text-align: center;
 	width: fit-content;
   }
 .Bill__Setting-details,
@@ -343,16 +344,38 @@
 	.Body__Container {
 		width: 95%;
 	}
-	.Title__email, .Title__role, .User__email, .Bill__DatePay {
-		display: none;
-	}
-	.Title__infoPay {
-		flex-basis: 68%;
-	}
-	.DialogDetailsPay {
-		width: 100%;
-		border-radius: 0;
-	}
+
+  .Title__email,
+  .User__email,
+  .Bill__DatePay,
+  .Title__DatePay,
+  .Title__Product-Image,
+  .Product__Image{
+    display: none;
+  }
+  .Title__username,
+  .User__username,
+  .Title__role,
+  .User__role,
+  .Title__Product-Count,
+  .Product__Count{
+    text-align: center;
+    flex-basis: 30%;
+  }
+
+  .DialogDetailsPay{
+    width: 100%;
+    border-radius: 0;
+  }
+  .Setting__Banner-Feature{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .DialogChangeDetailsProduct{
+    width: 50vw;
+    min-height: 30vh;
+  }
 }
 
 .checkbox {
