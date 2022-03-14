@@ -48,6 +48,7 @@ public class HomeController {
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Nhập Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
+			session.setAttribute("Role", json.getBoolean("Role"));
 
 			ModelAndView mv = new ModelAndView("/user/index");
 			return mv;
