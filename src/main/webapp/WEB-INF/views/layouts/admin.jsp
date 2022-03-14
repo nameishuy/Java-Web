@@ -93,6 +93,7 @@
 	margin: 30px 0;
 	padding: 10px;
 	color: white;
+	display:none;
 	border-radius: 0.3rem;
 	background-color: rgba(255, 0, 0, 0.637);
 	width: fit-content;
@@ -549,6 +550,17 @@
     function showDialogChangeDetailsProduct(){
         let dialog = document.getElementById("DialogChangeDetailsProduct__Container");
         dialog.style.display="block";
+    }
+    
+    function ifChecked(){
+        let n = 0;
+        let checkItems = document.querySelectorAll("#checkbox__account");
+        let btnUpdate = document.getElementById("UpdateAll");
+        checkItems.forEach(checkbox => {
+          if (checkbox.checked) n++;
+        })
+        if (n > 0) btnUpdate.style.display="block";
+        else  btnUpdate.style.display="none";
     }
 	</script>
 </body>

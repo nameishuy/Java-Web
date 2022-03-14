@@ -14,7 +14,7 @@
     <div class="Admin__Account-Body">
         <div class="Admin__Account-Account-Details">
             <div class="Checkbox__Account">
-                <input type="checkbox" name="" class="checkbox" id="checkbox__account">
+                <input type="checkbox" name="" class="checkbox" id="checkbox__account" onclick="ifChecked()")>
             </div>
 
             <div class="User__username">Tài Khoản</div>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="UpdateAll__Setting">
+        <div class="UpdateAll__Setting" id="UpdateAll">
             Cấp Quyền Admin
         </div>
     </div>
