@@ -80,7 +80,8 @@ ion-icon {
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="account-manager">Tài Khoản</a></li>
 				<li class="nav-item"><a class="nav-link" href="bill-pay">Hóa Đơn</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Thiết Lập</a></li>
+				<li class="nav-item"><a class="nav-link" href="storage-products">Hàng Tồn Kho</a></li>
+				<li class="nav-item"><a class="nav-link" href="setting">Thiết Lập</a></li>
 			</ul>
 		</div>
 	</div>

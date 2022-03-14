@@ -30,17 +30,23 @@
 	border: 1px solid rgba(161, 161, 161, 0.596);
 }
 
-.Admin__Account-Header, .Admin__Account-Account-Details,
-	.Admin__HistoryPay-Header, .Admin__HistoryPay-Details,
-	.DialogDetailsPay__infoPay {
+.Admin__Account-Header, 
+.Admin__Account-Account-Details,
+.Admin__HistoryPay-Header, 
+.Admin__HistoryPay-Details,
+.DialogDetailsPay__infoPay,
+.Admin__Storage-Header,
+.Admin__Storage-Details{
 	margin: 20px 0 0 0;
 	display: flex;
 	align-items: center !important;
 	font-weight: 400;
 }
 
-.Admin__Account-Header, .Admin__HistoryPay-Header,
-	.DialogDetailsPay__infoPay {
+.Admin__Account-Header, 
+.Admin__HistoryPay-Header,
+.DialogDetailsPay__infoPay,
+.Admin__Storage-Header {
 	border-radius: 0.3rem;
 	background-color: rgba(0, 0, 0, 0.815);
 	color: white;
@@ -52,15 +58,21 @@
 	flex-flow: column nowrap;
 }
 
-.Checkbox__All-Account, .Checkbox__Account {
+.Checkbox__All-Account, 
+.Checkbox__Account {
 	display: flex;
 	flex-basis: 10%;
+	justify-content: center;
 }
 
-.Title__info, .User__info {
-	display: flex;
-	justify-content: space-around;
-	flex-basis: 60%;
+.Title__email,
+.Title__username,
+.Title__role,
+.User__username,
+.User__email,
+.User__role{
+  flex-basis: 20%;
+  text-align: center;
 }
 
 .Title__setting, .User__setting {
@@ -69,7 +81,9 @@
 	flex-basis: 30%;
 }
 
-.Admin__Account-Account-Details, .Admin__HistoryPay-Details {
+.Admin__Account-Account-Details, 
+.Admin__HistoryPay-Details,
+.Admin__Storage-Details {
 	padding: 30px 0;
 	border-top: 1px solid rgba(109, 109, 109, 0.308);
 	border-bottom: 1px solid rgba(109, 109, 109, 0.308);
@@ -92,19 +106,33 @@
 	box-shadow: 0 0 6px 0 red;
 }
 
-.Title__infoPay, .Bill__infoPay {
-	display: flex;
-	flex-basis: 70%;
-	justify-content: space-around;
+.Title__DatePay,
+.Title__Username,
+.Bill__DatePay,
+.Bill__Username{
+  flex-basis: 20%;
+  text-align: center;
+}
+.Bill__BillID,
+.Title__BillID{
+  text-align: center;
+  flex-basis: 30%;
 }
 
-.Title__Setting, .Bill__Setting {
-	display: flex;
-	justify-content: center;
-	flex-basis: 30%;
+.Title__Setting,
+.Bill__Setting{
+  display: flex;
+  justify-content: center;
+  flex-basis: 30%;
 }
-
-.Bill__Setting-details {
+.User__setting-deleteAccount{
+	width: fit-content;
+  }
+.Bill__Setting-details,
+.User__setting-deleteAccount,
+.DeleteAccount__Setting-details,
+.Setting__Banner-Feature-Btn,
+.DialogChangeDetailsProduct__Setting-details{
 	border-radius: .3rem;
 	background-color: rgba(255, 166, 0, 0.705);
 	color: white;
@@ -112,13 +140,26 @@
 	cursor: pointer;
 	transition: 1s;
 }
-
-.Bill__Setting-details:hover {
+.DeleteAccount__Setting,
+.DialogChangeDetailsProduct__Setting-details{
+  display: flex;
+  margin-left: 30px;
+  width: fit-content;
+}
+.DeleteAccount__Setting-YES{
+  margin-right: 20px;
+}
+.Bill__Setting-details:hover,
+.DeleteAccount__Setting-details:hover,
+.Setting__Banner-Feature-Btn:hover,
+.DialogChangeDetailsProduct__Setting-details:Hover{
 	background-color: orange;
 	box-shadow: 0 0 10px 0 orange;
 }
 
-.DialogDetailsPay__Container {
+.DialogDetailsPay__Container,
+.DialogDeleteAccount__Container,
+.DialogChangeDetailsProduct__Container{
 	z-index: 2;
 	background-color: rgba(0, 0, 0, 0.651);
 	width: 100%;
@@ -128,10 +169,12 @@
 	transition: 1s;
 	display: none;
 	transition: 1s;
-	animation: toVisible 2s 1 ease-in-out !important;
+	animation: toVisible 1s 1 ease-in-out !important;
 }
 
-.DialogDetailsPay {
+.DialogDetailsPay,
+.DialogDeleteAccount,
+.DialogChangeDetailsProduct{
 	margin: 100px auto;
 	background-color: white;
 	width: 40vw;
@@ -141,18 +184,31 @@
 	border-radius: .5rem;
 	position: relative;
 }
-
-.DialogDetailsPay__infoUser {
+.DialogDeleteAccount{
+	min-height: 30vh;
+  }
+.DialogDetailsPay__infoUser,
+.DialogDeleteAccount__infoUser,
+.DialogChangeDetailsProduct__changeDetails {
 	padding-top: 50px;
 	padding-left: 30px;
 }
-
+.DialogChangeDetailsProduct__changeDetails{
+	display: flex;
+	padding-bottom: 30px;
+	flex-flow: column nowrap;
+  }
+  .DialogChangeDetailsProduct__changeDetails input{
+	margin: 10px 0;
+	width: 100px;
+  }
 .DialogDetailsPay__infoUser-Details {
 	display: flex;
 	flex-flow: column nowrap;
 }
 
-.DialogDetailsPay__infoUser h1 {
+.DialogDetailsPay__infoUser h1,
+.DialogDeleteAccount__infoUser h1{
 	font-weight: 600;
 	font-size: 20px;
 }
@@ -197,7 +253,9 @@
 	font-weight: 600;
 }
 
-.DialogDetailsPay__CloseBtn {
+.DialogDetailsPay__CloseBtn,
+.DialogDeleteAccount__CloseBtn,
+.DialogChangeDetailsProduct__CloseBtn{
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -205,14 +263,78 @@
 	cursor: pointer;
 }
 
-.DialogDetailsPay__CloseBtn ion-icon {
+.DialogDetailsPay__CloseBtn ion-icon,
+.DialogChangeDetailsProduct__CloseBtn ion-icon,
+.DialogDeleteAccount__CloseBtn ion-icon{
 	font-size: 30px;
 	transition: 1s;
 }
 
-.DialogDetailsPay__CloseBtn ion-icon:hover {
+.DialogDetailsPay__CloseBtn ion-icon:hover,
+.DialogChangeDetailsProduct__CloseBtn ion-icon:hover,
+.DialogDeleteAccount__CloseBtn ion-icon:hover{
 	color: red;
 }
+.Admin__Setting-Container{
+	width: 70%;
+	min-height: 70vh;
+	margin: 40px auto 40px auto;
+  }
+  .Admin__Setting-Banner{
+	position: relative;
+	border: 1px solid black;
+	padding: 20px;
+	border-radius: .5rem;
+  }
+  .Admin__Setting-Banner h1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(20px,-30px);
+	background-color: white;
+  }
+  .Setting__Banner-Feature{
+	display: flex;
+	width: fit-content;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	align-items: center;
+  }
+  .Setting__Banner-Feature div{
+	margin-right: 10px;
+  }
+  .Setting__Banner-Feature input,
+  .DialogChangeDetailsProduct__Setting-details{
+	width: fit-content;
+  }
+  .Setting__Banner img{
+	width: 70%;
+  }
+  .Admin__Setting-Products{
+	margin-top: 20px;
+  }
+  .Setting__Banner-Feature-Btn{
+	margin-top: 10px;
+	width: fit-content;
+  }
+  
+  .Title__Product-Image,
+  .Product__Image,
+  .Title__Product-Name,
+  .Title__Product-Count,
+  .Title__Product-Price,
+  .Product__Name,
+  .Product__Count,
+  .Product__Price{
+	flex-basis: 20%;
+	text-align: center;
+  }
+  .Product__Image img{
+	width: 50%;
+  }
+  .DialogChangeDetailsProduct{
+	width: 15vw;
+  }
 /* Responsive */
 @media screen and (max-width: 415px) {
 	.Admin__Container {
@@ -331,6 +453,40 @@
         </div>
     </div>
 </div>
+    <div class="DialogDeleteAccount__Container" id="Dialog_Messenger">
+        <div class="DialogDeleteAccount">
+            <div class="DialogDeleteAccount__CloseBtn" onclick="closeDialogDeleteAccount()">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </div>
+            <div class="DialogDeleteAccount__infoUser">
+                <h1 style="margin: auto;">Bạn Muốn Xóa Tài Khoản Này?</h1>
+                <h1>Tất Cả Dữ Liệu Của Tài Khoản Này Sẽ Bị Mất</h1>
+            </div>
+            <div class="DeleteAccount__Setting">
+                <div class="DeleteAccount__Setting-details DeleteAccount__Setting-YES">
+                    Yes
+                </div>
+                <div class="DeleteAccount__Setting-details" onclick="closeDialogDeleteAccount()">
+                    No
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="DialogChangeDetailsProduct__Container" id="DialogChangeDetailsProduct__Container">
+        <div class="DialogChangeDetailsProduct">
+            <div class="DialogChangeDetailsProduct__CloseBtn" onclick="closeDialogChangeDetails()">
+                <ion-icon name="close-circle-outline"></ion-icon>
+            </div>
+            <div class="DialogChangeDetailsProduct__changeDetails">
+                <h1>Cập Nhật</h1>
+                Thêm số lượng tồn: <input type="text" name="storageNum" id="">
+                Giá: <input type="text" name="storagePrice" id="">
+            </div>
+            <div class="DialogChangeDetailsProduct__Setting-details DialogChangeDetailsProduct__Setting-YES">
+                Cập Nhật
+            </div>
+        </div>
+    </div>
 	<div class="Body__Container">
 		<decorator:body />
 	</div>
@@ -344,16 +500,33 @@
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
 	<script>
-		function showDialog() {
-			let details = document
-					.getElementById("DialogDetailsPay__Container");
-			details.style.display = "block";
-		}
-		function closeDialog() {
-			let details = document
-					.getElementById("DialogDetailsPay__Container");
-			details.style.display = "none";
-		}
+    function showDialog() {
+        let details = document.getElementById("DialogDetailsPay__Container");
+        details.style.display = "block";
+    }
+    function closeDialog() {
+        let details = document.getElementById("DialogDetailsPay__Container");
+        details.style.display = "none";
+    }
+
+    function showDialogDeleteAccount(){
+        let dialog = document.getElementById("Dialog_Messenger");
+        dialog.style.display = "block";
+    }
+
+    function closeDialogDeleteAccount(){
+        let dialog = document.getElementById("Dialog_Messenger");
+        dialog.style.display = "none";
+    }
+    function closeDialogChangeDetails(){
+        let dialog = document.getElementById("DialogChangeDetailsProduct__Container");
+        dialog.style.display="none";
+    }
+
+    function showDialogChangeDetailsProduct(){
+        let dialog = document.getElementById("DialogChangeDetailsProduct__Container");
+        dialog.style.display="block";
+    }
 	</script>
 </body>
 </html>

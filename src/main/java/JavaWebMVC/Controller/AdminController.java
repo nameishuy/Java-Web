@@ -20,4 +20,14 @@ public class AdminController {
 	public String Bill_Pay() {
 		return "/admin/billpay";
 	}
+	
+	@RequestMapping(value = {"/admin/storage-products"})
+	public String Storage() {
+		return "/admin/storage";
+	}
+	
+	@RequestMapping(value = {"/admin/setting"})
+	public String Setting() {
+		return "/admin/setting";
+	}
 }
