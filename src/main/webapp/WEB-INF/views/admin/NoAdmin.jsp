@@ -57,7 +57,7 @@
                 Bạn Không Thể Truy Cập! <br>
                 Vui Lòng Quay Về Trang Chủ
             </div>
-            <a class="NotAdminPage__Container-Announce-BtnBack" href="/">
+            <a class="NotAdminPage__Container-Announce-BtnBack" href="/JavaWebMVC/">
                 Trang Chủ
             </a>
         </div>
