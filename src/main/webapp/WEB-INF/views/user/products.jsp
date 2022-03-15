@@ -11,7 +11,7 @@
 			<h6>THỂ LOẠI SẢN PHẨM</h6>
 			<ul>
 				<c:forEach var="data" items="${Chude }">
-					<li><a href="products?chude=${data.get_id()}">${data.getTenChuDe()}</a></li>
+					<li><a href="?chude=${data.get_id()}">${data.getTenChuDe()}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -73,25 +73,7 @@
 			</div>
 			<ul class="pagination" id="pagination">
 				<%
-				//Button Number pages
-				int loop = 0, num = 0;
-				if ((total / 8) % 2 == 0) {
-					num = total / 8;
-				} else {
-					num = (total + 1) / 8;
-				}
-				//Nếu total lẻ thêm 1
-				if (total % 2 != 0) {
-					loop = (total / 8) + 1;
-				} else {
-					//Nếu total chẵn nhỏ hơn fullpage và # fullPage thì thêm 1
-					if (total < (num * 8) + 8 && total != num * 8) {
-						loop = (total / 8) + 1;
-					} else {
-						//Nếu bằng fullPage thì không thêm
-						loop = (total / 8);
-					}
-				}
+				int loop = (int) Math.ceil((double) total / last);
 				//Lap so pages
 				for (int i = 1; i <= loop; i++) {
 				%>
@@ -100,36 +82,36 @@
 					if (pages == i) {
 				%>
 				<li class="page-item active"><a class="page-link"
-					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
+					href="?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
 				<%
 				} else {
 				%>
 				<li class="page-item"><a class="page-link"
-					href="products?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
+					href="?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
 				<%
 				}
 				} else if (keyword != null) {
 				if (pages == i) {
 				%>
 				<li class="page-item active"><a class="page-link"
-					href="products?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
+					href="?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
 				<%
 				} else {
 				%>
 				<li class="page-item"><a class="page-link"
-					href="products?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
+					href="?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
 				<%
 				}
 				} else {
 				if (pages == i) {
 				%>
 				<li class="page-item active"><a class="page-link"
-					href="products?pages=<%=i%>"><%=i%></a></li>
+					href="?pages=<%=i%>"><%=i%></a></li>
 				<%
 				} else {
 				%>
 				<li class="page-item"><a class="page-link"
-					href="products?pages=<%=i%>"><%=i%></a></li>
+					href="?pages=<%=i%>"><%=i%></a></li>
 				<%
 				}
 
