@@ -27,25 +27,32 @@
 					</div>
 					<div class="Book__info-Pay">
 						<b>Số Lượng:</b>
-						<div class="Book__info-Count">
-							<div class="Book__info-Button">
-								<button onclick="lessProducts()">
-									<img
-										src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"
-										alt="remove-icon" width="20" height="20">
-								</button>
-								<input type="text" id="inputNum" value="1" placeholder="1"
-									class="input">
-								<button onclick="moreProducts()">
-									<img
-										src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"
-										alt="add-icon" width="20" height="20">
-								</button>
-							</div>
-						</div>
-						<div class="Book__info-btnCart" onclick="addCart()">
-							<span>Chọn Mua</span>
-						</div>
+						<c:choose>
+							<c:when test="${data.getSoluongton() > 0 }">
+								<div class="Book__info-Count">
+									<div class="Book__info-Button">
+										<button onclick="lessProducts()">
+											<img
+												src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"
+												alt="remove-icon" width="20" height="20">
+										</button>
+										<input type="text" id="inputNum" value="1" placeholder="1"
+											class="input">
+										<button onclick="moreProducts()">
+											<img
+												src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-add.svg"
+												alt="add-icon" width="20" height="20">
+										</button>
+									</div>
+								</div>
+								<div class="Book__info-btnCart" onclick="addCart()">
+									<span>Chọn Mua</span>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<b style="color:red;">Đã Hết Hàng</b>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 

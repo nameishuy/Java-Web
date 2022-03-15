@@ -10,6 +10,16 @@ public class Book {
 	private String Messager;
 	private long daBan;
 	private Double Giaban;
+	private int Soluongton;
+	
+
+	public int getSoluongton() {
+		return Soluongton;
+	}
+
+	public void setSoluongton(int soluongton) {
+		Soluongton = soluongton;
+	}
 
 	public String gettenNXB() {
 		return tenNXB;

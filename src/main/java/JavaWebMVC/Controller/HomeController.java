@@ -226,6 +226,7 @@ public class HomeController {
 				book.setGiaban(jsonobject.getDouble("Giaban"));
 				book.setTenTG(jsonobject.getString("TenTG"));
 				book.settenNXB(jsonobject.getString("TenNXB"));
+				book.setSoluongton(jsonobject.getInt("Soluongton"));
 				detail.add(book);
 			});
 		}
