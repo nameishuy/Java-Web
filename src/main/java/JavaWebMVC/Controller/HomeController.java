@@ -49,8 +49,7 @@ public class HomeController {
 			ModelAndView mv = new ModelAndView("/user/signin");
 			return mv;
 		}
-		ModelAndView mv = new ModelAndView("/user/index");
-		return mv;
+		return this.Index();
 	}
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.POST)
@@ -67,8 +66,7 @@ public class HomeController {
 			session.setAttribute("User", json.getString("HoTen"));
 			session.setAttribute("Role", json.getBoolean("Role"));
 
-			ModelAndView mv = new ModelAndView("/user/index");
-			return mv;
+			return this.Index();
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signin");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -83,8 +81,7 @@ public class HomeController {
 			ModelAndView mv = new ModelAndView("/user/signup");
 			return mv;
 		}
-		ModelAndView mv = new ModelAndView("/user/index");
-		return mv;
+		return this.Index();
 	}
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
@@ -100,8 +97,7 @@ public class HomeController {
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Ký Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
-			ModelAndView mv = new ModelAndView("/user/index");
-			return mv;
+			return this.Index();
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signup");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -111,9 +107,10 @@ public class HomeController {
 
 	@RequestMapping(value = { "/signout" })
 	public ModelAndView Signout(HttpSession session) {
-		session.removeAttribute("id");
-		ModelAndView mv = new ModelAndView("/user/index");
-		return mv;
+		session.removeAttribute("id");		
+		session.removeAttribute("User");
+		session.removeAttribute("Role");
+		return this.Index();
 	}
 
 	@RequestMapping(value = { "/myprofile" }, method = RequestMethod.GET)

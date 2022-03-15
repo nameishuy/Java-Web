@@ -12,7 +12,6 @@
 		<div class="Title__setting">Thiết Lập</div>
 	</div>
 	<div class="Admin__Account-Body">
-
 		<c:forEach var="data" items="${listUser }">
 			<div class="Admin__Account-Account-Details">
 				<div class="Checkbox__Account">
@@ -36,6 +35,42 @@
 				</div>
 			</div>
 		</c:forEach>
+
+		<ul class="pagination" id="pagination">
+			<%
+			//Lap so pages
+			int pages = Integer.parseInt(request.getAttribute("pages").toString());
+			int TotalPage = Integer.parseInt(request.getAttribute("TotalPage").toString());
+			if (pages > 1 && TotalPage > 1) {
+			%>
+			<li class="page-item active"><a class="page-link"
+				href="?pages=<%=(pages - 1)%>">Prev</a></li>
+			<%
+			}
+
+			for (int i = 1; i <= TotalPage; i++) {
+			if (pages == i) {
+			%>
+			<li class="page-item active"><a class="page-link"
+				href="?pages=<%=i%>"><%=i%></a></li>
+			<%
+			} else {
+			%>
+			<li class="page-item"><a class="page-link"
+				href="?pages=<%=i%>"><%=i%></a></li>
+			<%
+			}
+
+			}
+
+			if (pages < TotalPage && TotalPage > 1) {
+			%>
+			<li class="page-item active"><a class="page-link"
+				href="?pages=<%=(pages + 1)%>">Next</a></li>
+			<%
+			}
+			%>
+		</ul>
 		<div class="UpdateAll__Setting" id="UpdateAll">Cấp Quyền Admin</div>
 	</div>
 </body>

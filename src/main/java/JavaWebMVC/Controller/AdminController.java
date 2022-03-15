@@ -18,103 +18,163 @@ import Model.Bill;
 
 @Controller
 public class AdminController {
-	
-	@RequestMapping(value = {"/admin/index"})
+
+	@RequestMapping(value = { "/admin/index" })
 	public String Admin(HttpSession session) {
-			if(session.equals("Role") && (session.getAttribute("Role").toString() == "true")) return "/admin/index";
-			else return "/admin/NoAdmin";
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true"))
+			return "/admin/index";
+		else
+			return "/admin/NoAdmin";
 	}
-	
-	@RequestMapping(value= {"/admin/account-manager"})
-	public ModelAndView Acc_Manager(HttpSession session) throws UnsupportedEncodingException {
-			if(session.equals("Role") && (session.getAttribute("Role").toString() == "true")) {
-				Boolean role = false;
-				String linkapi = "https://bookingapiiiii.herokuapp.com/khachhangforadmin/" + role;
-				String resAPI = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
-				int length=0;
-				
-				ArrayList<User> listUser = new ArrayList<User>();
-				if(resAPI != null) {
-					JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapi).toString());
-					json.forEach(data -> {
-						JSONObject jsonobject = (JSONObject) data;
-						User user = new User();
-						user.setId(jsonobject.getString("_id"));
-						user.setHoTen(jsonobject.getString("HoTen"));
-						if (jsonobject.has("Email")) user.setEmail(jsonobject.getString("Email"));	    	
-						user.setTaikhoan(jsonobject.getString("Taikhoan"));
-						user.setRole(jsonobject.getBoolean("Role"));
-						listUser.add(user);
-					});
-					length = json.length();
-				}
-				
-				ModelAndView mv = new ModelAndView("/admin/account-manager");
-				
-				mv.addObject("listUser",listUser);
-				mv.addObject("length", length);
-				return mv;
+
+	@RequestMapping(value = { "/admin/account-manager" })
+	public ModelAndView Acc_Manager(HttpSession session, HttpServletRequest request)
+			throws UnsupportedEncodingException {
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
+
+			int last = 3, pages = 1;
+
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
 			}
-			else{
-				ModelAndView mv = new ModelAndView("/admin/NoAdmin");
-				return mv;
+			Boolean role = false;
+			String linkapicount = "https://bookingapiiiii.herokuapp.com/khachhangforadmin/" + role;
+			String linkapi = "https://bookingapiiiii.herokuapp.com/khachhangforadmin/" + role + "/" + pages + "/"
+					+ last;
+
+			StringBuffer resAPI = JavaWebMVC.API.CallAPI.Get(linkapi);
+
+			int length = 0;
+
+			ArrayList<User> listUser = new ArrayList<User>();
+			if (resAPI != null) {
+				JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapi).toString());
+				JSONArray jsoncount = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapicount).toString());
+				json.forEach(data -> {
+					JSONObject jsonobject = (JSONObject) data;
+					User user = new User();
+					user.setId(jsonobject.getString("_id"));
+					user.setHoTen(jsonobject.getString("HoTen"));
+					if (jsonobject.has("Email"))
+						user.setEmail(jsonobject.getString("Email"));
+					user.setTaikhoan(jsonobject.getString("Taikhoan"));
+					user.setRole(jsonobject.getBoolean("Role"));
+					listUser.add(user);
+				});
+				length = jsoncount.length();
 			}
-		
-	}
-	
-	@RequestMapping(value = {"/admin/bill-pay"})
-	public ModelAndView Bill_Pay(HttpSession session) {
-			if(session.equals("Role") && (session.getAttribute("Role").toString() == "true")) {
-				String linkapi = "https://bookingapiiiii.herokuapp.com/DonHang/";
-				String resAPI = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
-				
-				ArrayList<Bill> listBill = new ArrayList<Bill>();
-				if(resAPI != null) {
-					JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapi).toString());
-					json.forEach(data -> {
-						JSONObject jsonobject = (JSONObject) data;
-						Bill bill = new Bill();
-						bill.setDate(jsonobject.getString("Ngaydat"));
-						bill.setId(jsonobject.getString("id"));
-						bill.setUsername(jsonobject.getString("HoTen"));  	
-						listBill.add(bill);
-					});
-				}
-				ModelAndView mv = new ModelAndView("/admin/billpay");
-				mv.addObject("listBill",listBill);
-				return mv;
-			}else {
-				ModelAndView mv = new ModelAndView("/admin/NoAdmin");
-				return mv;
-			}
-		
+			int TotalPage = (int) Math.ceil((double) length / last);
+			ModelAndView mv = new ModelAndView("/admin/account-manager");
+			mv.addObject("listUser", listUser);
+			mv.addObject("length", length);
+			mv.addObject("pages", pages);
+			mv.addObject("TotalPage", TotalPage);
+			return mv;
+		} else {
+			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
+			return mv;
+		}
 
 	}
-	
-	@RequestMapping(value = {"/admin/storage-products"})
-	public ModelAndView Storage(HttpSession session) {
-			if(session.equals("Role") && (session.getAttribute("Role").toString() == "true")) {
-				//Code more here:
-				
-				
-				ModelAndView mv = new ModelAndView("/admin/storage");
-				return mv;
-			}else {
-				ModelAndView mv = new ModelAndView("/admin/NoAdmin");
-				return mv;
+
+	@RequestMapping(value = { "/admin/bill-pay" })
+
+	public ModelAndView Bill_Pay(HttpSession session, HttpServletRequest request) {
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
+
+			String linkapicout = "https://bookingapiiiii.herokuapp.com/DonHang/";
+
+			int last = 3, pages = 1;
+
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
 			}
 
+			String linkapi = "https://bookingapiiiii.herokuapp.com/DonHang/" + pages + "/" + last;
+			StringBuffer resAPI = JavaWebMVC.API.CallAPI.Get(linkapi);
+			int length = 0;
+			ArrayList<Bill> listBill = new ArrayList<Bill>();
+			if (resAPI != null) {
+				JSONArray jsoncount = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapicout).toString());
+				JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapi).toString());
+				json.forEach(data -> {
+					JSONObject jsonobject = (JSONObject) data;
+					Bill bill = new Bill();
+					bill.setDate(jsonobject.getString("Ngaydat"));
+					bill.setId(jsonobject.getString("id"));
+					bill.setUsername(jsonobject.getString("HoTen"));
+					listBill.add(bill);
+				});
+				length = jsoncount.length();
+			}
+			int TotalPage = (int) Math.ceil((double) length / last);
+			ModelAndView mv = new ModelAndView("/admin/billpay");
+			mv.addObject("listBill", listBill);
+			mv.addObject("length", length);
+			mv.addObject("pages", pages);
+			mv.addObject("TotalPage", TotalPage);
+			return mv;
+		} else {
+			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
+			return mv;
+		}
+
 	}
-	
-	@RequestMapping(value = {"/admin/setting"})
+
+	@RequestMapping(value = { "/admin/storage-products" })
+	public ModelAndView Storage(HttpSession session, HttpServletRequest request) {
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
+
+			String linkapicout = "https://bookingapiiiii.herokuapp.com/sach";
+
+			int last = 2, pages = 1;
+
+			if (request.getParameter("pages") != null) {
+				pages = (int) Integer.parseInt(request.getParameter("pages"));
+			}
+
+			String linkapi = "https://bookingapiiiii.herokuapp.com/sachpagination/" + pages + "/" + last;
+			
+			StringBuffer resAPI = JavaWebMVC.API.CallAPI.Get(linkapi);
+			int length = 0;
+			ArrayList<Book> listBook = new ArrayList<Book>();
+			if (resAPI != null) {
+				JSONArray jsoncount = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapicout).toString());
+				JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapi).toString());
+				json.forEach(data -> {
+					JSONObject jsonobject = (JSONObject) data;
+					Book book = new Book();
+					book.setTensach(jsonobject.getString("Tensach"));
+					book.setAnh(jsonobject.getString("Anh"));
+					book.setMota(jsonobject.getString("Mota"));
+					book.setSoluongton(jsonobject.getInt("Soluongton"));
+					book.setGiaban(jsonobject.getDouble("Giaban"));
+					listBook.add(book);
+				});
+				length = jsoncount.length();
+			}
+			int TotalPage = (int) Math.ceil((double) length / last);
+			ModelAndView mv = new ModelAndView("/admin/storage");
+			mv.addObject("listBook", listBook);
+			mv.addObject("length", length);
+			mv.addObject("pages", pages);
+			mv.addObject("TotalPage", TotalPage);
+			return mv;
+		} else {
+			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
+			return mv;
+		}
+
+	}
+
+	@RequestMapping(value = { "/admin/setting" })
 	public ModelAndView Setting(HttpSession session) {
-		if(session.equals("Role") && (session.getAttribute("Role").toString() == "true")) {
-			//Code more here:
-			
-			
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
+			// Code more here:
+
 			ModelAndView mv = new ModelAndView("/admin/setting");
 			return mv;
-		}else {
+		} else {
 			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
 			return mv;
 		}
