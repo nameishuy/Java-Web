@@ -11,15 +11,15 @@
         <div class="Title__Setting">Thiết Lập</div>
     </div>
     <div class="Admin__HistoryPay-Body">
-        <div class="Admin__HistoryPay-Details">
-			<c:forEach var="data" items="${listBill }">
-				<div class="Bill__BillID">${data.getId() }</div>
-	            <div class="Bill__Username">${data.getUsername() }</div>
-	            <div class="Bill__DatePay">${data.getDate() }</div>
-	
-	            <div class="Bill__Setting">
-	                <div class="Bill__Setting-details" onclick="showDialog()">Chi Tiết</div>
-	            </div>
-			</c:forEach>
-        </div>
+		<c:forEach var="data" items="${listBill }">
+	        <div class="Admin__HistoryPay-Details">
+					<div class="Bill__BillID">${data.getId() }</div>
+		            <div class="Bill__Username">${data.getUsername() }</div>
+		            <div class="Bill__DatePay">${data.getDate() }</div>
+		
+		            <div class="Bill__Setting">
+		                <div class="Bill__Setting-details" onclick="showDialog()">Chi Tiết</div>
+		            </div>
+	        </div>
+      	</c:forEach>
     </div>

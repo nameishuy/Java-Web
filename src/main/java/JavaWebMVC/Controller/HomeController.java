@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import Model.Bill;
 import Model.Book;
 import Model.Chude;
 
@@ -22,8 +24,23 @@ import Model.Chude;
 public class HomeController {
 	@RequestMapping(value = { "/", "/home" })
 	public ModelAndView Index() {
-		ModelAndView mv = new ModelAndView("/user/index");
-		return mv;
+		String linkapi = "https://bookingapiiiii.herokuapp.com/Banner";
+		String resBanner = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
+
+		if(resBanner != null) {
+			JSONObject jsonobject = new JSONObject(resBanner);
+			
+			//Add to mv
+			ModelAndView mv = new ModelAndView("/user/index");
+			mv.addObject("banner1",jsonobject.getString("Anh1"));
+			mv.addObject("banner2",jsonobject.getString("Anh2"));
+			mv.addObject("banner3",jsonobject.getString("Anh3"));
+			return mv;
+		}else {
+			ModelAndView mv = new ModelAndView("/user/index");
+			mv.addObject("Messenger", "Không Thể Call API");
+			return mv;
+		}
 	}
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.GET)

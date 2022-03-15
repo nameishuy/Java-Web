@@ -87,6 +87,9 @@
                         text-overflow: ellipsis;
                         word-break: break-word;
                     }
+                    .Cart__Products-BookName:hover{
+                    	color: black;
+                    }
                     .Cart__Products-Count{
                         border: 1px solid gray;
                     }

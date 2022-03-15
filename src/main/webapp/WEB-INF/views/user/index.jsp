@@ -18,17 +18,17 @@
 		<div class="carousel-inner Banner__Container">
 			<div class="carousel-item Banner active">
 				<img
-					src="https://nxbphunu.com.vn/wp-content/uploads/2020/02/banner-hoi-sach.jpg"
+					src="${banner1}"
 					class="" alt="...">
 			</div>
 			<div class="carousel-item Banner">
 				<img
-					src="https://amovietnam.vn/wp-content/uploads/2016/02/banner-doc-sach-vi-tuong-lai-amo-vietnam-2018.jpg"
+					src="${banner2}"
 					class="" alt="...">
 			</div>
 			<div class="carousel-item Banner">
 				<img
-					src="https://pvm.com.vn/wp-content/uploads/2017/11/banner-sach.jpg"
+					src="${banner3}"
 					class="" alt="...">
 			</div>
 		</div>
@@ -169,9 +169,9 @@
 						<div class="Good__Book-body">
 							<%=item.getMota()%>
 						</div>
-						<div class="Good__Book-readnow">
-							<a>Đọc Ngay</a>
-						</div>
+						<a class="Good__Book-readnow"  href="details?id=<%=item.getID()%>">
+							Đọc Ngay
+						</a>
 					</div>
 				</div>
 

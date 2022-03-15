@@ -36,7 +36,7 @@
 												src="https://frontend.tikicdn.com/_desktop-next/static/img/pdp_revamp_v2/icons-remove.svg"
 												alt="remove-icon" width="20" height="20">
 										</button>
-										<input type="text" id="inputNum" value="1" placeholder="1"
+										<input type="text" id="inputNum" value="1" placeholder="1" readonly
 											class="input">
 										<button onclick="moreProducts()">
 											<img
