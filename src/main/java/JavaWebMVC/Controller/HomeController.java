@@ -28,16 +28,16 @@ public class HomeController {
 		String linkapi = "https://bookingapiiiii.herokuapp.com/Banner";
 		String resBanner = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
 
-		if(resBanner != null) {
+		if (resBanner != null) {
 			JSONObject jsonobject = new JSONObject(resBanner);
-			
-			//Add to mv
+
+			// Add to mv
 			ModelAndView mv = new ModelAndView("/user/index");
-			mv.addObject("banner1",jsonobject.getString("Anh1"));
-			mv.addObject("banner2",jsonobject.getString("Anh2"));
-			mv.addObject("banner3",jsonobject.getString("Anh3"));
+			mv.addObject("banner1", jsonobject.getString("Anh1"));
+			mv.addObject("banner2", jsonobject.getString("Anh2"));
+			mv.addObject("banner3", jsonobject.getString("Anh3"));
 			return mv;
-		}else {
+		} else {
 			ModelAndView mv = new ModelAndView("/user/index");
 			mv.addObject("Messenger", "Không Thể Call API");
 			return mv;
@@ -94,7 +94,7 @@ public class HomeController {
 
 		String link = "https://bookingapiiiii.herokuapp.com/khachhang";
 
-		JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(link, data).toString());	
+		JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(link, data).toString());
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Ký Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
@@ -108,7 +108,7 @@ public class HomeController {
 
 	@RequestMapping(value = { "/signout" })
 	public ModelAndView Signout(HttpSession session) {
-		session.removeAttribute("id");		
+		session.removeAttribute("id");
 		session.removeAttribute("User");
 		session.removeAttribute("Role");
 		return this.Index();
@@ -209,7 +209,7 @@ public class HomeController {
 			if (res != null) {
 
 				// Json là dữ Liệu Khi Được Trả về khi call api
-				JSONObject json = new JSONObject(res);			
+				JSONObject json = new JSONObject(res);
 				// gọi lại hàm Get Phía Trên để có thể hiển thị thông tin vì t không biết return
 				// back
 				return Profile(session, json.getString("Messenger"));
@@ -224,7 +224,7 @@ public class HomeController {
 
 	@RequestMapping(value = { "/details" }, method = RequestMethod.GET)
 	public ModelAndView getvalue(HttpServletRequest req) {
-	
+
 		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" + req.getParameter("id");
 		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
 
@@ -245,7 +245,7 @@ public class HomeController {
 				detail.add(book);
 			});
 		}
-		
+
 		ModelAndView model = new ModelAndView("/user/details");
 		model.addObject("Book", detail);
 		return model;
@@ -255,16 +255,17 @@ public class HomeController {
 	public String MyCart() {
 		return "/user/cart";
 	}
-	@RequestMapping(value = {"/history-pay"})
+
+	@RequestMapping(value = { "/history-pay" })
 	public ModelAndView HistoryPay(HttpSession session) {
 		ArrayList<UserBill> listUserBill = new ArrayList<UserBill>();
 		if (session.getAttribute("id") != null) {
 			String link = "https://bookingapiiiii.herokuapp.com/DonHangbyidKH/" + session.getAttribute("id");
-			String res = JavaWebMVC.API.CallAPI.Get(link).toString();
-			
+			StringBuffer res = JavaWebMVC.API.CallAPI.Get(link);
+
 			if (res != null) {
 				JSONArray json = new JSONArray(res);
-				json.forEach(data ->{
+				json.forEach(data -> {
 					JSONObject jsonobject = (JSONObject) data;
 					UserBill userBill = new UserBill();
 					userBill.setId(jsonobject.getString("_id"));
@@ -274,10 +275,14 @@ public class HomeController {
 					userBill.setTongTien(jsonobject.getDouble("TongTien"));
 					listUserBill.add(userBill);
 				});
+			} else {
+				ModelAndView mv = new ModelAndView("/user/historypay");
+				mv.addObject("Mess", "Chưa Có Lịch Sử Mua Hàng");
+				return mv;
 			}
 		}
 		ModelAndView mv = new ModelAndView("/user/historypay");
-		mv.addObject("listUserBill",listUserBill);
+		mv.addObject("listUserBill", listUserBill);
 		return mv;
 	}
 }
