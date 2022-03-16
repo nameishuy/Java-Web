@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="css/details.css" />
 <link rel="stylesheet" href="css/products.css" />
 <link rel="stylesheet" href="css/cart.css" />
+<link rel="stylesheet" href="css/historypay.css" />
 <!-- Bootstrap 5 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"

@@ -254,5 +254,9 @@ public class HomeController {
 	public String MyCart() {
 		return "/user/cart";
 	}
-
+	@RequestMapping(value = {"/history-pay"})
+	public ModelAndView HistoryPay() {
+		ModelAndView mv = new ModelAndView("/user/historypay");
+		return mv;
+	}
 }
