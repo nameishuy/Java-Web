@@ -179,4 +179,11 @@ public class AdminController {
 			return mv;
 		}
 	}
+	
+	@RequestMapping(value = {"/admin/new-book"})
+	public ModelAndView NewBook() {
+		
+		ModelAndView mv = new ModelAndView("/admin/addnewbook");
+		return mv;
+	}
 }

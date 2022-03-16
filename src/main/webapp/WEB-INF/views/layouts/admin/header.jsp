@@ -82,6 +82,7 @@ ion-icon {
 				<li class="nav-item"><a class="nav-link" href="bill-pay">Hóa Đơn</a></li>
 				<li class="nav-item"><a class="nav-link" href="storage-products">Hàng Tồn Kho</a></li>
 				<li class="nav-item"><a class="nav-link" href="setting">Thiết Lập</a></li>
+				<li class="nav-item"><a class="nav-link" href="new-book">Thêm Mới Sách</a></li>
 			</ul>
 		</div>
 	</div>

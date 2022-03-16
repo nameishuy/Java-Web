@@ -34,4 +34,26 @@
             Cập Nhật
         </div>
     </div>
+    <div class="Admin__Setting-Author">
+         <h1>Thêm Mới</h1>
+         <div class="Add__Container">
+             <div class="AddAuthor">
+                 <div>Tên Tác Giả</div>
+                 <input type="text" name="" id="">
+             </div>
+             <div class="Add__Btn">
+                 Thêm
+             </div>
+         </div>
+         <div class="Add__Container">                        
+             <div class="AddCategory">
+                 <div>Chủ Đề</div>
+                 <input type="text" name="" id="">
+             </div>
+             <div class="Add__Btn">
+                 Thêm
+             </div>
+         </div>
+     </div>
+   </div>
 </div>

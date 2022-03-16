@@ -282,18 +282,21 @@
 	min-height: 70vh;
 	margin: 40px auto 40px auto;
   }
-  .Admin__Setting-Banner{
+  .Admin__Setting-Banner,
+  .Admin__Setting-Author{
 	position: relative;
 	border: 1px solid black;
 	padding: 20px;
 	border-radius: .5rem;
   }
-  .Admin__Setting-Banner h1{
+  .Admin__Setting-Banner h1,
+  .Admin__Setting-Author h1{
 	position: absolute;
 	top: 0;
 	left: 0;
-	transform: translate(20px,-30px);
+	transform: translate(20px,-20px);
 	background-color: white;
+	font-size:25px;
   }
   .Setting__Banner-Feature{
 	display: flex;
@@ -337,6 +340,72 @@
   .DialogChangeDetailsProduct{
 	width: 15vw;
   }
+  .Admin__Setting-Author{
+  margin-top: 30px;
+  width: fit-content;
+}
+.Add__Btn{
+  cursor: pointer;
+  padding: 5px;
+  color: white;
+  background-color: rgba(255, 166, 0, 0.589);
+  width: fit-content;
+  border-radius: .3rem;
+  margin: 10px 0;
+}
+/*                                  */
+.AddNewBook__Container{
+  min-height: 70vh;
+}
+.AddNewBook__Body{
+  margin: 50px auto;
+  padding: 50px;
+  border: 1px solid rgba(109, 109, 109, 0.308);
+  height: 100% !important;
+  border-radius: .5rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  font-weight: 600;
+}
+.AddNewBook__Body,
+.AddNewBook__Body-BookImage input,
+.AddNewBook__Body-BtnAdd{
+  width: fit-content;
+}
+.AddNewBook__Body-BookName,
+.AddNewBook__Body-BookCategory,
+.AddNewBook__Body-BookAuthor{
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.AddNewBook__Body-BookImage{
+  flex-flow: column nowrap;
+  margin-bottom: 20px;
+}
+.AddNewBook__Body-Image{
+  display: flex;
+  margin-top: 20px;
+}
+.AddNewBook__Body-BookImage img{
+  width: 80px;
+  height: 100px;
+}
+.AddNewBook__Body-BtnAdd{
+  cursor: pointer;
+  padding: 5px;
+  background-color: rgba(255, 166, 0, 0.658);
+  color: white;
+  transition: 1s;
+  border-radius: .5rem;
+  font-weight: 400;
+}
+.AddNewBook__Body-BtnAdd:hover{
+  background-color: orange;
+  box-shadow: 0 0 10px 0 orange;
+}
 /* Responsive */
 @media screen and (max-width: 415px) {
 	.Admin__Container {
@@ -376,6 +445,9 @@
   .DialogChangeDetailsProduct{
     width: 50vw;
     min-height: 30vh;
+  }
+  .AddNewBook__Body{
+    width: 100%;
   }
 }
 
