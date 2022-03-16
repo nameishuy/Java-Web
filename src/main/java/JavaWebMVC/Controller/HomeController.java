@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import Model.Bill;
 import Model.Book;
 import Model.Chude;
+import Model.UserBill;
 
 @Controller
 public class HomeController {
@@ -255,8 +256,28 @@ public class HomeController {
 		return "/user/cart";
 	}
 	@RequestMapping(value = {"/history-pay"})
-	public ModelAndView HistoryPay() {
+	public ModelAndView HistoryPay(HttpSession session) {
+		ArrayList<UserBill> listUserBill = new ArrayList<UserBill>();
+		if (session.getAttribute("id") != null) {
+			String link = "https://bookingapiiiii.herokuapp.com/DonHangbyidKH/" + session.getAttribute("id");
+			String res = JavaWebMVC.API.CallAPI.Get(link).toString();
+			
+			if (res != null) {
+				JSONArray json = new JSONArray(res);
+				json.forEach(data ->{
+					JSONObject jsonobject = (JSONObject) data;
+					UserBill userBill = new UserBill();
+					userBill.setId(jsonobject.getString("_id"));
+					userBill.setDatthanhtoan(jsonobject.getBoolean("Dathanhtoan"));
+					userBill.setTinhtranggiaohang(jsonobject.getBoolean("Tinhtranggiaohang"));
+					userBill.setNgaydat(jsonobject.getString("Ngaydat"));
+					userBill.setTongTien(jsonobject.getDouble("TongTien"));
+					listUserBill.add(userBill);
+				});
+			}
+		}
 		ModelAndView mv = new ModelAndView("/user/historypay");
+		mv.addObject("listUserBill",listUserBill);
 		return mv;
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
 <div class="DialogDetailsHistoryPay__Container" id="DialogDetailsHistoryPay__Container">
     <div class="DialogDetailsHistoryPay">
@@ -59,24 +60,40 @@
     <div class="HistoryPay__Header">
 
         <div class="HistoryPay__Title-BillID">Mã Đơn</div>
-        <div class="HistoryPay__Title-Username">Tên Khách</div>
+        <div class="HistoryPay__Title-Status">Trạng Thái</div>
         <div class="HistoryPay__Title-DatePay">Thời Gian Đặt</div>
 
         <div class="HistoryPay__Title-Setting">Thiết Lập</div>
     </div>
     <div class="HistoryPay__Body">
-        <div class="HistoryPay__Details">
+    	<c:forEach var="data" items="${listUserBill }">
+	    	<div class="HistoryPay__Details">
+	
+	            <div class="HistoryPay__Bill-BillID">${data.getId() }</div>
+	            <c:choose>
+	            	<c:when test="${data.getDatthanhtoan() == true }">
+	            		<c:if test="${data.getTinhtranggiaohang() == true }">
+	            			<div class="HistoryPay__Bill-Status">Đã Giao Hàng</div>
+	            		</c:if>
+	            		<c:if test="${data.getTinhtranggiaohang() == false }">
+	            			<div class="HistoryPay__Bill-Status">Chưa Giao Hàng</div>
+	            		</c:if>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<div class="HistoryPay__Bill-Status">Chưa Thanh Toán</div>
+	            	</c:otherwise>
+	            </c:choose>
 
-            <div class="HistoryPay__Bill-BillID">ID</div>
-            <div class="HistoryPay__Bill-Username">Tên Khách</div>
-            <div class="HistoryPay__Bill-DatePay">16/3/2022</div>
-
-            <div class="HistoryPay__Bill-Setting">
-                <div class="HistoryPay__Bill-Setting-details" onclick="showDialog_HistoryPay()">
-                    Chi Tiết
-                </div>
-            </div>
-        </div>
+	            <div class="HistoryPay__Bill-DatePay">${data.getNgaydat() }</div>
+	
+	            <div class="HistoryPay__Bill-Setting">
+	                <div class="HistoryPay__Bill-Setting-details" onclick="showDialog_HistoryPay()">
+	                    Chi Tiết
+	                </div>
+	            </div>
+	        </div>
+    	</c:forEach>
+        
     </div>
     <pagination-controls class="my-pagination">
     </pagination-controls>

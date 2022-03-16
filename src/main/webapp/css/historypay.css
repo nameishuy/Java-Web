@@ -57,8 +57,8 @@
     text-align: center;
 }
 
-.HistoryPay__Title-Username,
-.HistoryPay__Bill-Username {
+.HistoryPay__Title-Status,
+.HistoryPay__Bill-Status {
     flex-basis: 30%;
     text-align: center;
 }
@@ -211,18 +211,18 @@
         margin: 0 auto;
     }
 
-    .HistoryPay__Title-Username,
-    .HistoryPay__Bill-Username {
-        display: none;
-    }
 
-    .HistoryPay__Title-DatePay,
-    .HistoryPay__Bill-DatePay,
+    .HistoryPay__Bill-Status,
+    .HistoryPay__Title-Status,
     .HistoryPay__Title-Setting,
-    .HistoryPay__Bill-Setting {
-        flex-basis: 30%;
+    .HistoryPay__Bill-Setting{
+        flex-basis: 20%;
         text-align: center;
     }
+    .HistoryPay__Title-DatePay,
+    .HistoryPay__Bill-DatePay{
+    	display:none;
+    } 
 
     .HistoryPay__Title-BillID,
     .HistoryPay__Bill-BillID {
