@@ -16,6 +16,13 @@
 </head>
 <body>
 	<style>
+
+#pagination{
+	width:fit-content;
+	margin: 20px auto;
+}	
+	
+	
 .Body__Container {
 	width: 70%;
 	margin: 0 auto;
