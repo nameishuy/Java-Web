@@ -264,7 +264,7 @@ public class HomeController {
 			StringBuffer res = JavaWebMVC.API.CallAPI.Get(link);
 
 			if (res != null) {
-				JSONArray json = new JSONArray(res);
+				JSONArray json = new JSONArray(res.toString());
 				json.forEach(data -> {
 					JSONObject jsonobject = (JSONObject) data;
 					UserBill userBill = new UserBill();
