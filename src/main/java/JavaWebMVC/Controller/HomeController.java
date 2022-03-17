@@ -3,13 +3,18 @@ package JavaWebMVC.Controller;
 import java.io.UnsupportedEncodingException;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import Model.Bill;
 import Model.Book;
+import Model.Cart;
 import Model.Chude;
 import Model.UserBill;
 
@@ -66,7 +72,28 @@ public class HomeController {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
 			session.setAttribute("Role", json.getBoolean("Role"));
-
+			
+			String link2 = "https://bookingapiiiii.herokuapp.com/khachhangbyid/" + json.getString("id");
+			String res2 = JavaWebMVC.API.CallAPI.Get(link2).toString();
+			if (res2 != null) {
+				JSONObject json2 = new JSONObject(res2);
+				try {
+					session.setAttribute("Name",json2.getString("HoTen"));
+					
+					DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					Calendar cal = Calendar.getInstance();
+					session.setAttribute("Date", dateFormat.format(cal.getTime()));
+					System.out.println(dateFormat.format(cal.getTime()));
+					
+					if(!json2.getString("HoTen").isBlank() && !json2.getString("DienthoaiKH").isBlank()) {
+						session.setAttribute("Email", json2.getString("Email"));
+						session.setAttribute("SDT", json2.getString("DienthoaiKH"));
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+			
 			return this.Index();
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signin");
@@ -252,8 +279,208 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/my-cart" })
-	public String MyCart() {
-		return "/user/cart";
+	public String MyCart(HttpSession sesstion) {
+		if(sesstion.getAttribute("id")==null) {
+			System.out.println("No Login");
+			return "redirect:/signin";
+		}else {
+			return "/user/cart";
+		}
+	}
+	// thêm hàng hóa vào giỏ hàng
+	ArrayList<Cart> Cart =new ArrayList<Cart>();
+	@RequestMapping(value = { "/addCart/{id}" })
+	public String addCart(HttpServletRequest req,HttpSession sesstion,@PathVariable String id){
+		Cart cart =new Cart();
+		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" +id;
+		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+		Boolean flag =true;
+		Double TotalPriceInCart=0.0;
+		if(sesstion.getAttribute("id")==null) {
+			System.out.println("No Login");
+			return "redirect:/signin";
+		}else {
+			System.out.println("Login");
+			for (Cart item : Cart) {
+				if(item.getBookId().equalsIgnoreCase(id)) {
+					flag =false;
+					item.setQuatity(item.getQuatity()+ 1);
+					JSONArray json = new JSONArray(check);
+					json.forEach(data -> {
+					JSONObject jsonobject = (JSONObject) data;
+						item.setTotalPrice(item.getQuatity()*jsonobject.getDouble("Giaban"));
+					});
+				}
+			}
+			if(check != null && flag==true) {
+				JSONArray json = new JSONArray(check);
+				json.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				cart.setTotalPrice(jsonobject.getDouble("Giaban"));
+				cart.setPicBook(jsonobject.getString("Anh"));
+				cart.setDescription(jsonobject.getString("Mota"));
+				cart.setBookId(id);
+				cart.setQuatity(1);
+				Cart.add(cart);
+				});
+			}
+			for (Cart item : Cart) {
+				TotalPriceInCart = TotalPriceInCart +item.getTotalPrice();
+			}
+			System.out.println(TotalPriceInCart);
+			
+			sesstion.setAttribute("ItemCart", Cart);
+			sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+			return "redirect:/my-cart";
+		}
+	}
+	//phần tăng 1 quatity vào giỏ hàng
+	@RequestMapping(value = { "/addmore/{id}" })
+	public String AddMore(HttpServletRequest req,HttpSession sesstion,@PathVariable String id) {
+		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" +id;
+		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+		Double TotalPriceInCart=0.0;
+		if(id != null && id!="" && !Cart.isEmpty()) {
+			for (Cart item : Cart) {
+				if(item.getBookId().equalsIgnoreCase(id)) {
+					item.setQuatity(item.getQuatity()+1);
+					JSONArray json = new JSONArray(check);
+					json.forEach(data -> {
+					JSONObject jsonobject = (JSONObject) data;
+						item.setTotalPrice(item.getQuatity()*jsonobject.getDouble("Giaban"));
+					});
+				}
+			}
+		}
+		for (Cart item : Cart) {
+			TotalPriceInCart = TotalPriceInCart +item.getTotalPrice();
+		}
+		System.out.println(TotalPriceInCart);
+		sesstion.setAttribute("ItemCart", Cart);
+		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		return "redirect:"+req.getHeader("Referer");
+	}
+	//phần giảm 1 quatity vào giỏ hàng
+	@RequestMapping(value = { "/addless/{id}" })
+	public String AddLess(HttpServletRequest req,HttpSession sesstion,@PathVariable String id) {
+		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" +id;
+		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+		Double TotalPriceInCart=0.0;
+		if(id != null && id!="") {
+			for (Cart item : Cart) {
+				if(item.getBookId().equalsIgnoreCase(id) && item.getQuatity()>1) {
+					item.setQuatity(item.getQuatity()-1);
+					JSONArray json = new JSONArray(check);
+					json.forEach(data -> {
+					JSONObject jsonobject = (JSONObject) data;
+						item.setTotalPrice(item.getQuatity()*jsonobject.getDouble("Giaban"));
+					});
+				}
+			}
+		}
+		for (Cart item : Cart) {
+			TotalPriceInCart = TotalPriceInCart +item.getTotalPrice();
+		}
+		System.out.println(TotalPriceInCart);
+		sesstion.setAttribute("ItemCart", Cart);
+		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		return "redirect:"+req.getHeader("Referer");
+	}
+	// Phần xóa một sp trong giỏ hàng
+	@RequestMapping(value = { "/remove/{id}" })
+	public String Remove(HttpServletRequest req,HttpSession sesstion,@PathVariable String id) {
+		Double TotalPriceInCart=0.0;
+		try {
+			if(id != null && id !="") {
+				for(Cart item : Cart) {
+					if(item.getBookId().equalsIgnoreCase(id)) {
+						Cart.remove(Cart.indexOf(item));
+					}
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		for (Cart item : Cart) {
+			TotalPriceInCart = TotalPriceInCart +item.getTotalPrice();
+		}
+		sesstion.setAttribute("ItemCart", Cart);
+		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		return "redirect:"+req.getHeader("Referer");
+	}
+	//Phần xóa toàn bộ trong giỏ hàng
+	@RequestMapping(value = { "/removeAll" })
+	public String RemoveAll(HttpSession sesstion,HttpServletRequest req) {
+		Double TotalPriceInCart=0.0;
+		try {
+			Cart.removeAll(Cart);
+			System.out.println(Cart.size());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		for (Cart item : Cart) {
+			TotalPriceInCart = TotalPriceInCart +item.getTotalPrice();
+		}
+		sesstion.setAttribute("ItemCart", Cart);
+		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		return "redirect:"+req.getHeader("Referer");
+	}
+	// Phần đặt hàng
+	@RequestMapping(value = { "/order" })
+	public String Oder(HttpSession sesstion,HttpServletRequest req) {
+		ArrayList<String> IdInCart =new ArrayList<>();
+		ArrayList<Integer> QuatityInCart =new ArrayList<>();
+		if(sesstion.getAttribute("Date")!= null && !Cart.isEmpty() && 
+				Double.parseDouble(sesstion.getAttribute("TotalPriceInCart").toString()) > 0 && sesstion.getAttribute("id") != null) {
+			for (Cart item : Cart) {
+				IdInCart.add(item.getBookId());
+				QuatityInCart.add(item.getQuatity());
+			}
+			
+			System.out.println("{\n \"Dathanhtoan\":"+true+",\n \"Tinhtranggiaohang\":"+false
+					+",\n \"Ngaydat\":\""+sesstion.getAttribute("Date")+"\",\n \"TongTien\":"+sesstion.getAttribute("TotalPriceInCart")
+					+",\n \"MaKH\":\""+sesstion.getAttribute("id") +"\",\n \"MasachCheck\":"+IdInCart+",\n \"SoluongCheck\":"+QuatityInCart+"\n}");
+			
+			String dataDH = "{\n \"Dathanhtoan\":"+true+",\n \"Tinhtranggiaohang\":"+false
+					+",\n \"Ngaydat\":\""+sesstion.getAttribute("Date")+"\",\n \"TongTien\":"+sesstion.getAttribute("TotalPriceInCart")
+					+",\n \"MaKH\":\""+sesstion.getAttribute("id") +"\",\n \"MasachCheck\":"+IdInCart+",\n \"SoluongCheck\":"+QuatityInCart+"\n}";
+			
+			String linkDH = "https://bookingapiiiii.herokuapp.com/DonHang";
+
+			JSONObject jsonDH = new JSONObject(JavaWebMVC.API.CallAPI.post(linkDH, dataDH).toString());
+			
+			
+			
+			if (jsonDH.getString("_id")!= null) {
+				System.out.println(jsonDH.getString("_id"));
+				Boolean flag =true;
+				for (Cart item2 : Cart) {
+					System.out.println("{\n\"MaDonHang\":\""+jsonDH.getString("_id")+"\",\n\"Masach\":\""
+							+item2.getBookId()+"\",\n\"Soluong\":"+item2.getQuatity()+",\n\"Dongia\":"+item2.getTotalPrice()+"\n}");
+					
+					String dataCTDH = "{\n\"MaDonHang\":\""+jsonDH.getString("_id")+"\",\n\"Masach\":\""
+							+item2.getBookId()+"\",\n\"Soluong\":"+item2.getQuatity()+",\n\"Dongia\":"+item2.getTotalPrice()+"\n}";
+					
+					String linkCTDH = "https://bookingapiiiii.herokuapp.com/CTDonHang";
+					
+					JSONObject jsonCTDH = new JSONObject(JavaWebMVC.API.CallAPI.post(linkCTDH, dataCTDH).toString());
+					if(jsonCTDH.getString("_id")==null) {
+						flag =false;
+					}
+				}
+				if(flag) {
+					sesstion.setAttribute("Status", "Cảm ơn bạn đã chọn mua sản phẩm của nhà sách chúng tôi");
+					return "user/dialogOrder";
+				}else {
+					sesstion.setAttribute("Status", "Đã xảy ra lỗi trong quá trình thêm Chi tiết đơn đặt hàng");
+					return "user/dialogOrder";
+				}
+			}else {
+				sesstion.setAttribute("Status", "Đã xảy ra lỗi trong quá trình đặt hàng");
+				return "user/dialogOrder";
+			}
+		}
+		return "/user/dialogOrder";
 	}
 
 	@RequestMapping(value = { "/history-pay" })

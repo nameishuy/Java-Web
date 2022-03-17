@@ -45,9 +45,11 @@
 										</button>
 									</div>
 								</div>
-								<div class="Book__info-btnCart" onclick="addCart()">
-									<span>Chọn Mua</span>
-								</div>
+								<a href ="<c:url value="/addCart/${data.getID()}"/>">
+									<div class="Book__info-btnCart" onclick="">
+										<span>Chọn Mua</span>
+									</div>
+								</a>
 							</c:when>
 							<c:otherwise>
 								<b style="color:red;">Đã Hết Hàng</b>

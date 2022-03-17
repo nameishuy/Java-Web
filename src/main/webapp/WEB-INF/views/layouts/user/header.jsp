@@ -24,7 +24,7 @@
 		</div>
 		<a class="Cart" href="my-cart">
 			<ion-icon name="cart-outline"></ion-icon>
-			<span class="countCart">0</span>
+			<span class="countCart"  data-default="0">${ItemCart.size() } </span>
 		</a>
 
 
