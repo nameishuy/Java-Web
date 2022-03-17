@@ -305,6 +305,10 @@
 	background-color: white;
 	font-size:25px;
   }
+  .Admin__Setting-Author h1{
+  	font-size:20px; 
+  	transform: translate(20px,-15px);
+  }
   .Setting__Banner-Feature{
 	display: flex;
 	width: fit-content;
@@ -412,6 +416,11 @@
 .AddNewBook__Body-BtnAdd:hover{
   background-color: orange;
   box-shadow: 0 0 10px 0 orange;
+}
+.Admin__Setting-AddNew{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 /* Responsive */
 @media screen and (max-width: 415px) {

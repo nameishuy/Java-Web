@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import Model.Book;
@@ -172,6 +173,50 @@ public class AdminController {
 		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
 			// Code more here:
 
+			ModelAndView mv = new ModelAndView("/admin/setting");
+			return mv;
+		} else {
+			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
+			return mv;
+		}
+	}
+	
+	@RequestMapping(value = { "/admin/setting" }, method = RequestMethod.POST)
+	public ModelAndView Setting(HttpServletRequest req, HttpSession session) {
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
+			// Code more here:
+			try {
+				req.setCharacterEncoding("UTF-8");
+				if(req.getParameter("inputNXB") != null && req.getParameter("inputAddress") != null && req.getParameter("inputNXB") != "" && req.getParameter("inputAddress") != "") {
+					String data = "{\"TenNXB\":\""+ req.getParameter("inputNXB") +"\",\"Diachi\":\""+ req.getParameter("inputAddress") +"\",\"DienThoai\":\""+ req.getParameter("inputPhone") +"\"}";
+					System.out.println(data);
+		    		String linkapi = "https://bookingapiiiii.herokuapp.com/nhaxuatban";
+					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(linkapi, data).toString());
+					System.out.println(json);
+				}
+				
+				if(req.getParameter("inputCategory") != null && req.getParameter("inputCategory") != "") {
+					String dataCategory = "{\"TenChuDe\":\""+ req.getParameter("inputCategory") +"\"}";
+		    		String apiNewCategory = "https://bookingapiiiii.herokuapp.com/chude";
+					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(apiNewCategory, dataCategory).toString());
+					System.out.println(json);
+				}
+				
+				if(	req.getParameter("inputAuthorName") != null && req.getParameter("inputAuthorName") != ""
+					&& req.getParameter("inputAuthorAddr") != null && req.getParameter("inputAuthorAddr") != ""
+					&& req.getParameter("inputAuthorHist") != null && req.getParameter("inputAuthorHist") != ""
+					&& req.getParameter("inputAuthorPhone") != null && req.getParameter("inputAuthorPhone") != ""
+				  ) {
+					String dataAuthor = "{\"TenTG\":\""+ req.getParameter("inputAuthorName") +"\",\"Diachi\":\""+ req.getParameter("inputAuthorAddr") +"\",\"Tieusu\":\""+ req.getParameter("inputAuthorHist") +"\",\"Dienthoai\":\""+ req.getParameter("inputAuthorPhone") +"\"}";
+		    		String apiNewAuthor = "https://bookingapiiiii.herokuapp.com/tacgia";
+					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(apiNewAuthor, dataAuthor).toString());
+					System.out.println(json);
+				}
+
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			ModelAndView mv = new ModelAndView("/admin/setting");
 			return mv;
 		} else {
