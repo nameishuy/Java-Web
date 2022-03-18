@@ -39,13 +39,11 @@
 											class="form-control" id="HoTen" name="HoTen" required>
 									</div>
 								</div>
-
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Email</label> <input type="text" value="${Email }" class="form-control"
 											id="Email" name="Email" required>
 									</div>
-
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
@@ -53,15 +51,12 @@
 											class="form-control" id="DiaChi" name="DiaChi" required>
 									</div>
 								</div>
-
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Số Điện Thoại (nhập đủ 10 số)</label> <input type="tel"
 											class="form-control" value="${DienthoaiKH }" name="SDT" id="SDT"
 											pattern="[0-9]{10}" placeholder="Nhập đủ 10 số" required>
-
 									</div>
-
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
