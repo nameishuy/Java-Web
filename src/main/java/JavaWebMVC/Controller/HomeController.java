@@ -1,5 +1,9 @@
 package JavaWebMVC.Controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
@@ -183,16 +187,27 @@ public class HomeController {
 			} else {
 
 				// Chỉ Nhận ảnh JPG Và Chuyển ảnh thành dạng Base64 để Lưu Vô cơ sở dữ liệu
-				byte[] encodedBytes = Base64.getEncoder().encode(photo.getBytes());
-				String originalString = new String(encodedBytes, StandardCharsets.UTF_8);
-				String base64img = "data:image/jpeg;base64," + originalString;
-
+				String rootPath = System.getProperty("catalina.home");
+				File dir = new File(rootPath + File.separator + "assets/user/image");
+				if (!dir.exists()) {
+					dir.mkdir();
+				}
+				DateFormat dateFormat = new SimpleDateFormat("hhmmssss");
+				Calendar cal = Calendar.getInstance();
+				String date = dateFormat.format(cal.getTime());
+				String filename = String.valueOf(date + ".jpg");
+				File ServerFile= new File(dir.getAbsoluteFile()+File.separator+filename);
+				
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(ServerFile));
+				stream.write(photo.getBytes());
+				stream.close();
+				
+				
 				// Json Được Chuyển Thành Dạng String vào https://jsontostring.com
 				data = "{\n\"id\" : \"" + session.getAttribute("id") + "\",\n \"HoTen\": \"" + req.getParameter("HoTen")
 						+ "\", \n \"Email\": \"" + req.getParameter("Email") + "\",\n \"DiachiKH\": \""
 						+ req.getParameter("DiaChi") + "\",\n \"DienthoaiKH\" : \"" + req.getParameter("SDT")
-						+ "\",\n \"Ngaysinh\": \"" + req.getParameter("Date") + "\",\n \"Anh\":\"" + base64img
-						+ "\"\n}";
+						+ "\",\n \"Ngaysinh\": \"" + req.getParameter("Date") + "\",\n \"Anh\":\"" + filename + "\"\n}";
 			}
 			// Link đăng Kí Có Trên PostMan
 			String link = "https://bookingapiiiii.herokuapp.com/khachhang";
@@ -322,7 +337,7 @@ public class HomeController {
 			for (Cart item : Cart) {
 				TotalPriceInCart = TotalPriceInCart + item.getTotalPrice();
 			}
-		
+
 			sesstion.setAttribute("ItemCart", Cart);
 			sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
 			return "redirect:/my-cart";
@@ -350,7 +365,7 @@ public class HomeController {
 		for (Cart item : Cart) {
 			TotalPriceInCart = TotalPriceInCart + item.getTotalPrice();
 		}
-	
+
 		sesstion.setAttribute("ItemCart", Cart);
 		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
 		return "redirect:" + req.getHeader("Referer");
@@ -377,7 +392,7 @@ public class HomeController {
 		for (Cart item : Cart) {
 			TotalPriceInCart = TotalPriceInCart + item.getTotalPrice();
 		}
-		
+
 		sesstion.setAttribute("ItemCart", Cart);
 		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
 		return "redirect:" + req.getHeader("Referer");
@@ -412,7 +427,7 @@ public class HomeController {
 		Double TotalPriceInCart = 0.0;
 		try {
 			Cart.removeAll(Cart);
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -449,7 +464,7 @@ public class HomeController {
 			String linkDH = "https://bookingapiiiii.herokuapp.com/DonHang";
 			JSONObject body = new JSONObject(dataDH);
 			String BodyString = body.toString();
-		
+
 			JSONObject jsonDH = new JSONObject(JavaWebMVC.API.CallAPI.post(linkDH, BodyString).toString());
 
 			if (jsonDH.getString("_id") != null) {

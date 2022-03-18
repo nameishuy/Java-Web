@@ -2,6 +2,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <section class="py-5 my-5">
 	<div class="container">
 		${Messenger}
@@ -10,7 +11,7 @@
 				<form action="myprofile" method="post" enctype="multipart/form-data">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
-							<img src="${Anh }" alt="Image" class="shadow">
+							<img src="${pageContext.request.contextPath }/image/${Anh }"/>
 						</div>
 						<h4 class="text-center">${HoTen }</h4>
 						<input type="file" name="imgchoose" accept="image/*">
@@ -68,41 +69,41 @@
 					<div>
 						<button class="btn btn-primary">Cập Nhật</button>
 					</div>
-					</form>
-				</div>
-				<div class="tab-pane fade" id="password" role="tabpanel"
-					aria-labelledby="password-tab">
-					<h3 class="mb-4">Password Settings</h3>
-					<form action="changepass" method="post">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Mật Khẩu Hiện Tại</label> <input type="password"
-										class="form-control" name="oldpass" required>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Mật Khẩu Mới</label> <input type="password"
-										class="form-control" name="newpass" required>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>Xác Nhận Mật Khẩu</label> <input type="password"
-										class="form-control" name="compass" required>
-								</div>
-							</div>
-						</div>
-						<div>
-							<button class="btn btn-primary">Đổi Mật Khẩu</button>
-						</div>
-					</form>
-				</div>
-			</div>
+			</form>
 		</div>
+		<div class="tab-pane fade" id="password" role="tabpanel"
+			aria-labelledby="password-tab">
+			<h3 class="mb-4">Password Settings</h3>
+			<form action="changepass" method="post">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Mật Khẩu Hiện Tại</label> <input type="password"
+								class="form-control" name="oldpass" required>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Mật Khẩu Mới</label> <input type="password"
+								class="form-control" name="newpass" required>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Xác Nhận Mật Khẩu</label> <input type="password"
+								class="form-control" name="compass" required>
+						</div>
+					</div>
+				</div>
+				<div>
+					<button class="btn btn-primary">Đổi Mật Khẩu</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
 	</div>
 </section>
 

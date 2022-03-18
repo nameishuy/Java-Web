@@ -1,11 +1,18 @@
 package JavaWebMVC.API;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class CallAPI {
 	// Call API
@@ -21,7 +28,7 @@ public class CallAPI {
 			StringBuffer response = new StringBuffer();
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
-			}			
+			}
 			in.close();
 			http.disconnect();
 			return response;

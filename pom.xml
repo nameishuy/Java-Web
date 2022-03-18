@@ -67,6 +67,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<finalName>JavaWebMVC</finalName>
+		<finalName>Java-Web</finalName>
 	</build>
 </project>
