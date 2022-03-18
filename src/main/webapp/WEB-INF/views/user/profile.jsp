@@ -11,9 +11,9 @@
 				<form action="myprofile" method="post" enctype="multipart/form-data">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
-							<img src="${pageContext.request.contextPath }/image/${Anh }"/>
+							<img src="${pageContext.request.contextPath}/image/${Anh }"/>
 						</div>
-						<h4 class="text-center">${HoTen }</h4>
+						<h4 class="text-center">${HoTen}</h4>
 						<input type="file" name="imgchoose" accept="image/*">
 					</div>
 					<div class="nav flex-column nav-pills" id="v-pills-tab"
@@ -42,7 +42,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Email</label> <input type="text" value="${Email }"
+								<label>Email</label> <input type="email" value="${Email}"
 									class="form-control" name="Email" required>
 							</div>
 						</div>
@@ -54,8 +54,10 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<label>Số Điện Thoại</label> <input type="text"
-									class="form-control" value="${DienthoaiKH }" name="SDT"
+								<label>Số Điện Thoại (nhập đủ 10 số)</label> <input type="tel" 
+									class="form-control" value="${DienthoaiKH }" name="SDT" 
+									pattern="[0-9]{10}"
+									placeholder="Nhập đủ 10 số"
 									required>
 							</div>
 						</div>
