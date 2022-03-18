@@ -7,6 +7,9 @@ import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -188,6 +191,8 @@ public class HomeController {
 
 				// Chỉ Nhận ảnh JPG Và Chuyển ảnh thành dạng Base64 để Lưu Vô cơ sở dữ liệu
 				String rootPath = System.getProperty("catalina.home");
+				
+				System.out.println(rootPath);
 				File dir = new File(rootPath + File.separator + "assets/user/image");
 				if (!dir.exists()) {
 					dir.mkdir();
@@ -196,13 +201,12 @@ public class HomeController {
 				Calendar cal = Calendar.getInstance();
 				String date = dateFormat.format(cal.getTime());
 				String filename = String.valueOf(date + ".jpg");
-				File ServerFile= new File(dir.getAbsoluteFile()+File.separator+filename);
-				
+				File ServerFile = new File(dir.getAbsoluteFile() + File.separator + filename);
+
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(ServerFile));
 				stream.write(photo.getBytes());
 				stream.close();
-				
-				
+
 				// Json Được Chuyển Thành Dạng String vào https://jsontostring.com
 				data = "{\n\"id\" : \"" + session.getAttribute("id") + "\",\n \"HoTen\": \"" + req.getParameter("HoTen")
 						+ "\", \n \"Email\": \"" + req.getParameter("Email") + "\",\n \"DiachiKH\": \""
