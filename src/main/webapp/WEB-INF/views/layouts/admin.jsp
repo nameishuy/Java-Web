@@ -718,8 +718,8 @@
 
 							postimg(formData).then(async res => {
 								if (res.data != null) {
-									let linkAnh = "{\"Image\":\"http://localhost:3000/open-image/" + res.data + "\"}"
-									await fetch("http://localhost:3000/Banner1/Anh1", {
+									let linkAnh = "{\"Image\":\"https://bookingapiiiii.herokuapp.com/open-image/" + res.data + "\"}"
+									await fetch("https://bookingapiiiii.herokuapp.com/Banner1/Anh1", {
 										method: "put",
 										headers: {
 											'Content-Type': 'application/json'
@@ -749,8 +749,8 @@
 
 							postimg(formData2).then(async res => {
 								if (res.data != null) {
-									let linkAnh = "{\"Image\":\"http://localhost:3000/open-image/" + res.data + "\"}"
-									await fetch("http://localhost:3000/Banner1/Anh2", {
+									let linkAnh = "{\"Image\":\"https://bookingapiiiii.herokuapp.com/open-image/" + res.data + "\"}"
+									await fetch("https://bookingapiiiii.herokuapp.com/Banner1/Anh2", {
 										method: "put",
 										headers: {
 											'Content-Type': 'application/json'
@@ -777,8 +777,8 @@
 							}
 							postimg(formData3).then(async res => {
 								if (res.data != null) {
-									let linkAnh = "{\"Image\":\"http://localhost:3000/open-image/" + res.data + "\"}"
-									await fetch("http://localhost:3000/Banner1/Anh3", {
+									let linkAnh = "{\"Image\":\"https://bookingapiiiii.herokuapp.com/open-image/" + res.data + "\"}"
+									await fetch("https://bookingapiiiii.herokuapp.com/Banner1/Anh3", {
 										method: "put",
 										headers: {
 											'Content-Type': 'application/json'
@@ -795,7 +795,7 @@
 					}
 
 					async function postimg(formData) {
-						const response = await fetch("http://localhost:3000/upload-image", {
+						const response = await fetch("https://bookingapiiiii.herokuapp.com/upload-image", {
 							method: "post",
 							body: formData,
 						})

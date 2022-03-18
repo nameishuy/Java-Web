@@ -5,16 +5,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <section class="py-5 my-5">
 	<div class="container">
-		${Messenger}
 		<div class="bg-white shadow rounded-lg d-block d-sm-flex">
 			<div class="profile-tab-nav border-right">
-				<form action="myprofile" method="post" enctype="multipart/form-data">
+				<form id="profile" method="post" enctype="multipart/form-data">
 					<div class="p-4">
 						<div class="img-circle text-center mb-3">
-							<img src="${pageContext.request.contextPath }/image/${Anh }"/>
+							<img id="anh" src="${Anh }" />
 						</div>
 						<h4 class="text-center">${HoTen }</h4>
-						<input type="file" name="imgchoose" accept="image/*">
+						<input onchange="loadimg(event)" type="file" id="imgchoose"
+							name="imgchoose" accept="image/*">
 					</div>
 					<div class="nav flex-column nav-pills" id="v-pills-tab"
 						role="tablist" aria-orientation="vertical">
@@ -28,82 +28,87 @@
 							Đổi Mật Khẩu
 						</a>
 					</div>
+				</form>
 			</div>
 			<div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
 				<div class="tab-pane fade show active" id="account" role="tabpanel"
 					aria-labelledby="account-tab">
-					<h3 class="mb-4">Account Settings</h3>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Họ Và Tên</label> <input type="text" value="${HoTen }"
-									class="form-control" name="HoTen" required>
+					<form id='formprofile' method="post" enctype='multipart/form-data'>
+						<h3 class="mb-4">Account Settings</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Họ Và Tên</label> <input type="text" value="${HoTen }"
+										class="form-control" id="HoTen" name="HoTen" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Email</label> <input type="text" value="${Email }"
+										class="form-control" id="Email" name="Email" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Địa Chỉ</label> <input type="text" value="${DiachiKH }"
+										class="form-control" id="DiaChi" name="DiaChi" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Số Điện Thoại</label> <input type="text"
+										class="form-control" id="SDT" value="${DienthoaiKH }"
+										name="SDT" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Ngày Sinh</label> <input type="date"
+										value="${Ngaysinh }" id="Date" class="form-control"
+										name="Date" required>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Email</label> <input type="text" value="${Email }"
-									class="form-control" name="Email" required>
+						<div>
+							<button type="submit" class="btn btn-primary">Cập Nhật</button>
+						</div>
+					</form>
+				</div>
+
+				<div class="tab-pane fade" id="password" role="tabpanel"
+					aria-labelledby="password-tab">
+					<h3 class="mb-4">Password Settings</h3>
+					<form id="changepass" method="post">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Mật Khẩu Hiện Tại</label> <input type="password"
+										class="form-control" id="oldpass" name="oldpass" required>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Địa Chỉ</label> <input type="text" value="${DiachiKH }"
-									class="form-control" name="DiaChi" required>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Mật Khẩu Mới</label> <input type="password"
+										class="form-control" id="newpass" name="newpass" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Xác Nhận Mật Khẩu</label> <input type="password"
+										class="form-control" id="compass" name="compass" required>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Số Điện Thoại</label> <input type="text"
-									class="form-control" value="${DienthoaiKH }" name="SDT"
-									required>
-							</div>
+						<div>
+							<button type="submit" class="btn btn-primary">Đổi Mật
+								Khẩu</button>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Ngày Sinh</label> <input type="date" value="${Ngaysinh }"
-									class="form-control" name="Date" required>
-							</div>
-						</div>
-					</div>
-					<div>
-						<button class="btn btn-primary">Cập Nhật</button>
-					</div>
-			</form>
+					</form>
+				</div>
+			</div>
 		</div>
-		<div class="tab-pane fade" id="password" role="tabpanel"
-			aria-labelledby="password-tab">
-			<h3 class="mb-4">Password Settings</h3>
-			<form action="changepass" method="post">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Mật Khẩu Hiện Tại</label> <input type="password"
-								class="form-control" name="oldpass" required>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Mật Khẩu Mới</label> <input type="password"
-								class="form-control" name="newpass" required>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Xác Nhận Mật Khẩu</label> <input type="password"
-								class="form-control" name="compass" required>
-						</div>
-					</div>
-				</div>
-				<div>
-					<button class="btn btn-primary">Đổi Mật Khẩu</button>
-				</div>
-			</form>
-		</div>
-	</div>
-	</div>
 	</div>
 </section>
 
@@ -113,3 +118,159 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+		let imgchoose;
+		let idUser = '<%=session.getAttribute("id")%>';
+		const formProfile = document.getElementById("formprofile");
+		formProfile.addEventListener("submit", submitFormprofile);
+
+		function submitFormprofile(e) {
+			e.preventDefault();
+			const HoTen = document.getElementById("HoTen").value;
+			const Email = document.getElementById("Email").value;
+			const DiachiKH = document.getElementById("DiaChi").value;
+			const DienthoaiKH = document.getElementById("SDT").value;
+			const Ngaysinh = document.getElementById("Date").value;
+
+			let check = [];
+			check.push(!(typeof HoTen == "undefined")); check.push(!(typeof DienthoaiKH == "undefined"));
+			check.push(!(typeof Email == "undefined")); check.push(!(typeof Ngaysinh == "undefined"));
+			check.push(!(typeof DiachiKH == "undefined"));
+			check.push(!(typeof HoTen == "")); check.push(!(typeof DienthoaiKH == ""));
+			check.push(!(typeof Email == "")); check.push(!(typeof Ngaysinh == ""));
+			check.push(!(typeof DiachiKH == ""));
+			check.push((typeof HoTen == "string")); check.push((typeof DienthoaiKH == "string"));
+			check.push((typeof Email == "string")); check.push((typeof Ngaysinh == "string"));
+			check.push((typeof DiachiKH == "string"));
+			let isTrue = va => va === true
+
+			if (check.every(isTrue)) {
+				if (typeof idUser == "string" && !(idUser == "")) {
+					if (!(typeof imgchoose == "undefined")) {
+						const formData = new FormData();
+						for (let i = 0; i < imgchoose.files.length; i++) {
+							formData.append("img", imgchoose.files[i]);
+						}
+						postimg(formData).then(async res => {
+							if (res.data != null) {
+								let linkAnh = "https://bookingapiiiii.herokuapp.com/open-image/" + res.data;
+								await UpdateProfileHaveImg(HoTen, Email, DiachiKH, DienthoaiKH, linkAnh, Ngaysinh).then(res => {
+									alert(res.Messenger)
+									window.location.href = "/Java-Web/myprofile"
+
+								}).catch(err => {
+									alert(err);
+								})
+							} else {
+								alert("Upload Ảnh Thất bại")
+							}
+						}).catch((err) => {
+							alert(err)
+						});
+					} else {
+						UpdateProfile(HoTen, Email, DiachiKH, DienthoaiKH, Ngaysinh).then(res => {
+							alert(res.Messenger);
+							window.location.href = "/Java-Web/myprofile"
+						}).catch(err => {
+							alert(err);
+						})
+					}
+				} else { alert("Bạn Chưa Đăng Nhập") }
+			} else {
+				alert("Lỗi");
+			}
+		}
+
+		const changepass = document.getElementById("changepass");
+		changepass.addEventListener("submit", Submitchangepass);
+		async function Submitchangepass(e) {
+			e.preventDefault();
+
+			const oldpass = document.getElementById("oldpass").value;
+			const newpass = document.getElementById("newpass").value;
+			const compass = document.getElementById("compass").value;
+
+			let check = [];
+			check.push(!(typeof oldpass == "undefined")); check.push(!(typeof compass == "undefined"));
+			check.push(!(typeof newpass == "undefined"));
+			check.push((typeof oldpass == "string")); check.push((typeof compass == "string"));
+			check.push((typeof newpass == "string"));
+			check.push(!(typeof oldpass == "")); check.push(!(typeof compass == ""));
+			check.push(!(typeof newpass == ""));
+
+			let isTrue = va => va === true
+
+			if (check.every(isTrue)) {
+				if (typeof idUser == "string" && !(idUser == "")) {
+					ChangePass(oldpass, newpass, compass).then(res => {
+						alert(res.Messenger)						
+					}).catch(err => {
+						alert(err)
+					})
+				} else {
+					alert("Bạn Chưa Đăng Nhập")
+				}
+			} else {
+				alert("Lỗi")
+			}
+		}
+
+		function loadimg(event) {
+			const anh = document.getElementById("anh");
+			anh.src = URL.createObjectURL(event.target.files[0]);
+			imgchoose = event.target
+		}
+
+		async function postimg(formData) {
+			const response = await
+				fetch("https://bookingapiiiii.herokuapp.com/upload-image", {
+					method: "post",
+					body: formData,
+				})
+			return response.json();
+		}
+
+		async function UpdateProfileHaveImg(HoTen, Email, DiaChi, DienThoai, Anh, Ngaysinh) {
+			let data = "{\n\"id\" : \"" + idUser + "\",\n \"HoTen\": \"" + HoTen + "\", \n \"Email\": \"" + Email + "\",\n \"DiachiKH\": \""
+				+ DiaChi + "\",\n \"DienthoaiKH\" : \"" + DienThoai
+				+ "\",\n \"Ngaysinh\": \"" + Ngaysinh + "\",\n \"Anh\":\"" + Anh + "\"\n}";
+			console.log(data)
+			const response = await fetch("https://bookingapiiiii.herokuapp.com/khachhang", {
+				method: "put",
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: data,
+			})
+			return response.json();
+		}
+		async function UpdateProfile(HoTen, Email, DiaChi, DienThoai, Ngaysinh) {
+			let data = "{\n\"id\" : \"" + idUser + "\",\n \"HoTen\": \"" + HoTen + "\", \n \"Email\": \"" + Email + "\",\n \"DiachiKH\": \""
+				+ DiaChi + "\",\n \"DienthoaiKH\" : \"" + DienThoai
+				+ "\",\n \"Ngaysinh\": \"" + Ngaysinh + "\"\n}";
+
+			const response = await fetch("https://bookingapiiiii.herokuapp.com/khachhang", {
+				method: "put",
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: data,
+			})
+			return response.json();
+		}
+		async function ChangePass(Matkhaued, newMatkhau, ConfirmMatKhau) {
+			let data = "{\"id\":\"" + idUser + "\",\"Matkhaued\":\""
+				+ Matkhaued + "\",\"newMatkhau\":\"" + newMatkhau
+				+ "\",\"ConfirmMatKhau\":\"" + ConfirmMatKhau + "\"}";
+
+			console.log(data)
+			const response = await fetch("https://bookingapiiiii.herokuapp.com/khachhangmk", {
+				method: "put",
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: data,
+			})
+			return response.json();
+		}
+	</script>
