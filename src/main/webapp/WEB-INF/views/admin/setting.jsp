@@ -10,8 +10,7 @@
 <div class="Admin__Setting-Container">
 	<div class="Admin__Setting-Banner">
 		<h1>Banner</h1>
-		<form id='form' method="post"
-			enctype='multipart/form-data'>
+		<form id='form' method="post" enctype='multipart/form-data'>
 			<div class="Setting__Banner">
 				<div class="Setting__Banner-Feature">
 					<div>Banner 1</div>
@@ -25,29 +24,31 @@
 					Nhật</button>
 			</div>
 		</form>
-		<form action="/admin/setting" method="post">
+		<form id='form2' method="post" enctype='multipart/form-data'>
 			<div class="Setting__Banner">
 				<div class="Setting__Banner-Feature">
 					<div>Banner 2</div>
-					<input onchange="loadimg2(event)" type="file" name="Banner2" id="">
+					<input onchange="loadimg2(event)" type="file" name="Banner2" id="Banner2">
 				</div>
 				<img id="anh2"
 					src="https://i.pinimg.com/736x/86/54/42/8654429a4fbeb82f8210de503dc299ba.jpg"
 					alt="">
-				<div class="Setting__Banner-Feature-Btn">Cập Nhật</div>
+				<button type="submit" class="Setting__Banner-Feature-Btn">Cập
+					Nhật</button>
 			</div>
 		</form>
-		<form action="/admin/setting" method="post">
+		<form id='form3' method="post" enctype='multipart/form-data'>
 			<div class="Setting__Banner">
 				<div class="Setting__Banner-Feature">
 					<div>Banner 3</div>
-					<input onchange="loadimg3(event)" type="file" name="Banner3" id="">
+					<input onchange="loadimg3(event)" type="file" name="Banner3" id="Banner3">
 				</div>
 				<img id="anh3"
 					src="https://i.pinimg.com/736x/86/54/42/8654429a4fbeb82f8210de503dc299ba.jpg"
 					alt="">
 			</div>
-			<div class="Setting__Banner-Feature-Btn">Cập Nhật</div>
+			<button type="submit" class="Setting__Banner-Feature-Btn">Cập
+				Nhật</button>
 		</form>
 	</div>
 	<div class="Admin__Setting-AddNew">

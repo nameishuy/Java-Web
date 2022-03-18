@@ -691,17 +691,21 @@
 						anh.src = URL.createObjectURL(event.target.files[0]);
 						img1 = event.target.files[0];
 					}
+					let img2
 					function loadimg2(event) {
 						const anh = document.getElementById('anh2');
 						anh.src = URL.createObjectURL(event.target.files[0]);
+						img2 = event.target.files[0];
 					}
+					let img3
 					function loadimg3(event) {
 						const anh = document.getElementById('anh3');
 						anh.src = URL.createObjectURL(event.target.files[0]);
+						img3 = event.target.files[0];
 					}
+
 					const form = document.getElementById("form");
 					form.addEventListener("submit", submitForm);
-
 					function submitForm(e) {
 						e.preventDefault();
 
@@ -728,8 +732,66 @@
 								}
 							})
 						} else {
-							alert("Vui Lòng Chọn Ảnh Cho Banner1")
+							alert("Vui Lòng Chọn Ảnh Cho Banner 1")
 						}
+					}
+
+					const form2 = document.getElementById("form2");
+					form2.addEventListener("submit", submitForm2);
+					async function submitForm2(e) {
+						e.preventDefault();
+						if (!(typeof img2 == "undefined")) {
+							const files2 = document.getElementById("Banner2");
+							const formData2 = new FormData();
+							for (let i = 0; i < files2.files.length; i++) {
+								formData2.append("img", files2.files[i]);
+							}
+
+							postimg(formData2).then(async res => {
+								if (res.data != null) {
+									let linkAnh = "{\"Image\":\"http://localhost:3000/open-image/" + res.data + "\"}"
+									await fetch("http://localhost:3000/Banner1/Anh2", {
+										method: "put",
+										headers: {
+											'Content-Type': 'application/json'
+										},
+										body: linkAnh
+									})
+									alert("Cập Nhật Thành Công")
+								} else {
+									alert(res.Messager);
+								}
+							})
+						} else { alert("Vui Lòng Chọn Ảnh Cho Banner 2") }
+					}
+
+					const form3 = document.getElementById("form3");
+					form3.addEventListener("submit", submitForm3);
+					async function submitForm3(e) {
+						e.preventDefault();
+						if (!(typeof img3 == "undefined")) {
+							const files3 = document.getElementById("Banner3");
+							const formData3 = new FormData();
+							for (let i = 0; i < files3.files.length; i++) {
+								formData3.append("img", files3.files[i]);
+							}
+							postimg(formData3).then(async res => {
+								if (res.data != null) {
+									let linkAnh = "{\"Image\":\"http://localhost:3000/open-image/" + res.data + "\"}"
+									await fetch("http://localhost:3000/Banner1/Anh3", {
+										method: "put",
+										headers: {
+											'Content-Type': 'application/json'
+										},
+										body: linkAnh
+									})
+									alert("Cập Nhật Thành Công")
+								} else {
+									alert(res.Messager);
+								}
+							})
+						} else { alert("Vui Lòng Chọn Ảnh Cho Banner 3") }
+
 					}
 
 					async function postimg(formData) {
@@ -739,45 +801,6 @@
 						})
 						return response.json();
 					}
-
-
-					const form2 = document.getElementById("form2");
-					form.addEventListener("submit", submitForm);
-					async function submitForm2(e) {
-						e.preventDefault();
-
-						const files = document.getElementById("Banner2");
-						const formData = new FormData();
-						for (let i = 0; i < files.files.length; i++) {
-							formData.append("img", files.files[i]);
-						}
-						const response = await fetch("http://localhost:3000/upload-image", {
-							method: "post",
-							body: formData,
-						})
-							.then((res) => alert(response))
-							.catch((err) => ("Error occured", err));
-					}
-
-
-					const form3 = document.getElementById("form3");
-					form.addEventListener("submit", submitForm);
-					async function submitForm3(e) {
-						e.preventDefault();
-
-						const files = document.getElementById("Banner3");
-						const formData = new FormData();
-						for (let i = 0; i < files.files.length; i++) {
-							formData.append("img", files.files[i]);
-						}
-						const response = await fetch("http://localhost:3000/upload-image", {
-							method: "post",
-							body: formData,
-						})
-							.then((res) => alert(response))
-							.catch((err) => ("Error occured", err));
-					}
-
 				</script>
 		</body>
 
