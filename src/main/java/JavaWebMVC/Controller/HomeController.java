@@ -80,21 +80,10 @@ public class HomeController {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
 			session.setAttribute("Role", json.getBoolean("Role"));
-
-			String link2 = "https://bookingapiiiii.herokuapp.com/khachhangbyid/" + json.getString("id");
-			String res2 = JavaWebMVC.API.CallAPI.Get(link2).toString();
-			if (res2 != null) {
-				JSONObject json2 = new JSONObject(res2);
-				try {
-					session.setAttribute("Name", json2.getString("HoTen"));
-
-					if (!json2.getString("HoTen").isBlank() && !json2.getString("DienthoaiKH").isBlank()) {
-						session.setAttribute("Email", json2.getString("Email"));
-						session.setAttribute("SDT", json2.getString("DienthoaiKH"));
-					}
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+			session.setAttribute("Name", json.getString("HoTen"));
+			if (json.has("Email") && json.has("DienthoaiKH")) {
+				session.setAttribute("Email", json.getString("Email"));
+				session.setAttribute("SDT", json.getString("DienthoaiKH"));
 			}
 
 			return this.Index();
@@ -141,6 +130,9 @@ public class HomeController {
 		session.removeAttribute("id");
 		session.removeAttribute("User");
 		session.removeAttribute("Role");
+		session.removeAttribute("Name");
+		session.removeAttribute("Email");
+		session.removeAttribute("SDT");
 		return this.Index();
 	}
 
@@ -153,13 +145,32 @@ public class HomeController {
 			if (res != null) {
 				JSONObject json = new JSONObject(res);
 				ModelAndView mv = new ModelAndView("/user/profile");
-				mv.addObject("HoTen", json.getString("HoTen"));
-				mv.addObject("Email", json.getString("Email"));
-				mv.addObject("Anh", json.getString("Anh"));
-				mv.addObject("DiachiKH", json.getString("DiachiKH"));
-				mv.addObject("DienthoaiKH", json.getString("DienthoaiKH"));
-				mv.addObject("Ngaysinh", json.getString("Ngaysinh"));
+
+				if (json.has("Email") && json.has("Anh") && json.has("DiachiKH") && json.has("DienthoaiKH")
+						&& json.has("Ngaysinh")) {
+					mv.addObject("HoTen", json.getString("HoTen"));
+					mv.addObject("Email", json.getString("Email"));
+					mv.addObject("Anh", json.getString("Anh"));
+					mv.addObject("DiachiKH", json.getString("DiachiKH"));
+					mv.addObject("DienthoaiKH", json.getString("DienthoaiKH"));
+					mv.addObject("Ngaysinh", json.getString("Ngaysinh"));
+					session.setAttribute("Email", json.getString("Email"));
+					session.setAttribute("SDT", json.getString("DienthoaiKH"));
+				} else {
+					mv.addObject("HoTen", "");
+					mv.addObject("Email", "");
+					mv.addObject("Anh", "");
+					mv.addObject("DiachiKH", "");
+					mv.addObject("DienthoaiKH", "");
+					mv.addObject("Ngaysinh", "");
+				}
+
 				mv.addObject("Messenger", mess);
+
+				session.setAttribute("User", json.getString("HoTen"));
+				session.setAttribute("Role", json.getBoolean("Role"));
+				session.setAttribute("Name", json.getString("HoTen"));
+
 				return mv;
 			}
 		} else {

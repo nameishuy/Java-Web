@@ -196,7 +196,13 @@
 			if (check.every(isTrue)) {
 				if (typeof idUser == "string" && !(idUser == "")) {
 					ChangePass(oldpass, newpass, compass).then(res => {
-						alert(res.Messenger)
+						if(res.Messenger =="Cập Nhật Thành Công"){
+							alert(res.Messenger)
+							window.location.href = "/Java-Web/myprofile";
+						}else{
+							alert(res.Messenger)
+						}
+						
 					}).catch(err => {
 						alert(err)
 					})
