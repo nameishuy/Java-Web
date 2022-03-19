@@ -67,7 +67,7 @@ ion-icon {
 	class="navbar navbar-expand-md navbar-light border-bottom border-3 align-items-center">
 	<div class="container-fluid justify-content-around align-items-center">
 		<a class="navbar-brand d-flex align-items-center me-md-auto ms-md-5"
-			href="/Java-Web/"> <ion-icon name="book-outline"></ion-icon> MBook
+			href="/JavaWebMVC/"> <ion-icon name="book-outline"></ion-icon> MBook
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarMenu" aria-controls="navbarMenu"

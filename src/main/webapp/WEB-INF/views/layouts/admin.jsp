@@ -466,7 +466,9 @@
 					flex-wrap: wrap;
 					justify-content: space-around;
 				}
-
+				.page-item{
+					z-index:0;
+				}
 				/* Responsive */
 				@media screen and (max-width: 415px) {
 					.Admin__Container {
