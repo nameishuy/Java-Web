@@ -6,6 +6,13 @@ public class Bill {
 	private String id;
 	private String date;
 	private String username;
+	private Double TongTien;
+	public Double getTongTien() {
+		return TongTien;
+	}
+	public void setTongTien(Double tongTien) {
+		TongTien = tongTien;
+	}
 	
 	public String getId() {
 		return id;

@@ -149,7 +149,7 @@
 								let linkAnh = "https://bookingapiiiii.herokuapp.com/open-image/" + res.data;
 								await UpdateProfileHaveImg(HoTen, Email, DiachiKH, DienthoaiKH, linkAnh, Ngaysinh).then(res => {
 									alert(res.Messenger)
-									window.location.href = "/Java-Web/myprofile"
+									window.location.href = "/JavaWebMVC/myprofile"
 
 								}).catch(err => {
 									alert(err);
@@ -163,7 +163,7 @@
 					} else {
 						UpdateProfile(HoTen, Email, DiachiKH, DienthoaiKH, Ngaysinh).then(res => {
 							alert(res.Messenger);
-							window.location.href = "/Java-Web/myprofile"
+							window.location.href = "/JavaWebMVC/myprofile"
 						}).catch(err => {
 							alert(err);
 						})
@@ -198,7 +198,7 @@
 					ChangePass(oldpass, newpass, compass).then(res => {
 						if(res.Messenger =="Cập Nhật Thành Công"){
 							alert(res.Messenger)
-							window.location.href = "/Java-Web/myprofile";
+							window.location.href = "/JavaWebMVC/myprofile";
 						}else{
 							alert(res.Messenger)
 						}

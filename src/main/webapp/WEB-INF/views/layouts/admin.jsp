@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 		<!DOCTYPE html>
 		<html>
 
@@ -590,37 +591,17 @@
 						<div class="wrapper1" style="flex-basis:30%; height: fit-content;">
 							<div class="DialogDetailsPay__infoUser">
 								<h1>THÔNG TIN ĐƠN HÀNG</h1>
-								<div class="DialogDetailsPay__infoUser-Details">
-									<span> <span style="font-weight: bold;">Tên Khách
-											Hàng:</span> Doãn Chí Bình
-									</span> <span> <span style="font-weight: bold;">Mã Đơn Hàng:</span>
-										E0531
-									</span> <span> <span style="font-weight: bold;">Ngày Đặt
-											Hàng:</span> 12/3/2022
-									</span> <span> <span style="font-weight: bold;">Tổng Tiền:</span><span
-											style="color: red; font-weight: 600;"> 300.000đ</span>
-									</span> <span> <span style="font-weight: bold;">Tình Trạng:
-										</span><span style="color: red; font-weight: 600;"> Chưa Thanh Toán</span>
-									</span>
+								<div class="DialogDetailsPay__infoUser-Details" id="infoUser">
+									
 								</div>
 							</div>
 						</div>
-						<div class="wrapper2" style="flex-basis:55%;">
+						<div class="wrapper2" style="flex-basis:55%;"  id="DialogDetailsPay__infoPay-Details">
 							<div class="DialogDetailsPay__infoPay">
 								<div class="DialogDetailsPay__Title-Image">Ảnh</div>
 								<div class="DialogDetailsPay__Title-BookName">Tên Sách</div>
 								<div class="DialogDetailsPay__Title-Count">Số Lượng</div>
 								<div class="DialogDetailsPay__Title-Price">Thành Tiền</div>
-							</div>
-							<div class="DialogDetailsPay__infoPay-Details">
-								<div class="DialogDetailsPay__Image">
-									<img src="https://taisachmoi.com/wp-content/uploads/2018/12/dac-nhan-tam.jpg" alt="">
-								</div>
-								<div class="DialogDetailsPay__BookName">Lorem ipsum dolor sit
-									amet consectetur adipisicing elit. Quibusdam, culpa, ipsum nisi
-									tempore aliquid reprehenderit debitis harum sapiente iste.</div>
-								<div class="DialogDetailsPay__Count">3</div>
-								<div class="DialogDetailsPay__Price">300.000đ</div>
 							</div>
 						</div>
 					</div>
@@ -666,9 +647,24 @@
 					integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 					crossorigin="anonymous"></script>
 				<script>
-					function showDialog() {
-						let details = document.getElementById("DialogDetailsPay__Container");
-						details.style.display = "block";
+					function showDialog(id,userName,datePay,Tongtien) {
+						let detailsContainer = document.getElementById("DialogDetailsPay__Container");
+						let info = document.getElementById("infoUser");
+						info.innerHTML = '<span> <span style="font-weight: bold;">Tên Khách Hàng: </span>'+ userName +'</span> <span> <span style="font-weight: bold;">Mã Đơn Hàng: </span>'+ id +'</span> <span> <span style="font-weight: bold;">Ngày Đặt Hàng: </span>'+ datePay +'</span> <span> <span style="font-weight: bold;">Tổng Tiền: </span><span style="color: red; font-weight: 600;">'+ Tongtien +'đ</span></span> <span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: red; font-weight: 600;"> Chưa Thanh Toán</span></span>';
+						fetch("https://bookingapiiiii.herokuapp.com/CTDonHangbyid/" + id)
+						.then(response=>{
+		                    return response.json();
+		                })
+						.then(response=>{
+							let details = document.getElementById("DialogDetailsPay__infoPay-Details");
+							detailsContainer.style.display = "block";
+							response.forEach(element => {
+								
+								details.innerHTML += '<div class="DialogDetailsPay__infoPay-Details"><div class="DialogDetailsPay__Image"><img src="'+ element.Anhbia +'" alt=""></div><div class="DialogDetailsPay__BookName">'+ element.Tensach +'</div><div class="DialogDetailsPay__Count">'+ element.Soluong +'</div><div class="DialogDetailsPay__Price">'+ element.Dongia +'đ</div></div>';
+
+							});
+						})
+								
 					}
 					function closeDialog() {
 						let details = document.getElementById("DialogDetailsPay__Container");

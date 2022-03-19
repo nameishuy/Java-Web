@@ -21,8 +21,7 @@
 						</span>
 					</div>
 					<div class="Book__info-Price">
-						<b class="price"> <fmt:formatNumber type="number"
-								pattern="#,###0.000" value="${data.getGiaban()}" />đ
+						<b class="price"> <fmt:formatNumber type="number" pattern="#,###0.000" value="${data.getGiaban()}" />đ
 						</b>
 					</div>
 					<div class="Book__info-Pay">

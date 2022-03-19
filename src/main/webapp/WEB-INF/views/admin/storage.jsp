@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="Admin__Storage-Header">
 
 	<div class="Title__Product-Image">Ảnh</div>
@@ -18,7 +19,7 @@
 			</div>
 			<div class="Product__Name">${data.getTensach()}</div>
 			<div class="Product__Count">${data.getSoluongton()}</div>
-			<div class="Product__Price">${data.getGiaban()}</div>
+			<div class="Product__Price"><fmt:formatNumber type="number" pattern="#,###0.000" value="${data.getGiaban()}" />đ</div>
 			<div class="Bill__Setting">
 				<div class="Bill__Setting-details"
 					onclick="showDialogChangeDetailsProduct()">Thay Đổi</div>

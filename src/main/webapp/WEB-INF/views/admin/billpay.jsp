@@ -18,7 +18,7 @@
 			<div class="Bill__DatePay">${data.getDate() }</div>
 
 			<div class="Bill__Setting">
-				<div class="Bill__Setting-details" onclick="showDialog()">Chi
+				<div class="Bill__Setting-details" onclick="showDialog('${data.getId() }','${data.getUsername() }','${data.getDate() }','${data.getTongTien() }')">Chi
 					Tiết</div>
 			</div>
 		</div>

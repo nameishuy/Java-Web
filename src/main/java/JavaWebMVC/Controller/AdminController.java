@@ -104,6 +104,7 @@ public class AdminController {
 					bill.setDate(jsonobject.getString("Ngaydat"));
 					bill.setId(jsonobject.getString("id"));
 					bill.setUsername(jsonobject.getString("HoTen"));
+					bill.setTongTien(jsonobject.getDouble("TongTien"));
 					listBill.add(bill);
 				});
 				length = jsoncount.length();
