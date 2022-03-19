@@ -186,7 +186,7 @@ public class BookController {
 			});
 		} else {
 			Book modelbook = new Book();
-			modelbook.setMessager("Không Có Sách Này");
+			modelbook.setMessager("KhÃ´ng CÃ³ SÃ¡ch NÃ y");
 			book.add(modelbook);
 		}
 		return book;

@@ -38,13 +38,15 @@ import Model.UserBill;
 @Controller
 public class HomeController {
 	@RequestMapping(value = { "/", "/home" })
-	public ModelAndView Index() {
+	public ModelAndView Index(HttpSession session) {
 		String linkapi = "https://bookingapiiiii.herokuapp.com/Banner";
 		String resBanner = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
-
+		
+		if(session.getAttribute("CountCart")==null) {
+			session.setAttribute("CountCart", 0);
+		}
 		if (resBanner != null) {
 			JSONObject jsonobject = new JSONObject(resBanner);
-
 			// Add to mv
 			ModelAndView mv = new ModelAndView("/user/index");
 			mv.addObject("banner1", jsonobject.getString("Anh1"));
@@ -64,7 +66,7 @@ public class HomeController {
 			ModelAndView mv = new ModelAndView("/user/signin");
 			return mv;
 		}
-		return this.Index();
+		return this.Index(session);
 	}
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.POST)
@@ -86,7 +88,7 @@ public class HomeController {
 				session.setAttribute("SDT", json.getString("DienthoaiKH"));
 			}
 
-			return this.Index();
+			return this.Index(session);
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signin");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -101,7 +103,7 @@ public class HomeController {
 			ModelAndView mv = new ModelAndView("/user/signup");
 			return mv;
 		}
-		return this.Index();
+		return this.Index(session);
 	}
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
@@ -117,7 +119,7 @@ public class HomeController {
 		if (json.getString("Messenger").equalsIgnoreCase("Đăng Ký Thành Công")) {
 			session.setAttribute("id", json.getString("id"));
 			session.setAttribute("User", json.getString("HoTen"));
-			return this.Index();
+			return this.Index(session);
 		} else {
 			ModelAndView mv = new ModelAndView("/user/signup");
 			mv.addObject("Messenger", json.getString("Messenger"));
@@ -133,7 +135,7 @@ public class HomeController {
 		session.removeAttribute("Name");
 		session.removeAttribute("Email");
 		session.removeAttribute("SDT");
-		return this.Index();
+		return this.Index(session);
 	}
 
 	@RequestMapping(value = { "/myprofile" }, method = RequestMethod.GET)
@@ -262,6 +264,7 @@ public class HomeController {
 
 			sesstion.setAttribute("ItemCart", Cart);
 			sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+			sesstion.setAttribute("CountCart", Cart.size());
 			return "redirect:/my-cart";
 		}
 	}
@@ -290,6 +293,7 @@ public class HomeController {
 
 		sesstion.setAttribute("ItemCart", Cart);
 		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		sesstion.setAttribute("CountCart", Cart.size());
 		return "redirect:" + req.getHeader("Referer");
 	}
 
@@ -317,6 +321,7 @@ public class HomeController {
 
 		sesstion.setAttribute("ItemCart", Cart);
 		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		sesstion.setAttribute("CountCart", Cart.size());
 		return "redirect:" + req.getHeader("Referer");
 	}
 
@@ -340,6 +345,7 @@ public class HomeController {
 		}
 		sesstion.setAttribute("ItemCart", Cart);
 		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		sesstion.setAttribute("CountCart", Cart.size());
 		return "redirect:" + req.getHeader("Referer");
 	}
 
@@ -358,6 +364,7 @@ public class HomeController {
 		}
 		sesstion.setAttribute("ItemCart", Cart);
 		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		sesstion.setAttribute("CountCart", Cart.size());
 		return "redirect:" + req.getHeader("Referer");
 	}
 
