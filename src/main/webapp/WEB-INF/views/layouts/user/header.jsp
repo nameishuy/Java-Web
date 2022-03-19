@@ -43,7 +43,7 @@
 				<li><a class="dropdown-item" id="Item__Account" href="myprofile">Profile</a></li>
 				<li><a class="dropdown-item" id="Item__Account" href="history-pay">History Pay</a></li>
 				<% if(session.getAttribute("Role").toString() == "true"){ %>
-					<li><a class="dropdown-item" id="Item__Account" href="/Java-Web/admin/index">Admin</a></li>
+					<li><a class="dropdown-item" id="Item__Account" href="/JavaWebMVC/admin/index">Admin</a></li>
 				<%} %>
 				<li>
 					<hr class="dropdown-divider">

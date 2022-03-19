@@ -196,7 +196,12 @@
 					border-radius: .5rem;
 					position: relative;
 				}
-
+				.DialogDetailsPay{
+					width: 80vw;
+					display:flex;
+					justify-content: space-around;
+					padding-top:50px;
+				}
 				.DialogDeleteAccount {
 					min-height: 30vh;
 				}
@@ -207,7 +212,10 @@
 					padding-top: 50px;
 					padding-left: 30px;
 				}
-
+				.DialogDetailsPay__infoUser{
+					width: fit-content;
+					margin:0 auto;
+				}
 				.DialogChangeDetailsProduct__changeDetails {
 					display: flex;
 					padding-bottom: 30px;
@@ -491,6 +499,11 @@
 					.DialogDetailsPay {
 						width: 100%;
 						border-radius: 0;
+						display:block;
+						justify-content: none;
+					}
+					.DialogDetailsPay__infoUser{
+						margin: 0px !important;
 					}
 
 					.Setting__Banner-Feature {
@@ -572,37 +585,41 @@
 						<div class="DialogDetailsPay__CloseBtn" onclick="closeDialog()">
 							<ion-icon name="close-circle-outline"></ion-icon>
 						</div>
-						<div class="DialogDetailsPay__infoUser">
-							<h1>THÔNG TIN ĐƠN HÀNG</h1>
-							<div class="DialogDetailsPay__infoUser-Details">
-								<span> <span style="font-weight: bold;">Tên Khách
-										Hàng:</span> Doãn Chí Bình
-								</span> <span> <span style="font-weight: bold;">Mã Đơn Hàng:</span>
-									E0531
-								</span> <span> <span style="font-weight: bold;">Ngày Đặt
-										Hàng:</span> 12/3/2022
-								</span> <span> <span style="font-weight: bold;">Tổng Tiền:</span><span
-										style="color: red; font-weight: 600;"> 300.000đ</span>
-								</span> <span> <span style="font-weight: bold;">Tình Trạng:
-									</span><span style="color: red; font-weight: 600;"> Chưa Thanh Toán</span>
-								</span>
+						<div class="wrapper1" style="flex-basis:30%; height: fit-content;">
+							<div class="DialogDetailsPay__infoUser">
+								<h1>THÔNG TIN ĐƠN HÀNG</h1>
+								<div class="DialogDetailsPay__infoUser-Details">
+									<span> <span style="font-weight: bold;">Tên Khách
+											Hàng:</span> Doãn Chí Bình
+									</span> <span> <span style="font-weight: bold;">Mã Đơn Hàng:</span>
+										E0531
+									</span> <span> <span style="font-weight: bold;">Ngày Đặt
+											Hàng:</span> 12/3/2022
+									</span> <span> <span style="font-weight: bold;">Tổng Tiền:</span><span
+											style="color: red; font-weight: 600;"> 300.000đ</span>
+									</span> <span> <span style="font-weight: bold;">Tình Trạng:
+										</span><span style="color: red; font-weight: 600;"> Chưa Thanh Toán</span>
+									</span>
+								</div>
 							</div>
 						</div>
-						<div class="DialogDetailsPay__infoPay">
-							<div class="DialogDetailsPay__Title-Image">Ảnh</div>
-							<div class="DialogDetailsPay__Title-BookName">Tên Sách</div>
-							<div class="DialogDetailsPay__Title-Count">Số Lượng</div>
-							<div class="DialogDetailsPay__Title-Price">Thành Tiền</div>
-						</div>
-						<div class="DialogDetailsPay__infoPay-Details">
-							<div class="DialogDetailsPay__Image">
-								<img src="https://taisachmoi.com/wp-content/uploads/2018/12/dac-nhan-tam.jpg" alt="">
+						<div class="wrapper2" style="flex-basis:55%;">
+							<div class="DialogDetailsPay__infoPay">
+								<div class="DialogDetailsPay__Title-Image">Ảnh</div>
+								<div class="DialogDetailsPay__Title-BookName">Tên Sách</div>
+								<div class="DialogDetailsPay__Title-Count">Số Lượng</div>
+								<div class="DialogDetailsPay__Title-Price">Thành Tiền</div>
 							</div>
-							<div class="DialogDetailsPay__BookName">Lorem ipsum dolor sit
-								amet consectetur adipisicing elit. Quibusdam, culpa, ipsum nisi
-								tempore aliquid reprehenderit debitis harum sapiente iste.</div>
-							<div class="DialogDetailsPay__Count">3</div>
-							<div class="DialogDetailsPay__Price">300.000đ</div>
+							<div class="DialogDetailsPay__infoPay-Details">
+								<div class="DialogDetailsPay__Image">
+									<img src="https://taisachmoi.com/wp-content/uploads/2018/12/dac-nhan-tam.jpg" alt="">
+								</div>
+								<div class="DialogDetailsPay__BookName">Lorem ipsum dolor sit
+									amet consectetur adipisicing elit. Quibusdam, culpa, ipsum nisi
+									tempore aliquid reprehenderit debitis harum sapiente iste.</div>
+								<div class="DialogDetailsPay__Count">3</div>
+								<div class="DialogDetailsPay__Price">300.000đ</div>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -20,9 +20,8 @@
 				<img id="anh1"
 					src="https://i.pinimg.com/736x/86/54/42/8654429a4fbeb82f8210de503dc299ba.jpg"
 					alt="">
-				<button type="submit" class="Setting__Banner-Feature-Btn">Cập
-					Nhật</button>
 			</div>
+			<button type="submit" class="Setting__Banner-Feature-Btn">Cập Nhật</button>
 		</form>
 		<form id='form2' method="post" enctype='multipart/form-data'>
 			<div class="Setting__Banner">
@@ -33,9 +32,9 @@
 				<img id="anh2"
 					src="https://i.pinimg.com/736x/86/54/42/8654429a4fbeb82f8210de503dc299ba.jpg"
 					alt="">
-				<button type="submit" class="Setting__Banner-Feature-Btn">Cập
-					Nhật</button>
+
 			</div>
+			<button type="submit" class="Setting__Banner-Feature-Btn">Cập Nhật</button>
 		</form>
 		<form id='form3' method="post" enctype='multipart/form-data'>
 			<div class="Setting__Banner">
