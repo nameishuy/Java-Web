@@ -61,7 +61,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Ngày Sinh</label> <input type="date" value="${Ngaysinh }" id="Date"
-											class="form-control" name="Date" required>
+											class="form-control" name="Date" min="1950-01-01"required>
 									</div>
 								</div>
 							</div>
@@ -86,13 +86,13 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Mật Khẩu Mới</label> <input type="password" class="form-control"
-											id="newpass" name="newpass" required>
+											id="newpass" name="newpass" minlength="6" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Xác Nhận Mật Khẩu</label> <input type="password" class="form-control"
-											id="compass" name="compass" required>
+											id="compass" name="compass" minlength="6" required>
 									</div>
 								</div>
 							</div>

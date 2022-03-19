@@ -22,13 +22,13 @@
 					</div>
 
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="password" name="pass" required>
+						<input class="input100" type="password" name="pass" minlength="6" required>
 						<span class="focus-input100"></span> <span class="label-input100">Mật
 							Khẩu</span>
 					</div>
 
 					<div class="wrap-input100 validate-input">
-						<input class="input100" type="password" name="compass" required>
+						<input class="input100" type="password" name="compass" minlength="6" required>
 						<span class="focus-input100"></span> <span class="label-input100">Xác
 							Nhận Mật Khẩu</span>
 					</div>
