@@ -146,6 +146,7 @@ public class AdminController {
 				json.forEach(data -> {
 					JSONObject jsonobject = (JSONObject) data;
 					Book book = new Book();
+					book.setID(jsonobject.getString("id"));
 					book.setTensach(jsonobject.getString("Tensach"));
 					book.setAnh(jsonobject.getString("Anh"));
 					book.setMota(jsonobject.getString("Mota"));
