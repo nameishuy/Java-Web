@@ -634,8 +634,10 @@ to {
 
 						}
 						function closeDialog() {
-							let details = document.getElementById("DialogDetailsPay__Container");
-							details.style.display = "none";
+							let detailsContainer = document.getElementById("DialogDetailsPay__Container");
+							detailsContainer.style.display = "none";
+							let details = document.getElementById("DialogDetailsPay__infoPay-Details");
+							details.innerHTML = '<div class="DialogDetailsPay__infoPay"><div class="DialogDetailsPay__Title-Image">Ảnh</div><div class="DialogDetailsPay__Title-BookName">Tên Sách</div><div class="DialogDetailsPay__Title-Count">Số Lượng</div><div class="DialogDetailsPay__Title-Price">Thành Tiền</div></div>';
 						}
 
 						function showDialogDeleteAccount() {
