@@ -91,7 +91,6 @@
     transition: 1s;
     display: none;
     transition: 1s;
-    transform: translateY(-30px);
     animation: toVisible 1s 1 ease-in-out;
 }
 
