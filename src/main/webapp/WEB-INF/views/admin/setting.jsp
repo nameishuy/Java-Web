@@ -18,7 +18,7 @@
 						id="Banner1" multiple>
 				</div>
 				<img id="anh1"
-					src="https://i.pinimg.com/736x/86/54/42/8654429a4fbeb82f8210de503dc299ba.jpg"
+					src=""
 					alt="">
 			</div>
 			<button type="submit" class="Setting__Banner-Feature-Btn">Cập
@@ -32,7 +32,7 @@
 						id="Banner2">
 				</div>
 				<img id="anh2"
-					src="https://i.pinimg.com/736x/86/54/42/8654429a4fbeb82f8210de503dc299ba.jpg"
+					src=""
 					alt="">
 
 			</div>
@@ -47,7 +47,7 @@
 						id="Banner3">
 				</div>
 				<img id="anh3"
-					src="https://i.pinimg.com/736x/86/54/42/8654429a4fbeb82f8210de503dc299ba.jpg"
+					src=""
 					alt="">
 			</div>
 			<button type="submit" class="Setting__Banner-Feature-Btn">Cập
@@ -56,7 +56,7 @@
 	</div>
 	<div class="Admin__Setting-AddNew">
 		<div class="Admin__Setting-Author">
-			<h1>Thêm Tác Giả Mới</h1>
+			<h1>Tác Giả</h1>
 			<form class="Add__Container" method="POST">
 				<div class="AddAuthor">
 					<div>Tên Tác Giả</div>
@@ -76,10 +76,22 @@
 				</div>
 				<input type="submit" class="Add__Btn" value="Thêm" />
 			</form>
+			<div class="Delete__Container">
+				<label for="author">Chọn Tác Giả: </label>
+				<select name="author"
+					id="category">
+					<option value="volvo">Volvo</option>
+					<option value="saab">Saab</option>
+					<option value="mercedes">Mercedes</option>
+					<option value="audi">Audi</option>
+				</select>
+
+				<div class="Delete__Btn">Xóa Tác Giả</div>
+			</div>
 		</div>
 
 		<div class="Admin__Setting-Author">
-			<h1>Thêm Chủ Đề Mới</h1>
+			<h1>Chủ Đề</h1>
 			<form method="POST">
 				<div class="Add__Container">
 					<div class="AddCategory">
@@ -89,11 +101,22 @@
 					<input type="submit" class="Add__Btn" value="Thêm" />
 				</div>
 			</form>
+			<div class="Delete__Container">
+				<label for="category">Chọn Chủ Đề: </label> 
+				<select name="category"
+					id="category">
+					<option value="volvo">Volvo</option>
+					<option value="saab">Saab</option>
+					<option value="mercedes">Mercedes</option>
+					<option value="audi">Audi</option>
+				</select>
 
+				<div class="Delete__Btn">Xóa Chủ Đề</div>
+			</div>
 		</div>
 
 		<div class="Admin__Setting-Author">
-			<h1>Nhà Xuất Bản Mới</h1>
+			<h1>Nhà Xuất Bản</h1>
 			<form class="Add__Container" method="POST">
 				<div class="AddAuthor">
 					<div>Tên Nhà Xuất Bản</div>
@@ -109,6 +132,17 @@
 				</div>
 				<input type="submit" class="Add__Btn" value="Thêm" />
 			</form>
+			<div class="Delete__Container">
+				<label for="nxb">Chọn NXB: </label> 
+				<select name="nxb" id="category">
+					<option value="volvo">Volvo</option>
+					<option value="saab">Saab</option>
+					<option value="mercedes">Mercedes</option>
+					<option value="audi">Audi</option>
+				</select>
+
+				<div class="Delete__Btn">Xóa NXB</div>
+			</div>
 		</div>
 	</div>
 </div>

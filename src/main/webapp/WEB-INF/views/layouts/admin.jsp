@@ -360,7 +360,8 @@
 	width: fit-content;
 }
 
-.Add__Btn {
+.Add__Btn,
+.Delete__Btn {
 	cursor: pointer;
 	padding: 5px;
 	color: white;
@@ -369,7 +370,14 @@
 	border-radius: .3rem;
 	margin: 10px 0;
 }
-
+.Add__Btn:hover,
+.Delete__Btn:hover{
+  background-color: rgb(255, 166, 0);
+  box-shadow: 0 0 5px 0 rgb(255, 166, 0);
+}
+#category{
+  height: 30px;
+}
 /*                                  */
 .AddNewBook__Container {
 	min-height: 70vh;
@@ -438,6 +446,10 @@
 
 .page-item {
 	z-index: 0;
+}
+.Delete__Container{
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 /* Responsive */
