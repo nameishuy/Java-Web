@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
 <%@page import="JavaWebMVC.Controller.BookController"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,20 +19,21 @@
 				data-bs-slide-to="2" aria-label="Slide 3"></button>
 		</div>
 		<div class="carousel-inner Banner__Container">
+			<%
+			JSONObject list = new BookController().GetforHome();
+			JSONObject banner = (JSONObject) list.get("Banner");
+			String banner1 = banner.getString("Anh1");
+			String banner2 = banner.getString("Anh2");
+			String banner3 = banner.getString("Anh3");
+			%>
 			<div class="carousel-item Banner active">
-				<img
-					src="${banner1}"
-					class="" alt="...">
+				<img src="<%=banner1%>" class="" alt="...">
 			</div>
 			<div class="carousel-item Banner">
-				<img
-					src="${banner2}"
-					class="" alt="...">
+				<img src="<%=banner2%>" class="" alt="...">
 			</div>
 			<div class="carousel-item Banner">
-				<img
-					src="${banner3}"
-					class="" alt="...">
+				<img src="<%=banner3%>" class="" alt="...">
 			</div>
 		</div>
 		<button class="carousel-control-prev" type="button"
@@ -53,7 +57,8 @@
 			<div class="carousel-item active">
 				<div class="Slide__Book">
 					<%
-					List<Model.Book> list1 = new BookController().GetlistBook();
+					JSONArray book1 = (JSONArray) list.get("Book1");
+					List<Model.Book> list1 = new BookController().GetlistBook(book1);
 					for (Model.Book item : list1) {
 					%>
 					<a class="SellingBook" href="details?id=<%=item.getID()%>">
@@ -77,7 +82,8 @@
 			<div class="carousel-item">
 				<div class="Slide__Book">
 					<%
-					List<Model.Book> list2 = new BookController().GetlistBook2();
+					JSONArray book2 = (JSONArray) list.get("Book2");
+					List<Model.Book> list2 = new BookController().GetlistBook(book2);
 					for (Model.Book item : list2) {
 					%>
 					<a class="SellingBook" href="details?id=<%=item.getID()%>">
@@ -120,7 +126,8 @@
 		<div class="carousel-inner">
 
 			<%
-			List<Model.Book> list3 = new BookController().GetlistBook3();
+			JSONArray book3 = (JSONArray) list.get("Book3");
+			List<Model.Book> list3 = new BookController().GetlistBook(book3);
 			for (Model.Book item : list3) {
 				if (var == 1) {
 			%>
@@ -142,9 +149,8 @@
 						<div class="Good__Book-body">
 							<%=item.getMota()%>
 						</div>
-						<a class="Good__Book-readnow"  href="details?id=<%=item.getID()%>">
-							Đọc Ngay
-						</a>
+						<a class="Good__Book-readnow" href="details?id=<%=item.getID()%>">
+							Đọc Ngay </a>
 					</div>
 				</div>
 			</div>
@@ -169,9 +175,8 @@
 						<div class="Good__Book-body">
 							<%=item.getMota()%>
 						</div>
-						<a class="Good__Book-readnow"  href="details?id=<%=item.getID()%>">
-							Đọc Ngay
-						</a>
+						<a class="Good__Book-readnow" href="details?id=<%=item.getID()%>">
+							Đọc Ngay </a>
 					</div>
 				</div>
 

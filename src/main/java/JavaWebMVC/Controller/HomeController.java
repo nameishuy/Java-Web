@@ -39,25 +39,11 @@ import Model.UserBill;
 public class HomeController {
 	@RequestMapping(value = { "/", "/home" })
 	public ModelAndView Index(HttpSession session) {
-		String linkapi = "https://bookingapiiiii.herokuapp.com/Banner";
-		String resBanner = JavaWebMVC.API.CallAPI.Get(linkapi).toString();
-		
-		if(session.getAttribute("CountCart")==null) {
+		if (session.getAttribute("CountCart") == null) {
 			session.setAttribute("CountCart", 0);
 		}
-		if (resBanner != null) {
-			JSONObject jsonobject = new JSONObject(resBanner);
-			// Add to mv
-			ModelAndView mv = new ModelAndView("/user/index");
-			mv.addObject("banner1", jsonobject.getString("Anh1"));
-			mv.addObject("banner2", jsonobject.getString("Anh2"));
-			mv.addObject("banner3", jsonobject.getString("Anh3"));
-			return mv;
-		} else {
-			ModelAndView mv = new ModelAndView("/user/index");
-			mv.addObject("Messenger", "Không Thể Call API");
-			return mv;
-		}
+		ModelAndView mv = new ModelAndView("/user/index");
+		return mv;
 	}
 
 	@RequestMapping(value = { "/signin" }, method = RequestMethod.GET)
