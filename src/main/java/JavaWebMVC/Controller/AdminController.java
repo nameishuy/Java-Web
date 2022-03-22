@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import Model.Book;
+import Model.NXB;
+import Model.Tacgia;
 import Model.User;
+import Model.newbook;
+import Model.theloai;
 import Model.Bill;
 
 @Controller
@@ -228,9 +232,80 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = {"/admin/new-book"})
-	public ModelAndView NewBook() {
-		
-		ModelAndView mv = new ModelAndView("/admin/addnewbook");
-		return mv;
-	}
+	public ModelAndView NewBook(HttpServletRequest req, HttpSession session) {
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
+			//String linkcout= "https://bookingapiiiii.herokuapp.com/sach";
+			
+			String linknxb = "https://bookingapiiiii.herokuapp.com/nhaxuatban";
+			
+			
+			//String linktacgia ="/tacgia";
+			StringBuffer resAPI1 = JavaWebMVC.API.CallAPI.Get(linknxb);
+			ArrayList<NXB> listnxb = new ArrayList<NXB>();
+			
+			
+			if (resAPI1 != null) {
+				//JSONArray jsoncount = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkcout).toString());
+				JSONArray json1 = new JSONArray(JavaWebMVC.API.CallAPI.Get(linknxb).toString());
+				json1.forEach(data -> {
+					JSONObject jsonobject = (JSONObject) data;
+					NXB nxb  = new NXB();
+					nxb.set_id(jsonobject.getString("_id"));
+					nxb.setTenNXB(jsonobject.getString("TenNXB"));
+					//addbook.setTensach(jsonobject.getString("Tensach"));
+					//addbook.setGiaban(jsonobject.getDouble("Giaban"));
+					//addbook.setMota(jsonobject.getString("Mota"));
+					//addbook.setAnhbia(jsonobject.getString("Anhbia"));
+					//addbook.setSoluongton(jsonobject.getDouble("Soluongton"));
+					//addbook.setTensach(jsonobject.getString("MaCD"));
+					//addbook.setTensach(jsonobject.getString("MaNXB"));
+					//addbook.setMaTacGia(jsonobject.getString("MaTacGia"));
+					listnxb.add(nxb);
+				});
+			}
+			String linkMacd = "https://bookingapiiiii.herokuapp.com/chude";
+			StringBuffer resAPI2 = JavaWebMVC.API.CallAPI.Get(linkMacd);
+			ArrayList<theloai> listcd = new ArrayList<theloai>();
+			if (resAPI2 != null) {
+					JSONArray json2 = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkMacd).toString());
+					json2.forEach(data -> {
+						JSONObject jsonobject = (JSONObject) data;
+						theloai cd  = new theloai();
+						cd.set_id(jsonobject.getString("_id"));
+						cd.setTenChuDe(jsonobject.getString("TenChuDe"));
+						listcd.add(cd);
+				});	
+			}
+			
+			String linktacgia = "https://bookingapiiiii.herokuapp.com/tacgia";
+			StringBuffer resAPI3 = JavaWebMVC.API.CallAPI.Get(linktacgia);
+			ArrayList<Tacgia> listtacgia = new ArrayList<Tacgia>();
+			if (resAPI2 != null) {
+					JSONArray json3 = new JSONArray(JavaWebMVC.API.CallAPI.Get(linktacgia).toString());
+					json3.forEach(data -> {
+						JSONObject jsonobject = (JSONObject) data;
+						Tacgia tg  = new Tacgia();
+						tg.set_id(jsonobject.getString("_id"));
+						tg.setTenTG(jsonobject.getString("TenTG"));
+						listtacgia.add(tg);
+				});	
+			}
+			
+			ModelAndView mv = new ModelAndView("/admin/addnewbook");
+			mv.addObject("listnxb",listnxb);
+			mv.addObject("listcd",listcd);
+			mv.addObject("listtacgia",listtacgia);
+			//mv.addObject("listaddbook",listaddbook);
+			return mv;
+		}
+		else {
+			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
+			return mv;
+			}
+		}
+	
+	
+	
+	
+	
 }
