@@ -17,7 +17,6 @@ import Model.Book;
 import Model.NXB;
 import Model.Tacgia;
 import Model.User;
-import Model.newbook;
 import Model.theloai;
 import Model.Bill;
 
@@ -140,7 +139,7 @@ public class AdminController {
 			}
 
 			String linkapi = "https://bookingapiiiii.herokuapp.com/sachpagination/" + pages + "/" + last;
-			
+
 			StringBuffer resAPI = JavaWebMVC.API.CallAPI.Get(linkapi);
 			int length = 0;
 			ArrayList<Book> listBook = new ArrayList<Book>();
@@ -186,35 +185,41 @@ public class AdminController {
 			return mv;
 		}
 	}
-	
+
 	@RequestMapping(value = { "/admin/setting" }, method = RequestMethod.POST)
 	public ModelAndView Setting(HttpServletRequest req, HttpSession session) {
 		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
 			// Code more here:
 			try {
 				req.setCharacterEncoding("UTF-8");
-				if(req.getParameter("inputNXB") != null && req.getParameter("inputAddress") != null && req.getParameter("inputNXB") != "" && req.getParameter("inputAddress") != "") {
-					String data = "{\"TenNXB\":\""+ req.getParameter("inputNXB") +"\",\"Diachi\":\""+ req.getParameter("inputAddress") +"\",\"DienThoai\":\""+ req.getParameter("inputPhone") +"\"}";
+				if (req.getParameter("inputNXB") != null && req.getParameter("inputAddress") != null
+						&& req.getParameter("inputNXB") != "" && req.getParameter("inputAddress") != "") {
+					String data = "{\"TenNXB\":\"" + req.getParameter("inputNXB") + "\",\"Diachi\":\""
+							+ req.getParameter("inputAddress") + "\",\"DienThoai\":\"" + req.getParameter("inputPhone")
+							+ "\"}";
 					System.out.println(data);
-		    		String linkapi = "https://bookingapiiiii.herokuapp.com/nhaxuatban";
+					String linkapi = "https://bookingapiiiii.herokuapp.com/nhaxuatban";
 					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(linkapi, data).toString());
 					System.out.println(json);
 				}
-				
-				if(req.getParameter("inputCategory") != null && req.getParameter("inputCategory") != "") {
-					String dataCategory = "{\"TenChuDe\":\""+ req.getParameter("inputCategory") +"\"}";
-		    		String apiNewCategory = "https://bookingapiiiii.herokuapp.com/chude";
-					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(apiNewCategory, dataCategory).toString());
+
+				if (req.getParameter("inputCategory") != null && req.getParameter("inputCategory") != "") {
+					String dataCategory = "{\"TenChuDe\":\"" + req.getParameter("inputCategory") + "\"}";
+					String apiNewCategory = "https://bookingapiiiii.herokuapp.com/chude";
+					JSONObject json = new JSONObject(
+							JavaWebMVC.API.CallAPI.post(apiNewCategory, dataCategory).toString());
 					System.out.println(json);
 				}
-				
-				if(	req.getParameter("inputAuthorName") != null && req.getParameter("inputAuthorName") != ""
-					&& req.getParameter("inputAuthorAddr") != null && req.getParameter("inputAuthorAddr") != ""
-					&& req.getParameter("inputAuthorHist") != null && req.getParameter("inputAuthorHist") != ""
-					&& req.getParameter("inputAuthorPhone") != null && req.getParameter("inputAuthorPhone") != ""
-				  ) {
-					String dataAuthor = "{\"TenTG\":\""+ req.getParameter("inputAuthorName") +"\",\"Diachi\":\""+ req.getParameter("inputAuthorAddr") +"\",\"Tieusu\":\""+ req.getParameter("inputAuthorHist") +"\",\"Dienthoai\":\""+ req.getParameter("inputAuthorPhone") +"\"}";
-		    		String apiNewAuthor = "https://bookingapiiiii.herokuapp.com/tacgia";
+
+				if (req.getParameter("inputAuthorName") != null && req.getParameter("inputAuthorName") != ""
+						&& req.getParameter("inputAuthorAddr") != null && req.getParameter("inputAuthorAddr") != ""
+						&& req.getParameter("inputAuthorHist") != null && req.getParameter("inputAuthorHist") != ""
+						&& req.getParameter("inputAuthorPhone") != null && req.getParameter("inputAuthorPhone") != "") {
+					String dataAuthor = "{\"TenTG\":\"" + req.getParameter("inputAuthorName") + "\",\"Diachi\":\""
+							+ req.getParameter("inputAuthorAddr") + "\",\"Tieusu\":\""
+							+ req.getParameter("inputAuthorHist") + "\",\"Dienthoai\":\""
+							+ req.getParameter("inputAuthorPhone") + "\"}";
+					String apiNewAuthor = "https://bookingapiiiii.herokuapp.com/tacgia";
 					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(apiNewAuthor, dataAuthor).toString());
 					System.out.println(json);
 				}
@@ -230,82 +235,60 @@ public class AdminController {
 			return mv;
 		}
 	}
-	
-	@RequestMapping(value = {"/admin/new-book"})
+
+	@RequestMapping(value = { "/admin/new-book" })
 	public ModelAndView NewBook(HttpServletRequest req, HttpSession session) {
 		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
-			//String linkcout= "https://bookingapiiiii.herokuapp.com/sach";
-			
-			String linknxb = "https://bookingapiiiii.herokuapp.com/nhaxuatban";
-			
-			
-			//String linktacgia ="/tacgia";
-			StringBuffer resAPI1 = JavaWebMVC.API.CallAPI.Get(linknxb);
+
+			String linkgetallchudeTGNXB = "https://bookingapiiiii.herokuapp.com/GETALL";
+
+	
+			StringBuffer resAPI = JavaWebMVC.API.CallAPI.Get(linkgetallchudeTGNXB);
+
 			ArrayList<NXB> listnxb = new ArrayList<NXB>();
-			
-			
-			if (resAPI1 != null) {
-				//JSONArray jsoncount = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkcout).toString());
-				JSONArray json1 = new JSONArray(JavaWebMVC.API.CallAPI.Get(linknxb).toString());
-				json1.forEach(data -> {
-					JSONObject jsonobject = (JSONObject) data;
-					NXB nxb  = new NXB();
-					nxb.set_id(jsonobject.getString("_id"));
-					nxb.setTenNXB(jsonobject.getString("TenNXB"));
-					//addbook.setTensach(jsonobject.getString("Tensach"));
-					//addbook.setGiaban(jsonobject.getDouble("Giaban"));
-					//addbook.setMota(jsonobject.getString("Mota"));
-					//addbook.setAnhbia(jsonobject.getString("Anhbia"));
-					//addbook.setSoluongton(jsonobject.getDouble("Soluongton"));
-					//addbook.setTensach(jsonobject.getString("MaCD"));
-					//addbook.setTensach(jsonobject.getString("MaNXB"));
-					//addbook.setMaTacGia(jsonobject.getString("MaTacGia"));
+			ArrayList<theloai> listcd = new ArrayList<theloai>();
+			ArrayList<Tacgia> listtacgia = new ArrayList<Tacgia>();
+
+			if (resAPI != null) {
+				JSONObject jsonObject = new JSONObject(resAPI.toString());
+				JSONArray jsonchude = (JSONArray) jsonObject.get("NXB");
+
+				jsonchude.forEach(data -> {
+					JSONObject dataCD = (JSONObject) data;
+					NXB nxb = new NXB();
+					nxb.set_id(dataCD.getString("_id"));
+					nxb.setTenNXB(dataCD.getString("TenNXB"));
 					listnxb.add(nxb);
 				});
+
+				JSONArray jsontacgia = (JSONArray) jsonObject.get("tacgia");
+				jsontacgia.forEach(data -> {
+					JSONObject dataTG = (JSONObject) data;
+					Tacgia tg = new Tacgia();
+					tg.set_id(dataTG.getString("_id"));
+					tg.setTenTG(dataTG.getString("TenTG"));
+					listtacgia.add(tg);
+				});
+
+				JSONArray jsonNXB = (JSONArray) jsonObject.get("chude");
+				jsonNXB.forEach(data -> {
+					JSONObject dataNXB = (JSONObject) data;
+					theloai cd = new theloai();
+					cd.set_id(dataNXB.getString("_id"));
+					cd.setTenChuDe(dataNXB.getString("TenChuDe"));
+					listcd.add(cd);
+				});
 			}
-			String linkMacd = "https://bookingapiiiii.herokuapp.com/chude";
-			StringBuffer resAPI2 = JavaWebMVC.API.CallAPI.Get(linkMacd);
-			ArrayList<theloai> listcd = new ArrayList<theloai>();
-			if (resAPI2 != null) {
-					JSONArray json2 = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkMacd).toString());
-					json2.forEach(data -> {
-						JSONObject jsonobject = (JSONObject) data;
-						theloai cd  = new theloai();
-						cd.set_id(jsonobject.getString("_id"));
-						cd.setTenChuDe(jsonobject.getString("TenChuDe"));
-						listcd.add(cd);
-				});	
-			}
-			
-			String linktacgia = "https://bookingapiiiii.herokuapp.com/tacgia";
-			StringBuffer resAPI3 = JavaWebMVC.API.CallAPI.Get(linktacgia);
-			ArrayList<Tacgia> listtacgia = new ArrayList<Tacgia>();
-			if (resAPI2 != null) {
-					JSONArray json3 = new JSONArray(JavaWebMVC.API.CallAPI.Get(linktacgia).toString());
-					json3.forEach(data -> {
-						JSONObject jsonobject = (JSONObject) data;
-						Tacgia tg  = new Tacgia();
-						tg.set_id(jsonobject.getString("_id"));
-						tg.setTenTG(jsonobject.getString("TenTG"));
-						listtacgia.add(tg);
-				});	
-			}
-			
+
 			ModelAndView mv = new ModelAndView("/admin/addnewbook");
-			mv.addObject("listnxb",listnxb);
-			mv.addObject("listcd",listcd);
-			mv.addObject("listtacgia",listtacgia);
-			//mv.addObject("listaddbook",listaddbook);
+			mv.addObject("listnxb", listnxb);
+			mv.addObject("listcd", listcd);
+			mv.addObject("listtacgia", listtacgia);		
 			return mv;
-		}
-		else {
+		} else {
 			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
 			return mv;
-			}
 		}
-	
-	
-	
-	
-	
+	}
+
 }
