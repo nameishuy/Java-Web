@@ -359,8 +359,7 @@ public class HomeController {
 	public String Oder(HttpSession sesstion, HttpServletRequest req) {
 		ArrayList<Object> IdInCart = new ArrayList<Object>();
 		ArrayList<Integer> QuatityInCart = new ArrayList<>();
-		if (sesstion.getAttribute("Date") != null && !Cart.isEmpty()
-				&& Double.parseDouble(sesstion.getAttribute("TotalPriceInCart").toString()) > 0
+		if (!Cart.isEmpty() && Double.parseDouble(sesstion.getAttribute("TotalPriceInCart").toString()) > 0
 				&& sesstion.getAttribute("id") != null) {
 			for (Cart item : Cart) {
 				IdInCart.add(item.getBookId());
@@ -408,6 +407,7 @@ public class HomeController {
 				return "/user/dialogOrder";
 			}
 		}
+		sesstion.setAttribute("Status", "Đã xảy ra lỗi trong quá trình đặt hàng");
 		return "/user/dialogOrder";
 	}
 
