@@ -42,7 +42,6 @@ public class AdminController {
 				pages = (int) Integer.parseInt(request.getParameter("pages"));
 			}
 			Boolean role = false;
-			String linkapicount = "https://bookingapiiiii.herokuapp.com/khachhangforadmin/" + role;
 			String linkapi = "https://bookingapiiiii.herokuapp.com/khachhangforadmin/" + role + "/" + pages + "/"
 					+ last;
 
@@ -52,20 +51,25 @@ public class AdminController {
 
 			ArrayList<User> listUser = new ArrayList<User>();
 			if (resAPI != null) {
-				JSONArray json = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapi).toString());
-				JSONArray jsoncount = new JSONArray(JavaWebMVC.API.CallAPI.Get(linkapicount).toString());
-				json.forEach(data -> {
-					JSONObject jsonobject = (JSONObject) data;
-					User user = new User();
-					user.setId(jsonobject.getString("_id"));
-					user.setHoTen(jsonobject.getString("HoTen"));
-					if (jsonobject.has("Email"))
-						user.setEmail(jsonobject.getString("Email"));
-					user.setTaikhoan(jsonobject.getString("Taikhoan"));
-					user.setRole(jsonobject.getBoolean("Role"));
-					listUser.add(user);
-				});
-				length = jsoncount.length();
+				JSONObject data = new JSONObject(resAPI.toString());
+				if (!data.has("count")) {
+					length = 0;
+				} else {
+					length = (int) data.get("count");
+
+					JSONArray json = (JSONArray) data.get("data");
+					json.forEach(result -> {
+						JSONObject jsonobject = (JSONObject) result;
+						User user = new User();
+						user.setId(jsonobject.getString("_id"));
+						user.setHoTen(jsonobject.getString("HoTen"));
+						if (jsonobject.has("Email"))
+							user.setEmail(jsonobject.getString("Email"));
+						user.setTaikhoan(jsonobject.getString("Taikhoan"));
+						user.setRole(jsonobject.getBoolean("Role"));
+						listUser.add(user);
+					});
+				}
 			}
 			int TotalPage = (int) Math.ceil((double) length / last);
 			ModelAndView mv = new ModelAndView("/admin/account-manager");
@@ -242,7 +246,6 @@ public class AdminController {
 
 			String linkgetallchudeTGNXB = "https://bookingapiiiii.herokuapp.com/GETALL";
 
-	
 			StringBuffer resAPI = JavaWebMVC.API.CallAPI.Get(linkgetallchudeTGNXB);
 
 			ArrayList<NXB> listnxb = new ArrayList<NXB>();
@@ -283,7 +286,7 @@ public class AdminController {
 			ModelAndView mv = new ModelAndView("/admin/addnewbook");
 			mv.addObject("listnxb", listnxb);
 			mv.addObject("listcd", listcd);
-			mv.addObject("listtacgia", listtacgia);		
+			mv.addObject("listtacgia", listtacgia);
 			return mv;
 		} else {
 			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
