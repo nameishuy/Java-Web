@@ -1,80 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <body>
-    <div class="AddNewBook__Container">
-    
-	<form id="formNewBook">
-            <div class="AddNewBook__Body">
-                <div class="AddNewBook__Body-BookName">
-                    <span>Tên Sách: </span>
-                    <input type="text" name="" id="inputName">
-                </div>
-                <div class="AddNewBook__Body-Description">
-                    <span>Mô Tả: </span>
-                    <input type="text" name="" id="inputDesc">
-                </div>
-                <div class="AddNewBook__Body-Description">
-                    <span>Số Lượng: </span>
-                    <input type="number" name="" id="inputSoLuong">
-                </div>
-                <div class="AddNewBook__Body-Description">
-                    <span>Giá: </span>
-                    <input type="number" name="" id="inputPrice">
-                </div>
-                <div class="AddNewBook__Body-BookCategory">
-                    <span>Nhà Xuất Bản: </span>
-                    <select class="form-select" aria-label="Default select example" id="inputNXB" required>
-                      <option selected>--Chọn Nhà Xuất Bản--</option>
-    					<c:forEach items = "${listnxb}"  var="list" >
-                       		<option value="${list.get_id()}" >
-                       				${list.getTenNXB()}
-                       		</option>
-                      	</c:forEach>
-                   </select>
-                   
-                </div>
-                <div class="AddNewBook__Body-BookAuthor">
-                    <span>Tác Giả: </span>
-                    <select class="form-select" aria-label="Default select example" id="inputTG" required>
-                        <option selected>--Chọn Tác Giả--</option>
-           					<c:forEach items = "${listtacgia}"  var="list3" >
-    						
-	                       		<option value="${list3.get_id()}" >
-	                       				${list3.getTenTG()}
-                       		</option>
-                      	</c:forEach>
-                      	
-                    </select>
-                </div>
-                <div class="AddNewBook__Body-BookCategory">
-                    <span>Thể Loại: </span>
-                    <select class="form-select" aria-label="Default select example" id="inputCD" required>
-                        <option selected>--Chọn Chủ Đề--</option>
-                    	<c:forEach items = "${listcd}"  var="list2" >
-    						
-                       		<option value="${list2.get_id()}" >
-                       				${list2.getTenChuDe()}
-                       		</option>
-                      	</c:forEach>
-                    </select>
-                </div>
-                <div class="AddNewBook__Body-BookImage">
-                    <span>Ảnh: </span>
-                    <input type="file" name="" id="inputImage" accept="image/*" onchange="loadimg(event)">
-                    <div class="AddNewBook__Body-Image">
-                        <img src="https://prices.vn/photos/8/product/sach-dac-nhan-tam-cua-dale-carnegie.gif" alt=""
-                            id="anh1">
-                    </div>
-                </div>
-                <button class="AddNewBook__Body-BtnAdd" type="submit">
-                    Thêm Sách
-                </button>
-            </div>
-        </form>
-    </div>
-       <script>
+	<div class="AddNewBook__Container">
+
+		<form id="formNewBook">
+			<div class="AddNewBook__Body">
+				<div class="AddNewBook__Body-BookName">
+					<span>Tên Sách: </span> <input type="text" name="" id="inputName">
+				</div>
+				<div class="AddNewBook__Body-Description">
+					<span>Mô Tả: </span> <input type="text" name="" id="inputDesc">
+				</div>
+				<div class="AddNewBook__Body-Description">
+					<span>Số Lượng: </span> <input type="number" name=""
+						id="inputSoLuong">
+				</div>
+				<div class="AddNewBook__Body-Description">
+					<span>Giá: </span> <input type="number" name="" id="inputPrice">
+				</div>
+				<div class="AddNewBook__Body-BookCategory">
+					<span>Nhà Xuất Bản: </span> <select class="form-select"
+						aria-label="Default select example" id="inputNXB" required>
+						<option selected>--Chọn Nhà Xuất Bản--</option>
+						<c:forEach items="${listnxb}" var="list">
+							<option value="${list.get_id()}">${list.getTenNXB()}</option>
+						</c:forEach>
+					</select>
+
+				</div>
+				<div class="AddNewBook__Body-BookAuthor">
+					<span>Tác Giả: </span> <select class="form-select"
+						aria-label="Default select example" id="inputTG" required>
+						<option selected>--Chọn Tác Giả--</option>
+						<c:forEach items="${listtacgia}" var="list3">
+
+							<option value="${list3.get_id()}">${list3.getTenTG()}</option>
+						</c:forEach>
+
+					</select>
+				</div>
+				<div class="AddNewBook__Body-BookCategory">
+					<span>Thể Loại: </span> <select class="form-select"
+						aria-label="Default select example" id="inputCD" required>
+						<option selected>--Chọn Chủ Đề--</option>
+						<c:forEach items="${listcd}" var="list2">
+
+							<option value="${list2.get_id()}">
+								${list2.getTenChuDe()}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="AddNewBook__Body-BookImage">
+					<span>Ảnh: </span> <input type="file" name="" id="inputImage"
+						accept="image/*" onchange="loadimg(event)">
+					<div class="AddNewBook__Body-Image">
+						<img
+							src="https://prices.vn/photos/8/product/sach-dac-nhan-tam-cua-dale-carnegie.gif"
+							alt="" id="anh1">
+					</div>
+				</div>
+				<button class="AddNewBook__Body-BtnAdd" type="submit">Thêm
+					Sách</button>
+			</div>
+		</form>
+	</div>
+	<script>
        
        
        	const FormAddBook = document.getElementById("formNewBook");
@@ -111,9 +103,7 @@
 		            }
 		            postimg(formData).then(async (res) => {
 		                if (res.data != null) {
-		                    let linkAnh =
-		                        "https://bookingapiiiii.herokuapp.com/open-image/" +
-		                        res.data;
+		                    let linkAnh = res.data;
 		                    let body =
 		                        '{"Tensach":"' +
 		                        tensach +
