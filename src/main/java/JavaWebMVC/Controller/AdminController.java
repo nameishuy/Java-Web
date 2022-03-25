@@ -39,8 +39,13 @@ public class AdminController {
 			int last = 3, pages = 1;
 
 			if (request.getParameter("pages") != null) {
-				pages = (int) Integer.parseInt(request.getParameter("pages"));
+				if ((int) Integer.parseInt(request.getParameter("pages")) <= 0) {
+					pages = 1;
+				} else {
+					pages = (int) Integer.parseInt(request.getParameter("pages"));
+				}
 			}
+			System.out.println(pages);
 			Boolean role = false;
 			String linkapi = "https://bookingapiiiii.herokuapp.com/khachhangforadmin/" + role + "/" + pages + "/"
 					+ last;
@@ -95,7 +100,11 @@ public class AdminController {
 			int last = 3, pages = 1;
 
 			if (request.getParameter("pages") != null) {
-				pages = (int) Integer.parseInt(request.getParameter("pages"));
+				if ((int) Integer.parseInt(request.getParameter("pages")) <= 0) {
+					pages = 1;
+				} else {
+					pages = (int) Integer.parseInt(request.getParameter("pages"));
+				}
 			}
 
 			String linkapi = "https://bookingapiiiii.herokuapp.com/DonHang/" + pages + "/" + last;
@@ -139,7 +148,11 @@ public class AdminController {
 			int last = 2, pages = 1;
 
 			if (request.getParameter("pages") != null) {
-				pages = (int) Integer.parseInt(request.getParameter("pages"));
+				if ((int) Integer.parseInt(request.getParameter("pages")) <= 0) {
+					pages = 1;
+				} else {
+					pages = (int) Integer.parseInt(request.getParameter("pages"));
+				}
 			}
 
 			String linkapi = "https://bookingapiiiii.herokuapp.com/sachpagination/" + pages + "/" + last;
