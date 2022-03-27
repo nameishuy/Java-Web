@@ -1,7 +1,9 @@
 <%@page import="org.springframework.web.context.annotation.SessionScope"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
+	prefix="decorator"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <nav
 	class="navbar navbar-expand-md navbar-light border-bottom border-3 align-items-center">
 	<div class="container-fluid justify-content-around align-items-center">

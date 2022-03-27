@@ -21,8 +21,8 @@
 					<span>Giá: </span> <input type="number" name="" id="inputPrice">
 				</div>
 				<div class="AddNewBook__Body-BookCategory">
-					<span>Nhà Xuất Bản: </span> <select class="form-select"
-						aria-label="Default select example" id="inputNXB" required>
+					<span>Nhà Xuất Bản: </span> 
+					<select class="form-select"aria-label="Default select example" id="inputNXB" required>
 						<option selected>--Chọn Nhà Xuất Bản--</option>
 						<c:forEach items="${listnxb}" var="list">
 							<option value="${list.get_id()}">${list.getTenNXB()}</option>
@@ -35,7 +35,6 @@
 						aria-label="Default select example" id="inputTG" required>
 						<option selected>--Chọn Tác Giả--</option>
 						<c:forEach items="${listtacgia}" var="list3">
-
 							<option value="${list3.get_id()}">${list3.getTenTG()}</option>
 						</c:forEach>
 

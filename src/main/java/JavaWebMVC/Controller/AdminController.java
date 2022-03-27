@@ -195,7 +195,49 @@ public class AdminController {
 		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
 			// Code more here:
 
+			String linkgetallchudeTGNXB = "https://bookingapiiiii.herokuapp.com/GETALL";
+
+			StringBuffer resAPI = JavaWebMVC.API.CallAPI.Get(linkgetallchudeTGNXB);
+
+			ArrayList<NXB> listnxb = new ArrayList<NXB>();
+			ArrayList<theloai> listcd = new ArrayList<theloai>();
+			ArrayList<Tacgia> listtacgia = new ArrayList<Tacgia>();
+
+			if (resAPI != null) {
+				JSONObject jsonObject = new JSONObject(resAPI.toString());
+				JSONArray jsonchude = (JSONArray) jsonObject.get("NXB");
+
+				jsonchude.forEach(data -> {
+					JSONObject dataCD = (JSONObject) data;
+					NXB nxb = new NXB();
+					nxb.set_id(dataCD.getString("_id"));
+					nxb.setTenNXB(dataCD.getString("TenNXB"));
+					listnxb.add(nxb);
+				});
+
+				JSONArray jsontacgia = (JSONArray) jsonObject.get("tacgia");
+				jsontacgia.forEach(data -> {
+					JSONObject dataTG = (JSONObject) data;
+					Tacgia tg = new Tacgia();
+					tg.set_id(dataTG.getString("_id"));
+					tg.setTenTG(dataTG.getString("TenTG"));
+					listtacgia.add(tg);
+				});
+
+				JSONArray jsonNXB = (JSONArray) jsonObject.get("chude");
+				jsonNXB.forEach(data -> {
+					JSONObject dataNXB = (JSONObject) data;
+					theloai cd = new theloai();
+					cd.set_id(dataNXB.getString("_id"));
+					cd.setTenChuDe(dataNXB.getString("TenChuDe"));
+					listcd.add(cd);
+				});
+			}
+
 			ModelAndView mv = new ModelAndView("/admin/setting");
+			mv.addObject("listnxb", listnxb);
+			mv.addObject("listcd", listcd);
+			mv.addObject("listtacgia", listtacgia);
 			return mv;
 		} else {
 			ModelAndView mv = new ModelAndView("/admin/NoAdmin");

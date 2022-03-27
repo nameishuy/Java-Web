@@ -1,11 +1,14 @@
 <%@page import="org.json.JSONObject"%>
 <%@ page
 	import="java.io.*,java.lang.*,java.util.*,java.net.*,java.util.*,java.text.*"%>
+	
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.net.http.HttpRequest"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="Admin__Setting-Container">
 	<div class="Admin__Setting-Banner">
@@ -78,12 +81,11 @@
 			</form>
 			<div class="Delete__Container">
 				<label for="author">Chọn Tác Giả: </label>
-				<select name="author"
-					id="category">
-					<option value="volvo">Volvo</option>
-					<option value="saab">Saab</option>
-					<option value="mercedes">Mercedes</option>
-					<option value="audi">Audi</option>
+				<select name="author" id="category">
+				<option selected>--Chọn Tác Giả--</option>
+						<c:forEach items="${listtacgia}" var="list3">
+							<option value="${list3.get_id()}">${list3.getTenTG()}</option>
+						</c:forEach>
 				</select>
 
 				<div class="Delete__Btn">Xóa Tác Giả</div>
@@ -105,10 +107,12 @@
 				<label for="category">Chọn Chủ Đề: </label> 
 				<select name="category"
 					id="category">
-					<option value="volvo">Volvo</option>
-					<option value="saab">Saab</option>
-					<option value="mercedes">Mercedes</option>
-					<option value="audi">Audi</option>
+					<option selected>--Chọn chủ đề --</option>
+						<c:forEach items="${listcd}" var="list2">
+
+							<option value="${list2.get_id()}">
+								${list2.getTenChuDe()}</option>
+						</c:forEach>
 				</select>
 
 				<div class="Delete__Btn">Xóa Chủ Đề</div>
@@ -135,10 +139,10 @@
 			<div class="Delete__Container">
 				<label for="nxb">Chọn NXB: </label> 
 				<select name="nxb" id="category">
-					<option value="volvo">Volvo</option>
-					<option value="saab">Saab</option>
-					<option value="mercedes">Mercedes</option>
-					<option value="audi">Audi</option>
+				<option selected>--Chọn nhà xuất bản--</option>
+				<c:forEach items="${listnxb}" var="list">
+						<option value="${list.get_id()}">${list.getTenNXB()}</option>
+						</c:forEach>
 				</select>
 
 				<div class="Delete__Btn">Xóa NXB</div>
@@ -146,7 +150,7 @@
 		</div>
 	</div>
 </div>
-</div>
+
 <script>
 let img1
 function loadimg(event) {
