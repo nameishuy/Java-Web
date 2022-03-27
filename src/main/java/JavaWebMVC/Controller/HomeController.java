@@ -73,6 +73,10 @@ public class HomeController {
 			if (json.has("Email") && json.has("DienthoaiKH")) {
 				session.setAttribute("Email", json.getString("Email"));
 				session.setAttribute("SDT", json.getString("DienthoaiKH"));
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				Calendar cal = Calendar.getInstance();
+				String date = dateFormat.format(cal.getTime());
+				session.setAttribute("Date", date);
 			}
 
 			ModelAndView mv = new ModelAndView("redirect:/home");
@@ -365,6 +369,7 @@ public class HomeController {
 	public String Oder(HttpSession sesstion, HttpServletRequest req) {
 		ArrayList<Object> IdInCart = new ArrayList<Object>();
 		ArrayList<Integer> QuatityInCart = new ArrayList<>();
+		Double TotalPriceInCart = 0.0;
 		if (!Cart.isEmpty() && Double.parseDouble(sesstion.getAttribute("TotalPriceInCart").toString()) > 0
 				&& sesstion.getAttribute("id") != null) {
 			for (Cart item : Cart) {
@@ -372,12 +377,12 @@ public class HomeController {
 				QuatityInCart.add(item.getQuatity());
 			}
 
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-			Calendar cal = Calendar.getInstance();
-			String date = dateFormat.format(cal.getTime());
+			DateFormat dateFormat2 = new SimpleDateFormat("yyyy/MM/dd");
+			Calendar cal2 = Calendar.getInstance();
+			String date2 = dateFormat2.format(cal2.getTime());
 
 			String dataDH = "{\n \"Dathanhtoan\":" + false + ",\n \"Tinhtranggiaohang\":" + false + ",\n \"Ngaydat\":\""
-					+ date + "\",\n \"TongTien\":" + sesstion.getAttribute("TotalPriceInCart") + ",\n \"MaKH\":\""
+					+ date2 + "\",\n \"TongTien\":" + sesstion.getAttribute("TotalPriceInCart") + ",\n \"MaKH\":\""
 					+ sesstion.getAttribute("id") + "\",\n \"MasachCheck\":" + IdInCart + ",\n \"SoluongCheck\":"
 					+ QuatityInCart + "\n}";
 
@@ -402,6 +407,13 @@ public class HomeController {
 					}
 				}
 				if (flag) {
+					Cart.removeAll(Cart);
+					for (Cart item : Cart) {
+						TotalPriceInCart = TotalPriceInCart + item.getTotalPrice();
+					}
+					sesstion.setAttribute("ItemCart", Cart);
+					sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+					sesstion.setAttribute("CountCart", Cart.size());
 					sesstion.setAttribute("Status", "Cảm ơn bạn đã chọn mua sản phẩm của nhà sách chúng tôi");
 					return "/user/dialogOrder";
 				} else {
