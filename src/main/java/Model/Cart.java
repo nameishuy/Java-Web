@@ -6,6 +6,14 @@ public class Cart {
 	private double TotalPrice;
 	private String PicBook;
 	private String Description;
+	private String BookName;
+	
+	public String getBookName() {
+		return BookName;
+	}
+	public void setBookName(String bookName) {
+		BookName = bookName;
+	}
 	public String getBookId() {
 		return BookId;
 	}

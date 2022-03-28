@@ -26,7 +26,7 @@
                         <img src=${data.getPicBook() } class="Img__Book" alt="">
                     </div>
                     <a class="Cart__Products-BookName">
-                        ${data.getDescription() }
+                        ${data.getBookName() }
                     </a>
                     <div class="Cart__Products-group-product-info">
 
@@ -49,7 +49,7 @@
                         </div>
                         <span><fmt:formatNumber type="number"
 								pattern="#,###0.000" value="${data.getTotalPrice()}"/>đ</span>
-						<a href="<c:url value="/remove/${data.getBookId()}"/>" type="button">
+						<a class="BtnDelete" href="<c:url value="/remove/${data.getBookId()}"/>" type="button">
 							<ion-icon name="trash-outline"></ion-icon>
 						</a>
                     </div>

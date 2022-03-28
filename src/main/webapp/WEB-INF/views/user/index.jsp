@@ -70,7 +70,7 @@
 								<%=item.getTensach()%>
 							</p>
 							<p class="Author">
-								<%=item.getTensach()%>
+								<%=item.getTenTG()%>
 							</p>
 						</div>
 					</a>
@@ -95,7 +95,7 @@
 								<%=item.getTensach()%>
 							</p>
 							<p class="Author">
-								<%=item.getTensach()%>
+								<%=item.getTenTG()%>
 							</p>
 						</div>
 					</a>

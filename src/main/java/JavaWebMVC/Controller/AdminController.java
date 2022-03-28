@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,11 +25,18 @@ import Model.Bill;
 public class AdminController {
 
 	@RequestMapping(value = { "/admin/index" })
-	public String Admin(HttpSession session) {
-		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true"))
-			return "/admin/index";
-		else
-			return "/admin/NoAdmin";
+	public ModelAndView Admin(HttpSession session, HttpServletRequest request) {
+		if (session.getAttribute("Role") != null && (session.getAttribute("Role").toString() == "true")) {
+			
+			ModelAndView mv = new ModelAndView("/admin/index");
+			mv.addObject("Admin",session.getAttribute("Name").toString());
+			return mv;
+		}
+		else {
+			ModelAndView mv = new ModelAndView("/admin/NoAdmin");
+			return mv;
+		}
+			
 	}
 
 	@RequestMapping(value = { "/admin/account-manager" })

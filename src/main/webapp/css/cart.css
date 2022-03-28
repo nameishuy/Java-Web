@@ -28,6 +28,7 @@
             color: white;
             font-weight: 400;
             height: 30px;
+            user-select: none;
         }
             .Cart__Products-Header span{
                 flex-basis: 60%;
@@ -182,7 +183,10 @@
             border-radius: 1rem;
             background-color: red;
     	}
-
+		.BtnDelete ion-icon{
+			text-decoration: none;
+			color: black;
+		}
 @media screen and (max-width:415px) {
     .Cart__Body{
         flex-flow: column nowrap;

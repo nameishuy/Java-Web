@@ -248,7 +248,7 @@ public class HomeController {
 					JSONObject jsonobject = (JSONObject) data;
 					cart.setTotalPrice(jsonobject.getDouble("Giaban"));
 					cart.setPicBook(jsonobject.getString("Anh"));
-					cart.setDescription(jsonobject.getString("Mota"));
+					cart.setBookName(jsonobject.getString("Tensach"));
 					cart.setBookId(id);
 					cart.setQuatity(1);
 					Cart.add(cart);
