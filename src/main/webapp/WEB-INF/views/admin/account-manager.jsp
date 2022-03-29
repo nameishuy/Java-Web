@@ -1,3 +1,9 @@
+<%@page import="org.json.JSONObject"%>
+<%@page import="Model.User"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="Model.config"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.Pagination"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -12,7 +18,40 @@
 		<div class="Title__setting">Thiết Lập</div>
 	</div>
 	<div class="Admin__Account-Body">
-		<c:forEach var="data" items="${listUser }">
+		<%
+		ArrayList<config> cg = new ArrayList<config>();
+		config con = new config();
+		con.setApi("PhanTrang");
+		con.setCurrent_page(request.getParameter("pages") != null ? Integer.parseInt(request.getParameter("pages")) : 1);
+		con.setLimit(4);
+		con.setLink_full("?pages={page}");
+		con.setLink_first("/JavaWebMVC/admin/account-manager");
+		con.setRange(3);
+		cg.add(con);
+
+		Pagination pg = new Pagination();
+		pg.init(cg);
+
+		ArrayList<User> user = new ArrayList<User>();
+	
+		JSONArray data = new JSONArray(pg.Getlist());
+		
+		data.forEach(d -> {
+			JSONObject json = (JSONObject) d;
+			User u = new User();
+			u.setHoTen(json.getString("HoTen"));
+			if (json.has("Email")) {
+				u.setEmail(json.getString("Email"));
+			} else {
+				u.setEmail("Chưa Cập Nhật Email");
+			}
+
+			u.setRole(json.getBoolean("Role"));
+			u.setId(json.getString("_id"));
+			user.add(u);
+		});
+		%>
+		<c:forEach var="data" items="<%=user%>">
 			<div class="Admin__Account-Account-Details">
 				<div class="Checkbox__Account">
 					<input type="checkbox" name="" class="checkbox"
@@ -36,41 +75,7 @@
 			</div>
 		</c:forEach>
 
-		<ul class="pagination" id="pagination">
-			<%
-			//Lap so pages
-			int pages = Integer.parseInt(request.getAttribute("pages").toString());
-			int TotalPage = Integer.parseInt(request.getAttribute("TotalPage").toString());
-			if (pages > 1 && TotalPage > 1) {
-			%>
-			<li class="page-item active"><a class="page-link"
-				href="?pages=<%=(pages - 1)%>">Prev</a></li>
-			<%
-			}
-
-			for (int i = 1; i <= TotalPage; i++) {
-			if (pages == i) {
-			%>
-			<li class="page-item active"><a class="page-link"
-				href="?pages=<%=i%>"><%=i%></a></li>
-			<%
-			} else {
-			%>
-			<li class="page-item"><a class="page-link"
-				href="?pages=<%=i%>"><%=i%></a></li>
-			<%
-			}
-
-			}
-
-			if (pages < TotalPage && TotalPage > 1) {
-			%>
-			<li class="page-item active"><a class="page-link"
-				href="?pages=<%=(pages + 1)%>">Next</a></li>
-			<%
-			}
-			%>
-		</ul>
+		<%=pg.html()%>
 		<div class="UpdateAll__Setting" id="UpdateAll">Cấp Quyền Admin</div>
 	</div>
 </body>

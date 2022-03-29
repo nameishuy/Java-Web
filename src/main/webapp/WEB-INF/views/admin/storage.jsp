@@ -1,3 +1,9 @@
+<%@page import="org.json.JSONObject"%>
+<%@page import="Model.Book"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="Model.Pagination"%>
+<%@page import="Model.config"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,7 +18,37 @@
 	<div class="Title__Setting">Thiết Lập</div>
 </div>
 <div class="Admin__Storage-Body">
-	<c:forEach var="data" items="${listBook }">
+	<%
+	ArrayList<config> cg = new ArrayList<config>();
+	config con = new config();
+	con.setApi("PhanTrang");
+	con.setCurrent_page(request.getParameter("pages") != null ? Integer.parseInt(request.getParameter("pages")) : 1);
+	con.setLimit(2);
+	con.setLink_full("?pages={page}");
+	con.setLink_first("/JavaWebMVC/admin/storage-products");
+	con.setRange(3);
+	cg.add(con);
+
+	Pagination pg = new Pagination();
+	pg.init(cg);
+
+	ArrayList<Book> book = new ArrayList<Book>();
+
+	JSONArray data = new JSONArray(pg.Getlist());
+	
+	data.forEach(d -> {
+		JSONObject json = (JSONObject) d;
+		Book b = new Book();	
+		b.setID(json.getString("id"));
+		b.setTensach(json.getString("Tensach"));
+		b.setAnh(json.getString("Anh"));
+		b.setMota(json.getString("Mota"));
+		b.setSoluongton(json.getInt("Soluongton"));
+		b.setGiaban(json.getDouble("Giaban"));
+		book.add(b);		
+	});
+	%>
+	<c:forEach var="data" items="<%=book %>">
 		<div class="Admin__Storage-Details">
 			<div class="Product__Image">
 				<img src="${data.getAnh()}" alt="">
@@ -31,42 +67,7 @@
 			</div>
 		</div>
 	</c:forEach>
-
-	<ul class="pagination" id="pagination">
-		<%
-		//Lap so pages
-		int pages = Integer.parseInt(request.getAttribute("pages").toString());
-		int TotalPage = Integer.parseInt(request.getAttribute("TotalPage").toString());
-		if (pages > 1 && TotalPage > 1) {
-		%>
-		<li class="page-item active"><a class="page-link"
-			href="?pages=<%=(pages - 1)%>">Prev</a></li>
-		<%
-		}
-
-		for (int i = 1; i <= TotalPage; i++) {
-		if (pages == i) {
-		%>
-		<li class="page-item active"><a class="page-link"
-			href="?pages=<%=i%>"><%=i%></a></li>
-		<%
-		} else {
-		%>
-		<li class="page-item"><a class="page-link" href="?pages=<%=i%>"><%=i%></a></li>
-		<%
-		}
-
-		}
-
-		if (pages < TotalPage && TotalPage > 1) {
-		%>
-		<li class="page-item active"><a class="page-link"
-			href="?pages=<%=(pages + 1)%>">Next</a></li>
-		<%
-		}
-		%>
-	</ul>
-
+	<%=pg.html() %>
 </div>
 <script>
 
@@ -93,7 +94,7 @@ function submitFormprofile(e) {
             .then((res) => {
                 if (res._id != null) {
                     alert("Cập Nhật Thành Công");
-                    window.location.href = "/Java-Web/admin/storage-products";
+                    window.location.href = "/JavaWebMVC/admin/storage-products";
                 } else {
                     alert(res);
                 }
