@@ -142,19 +142,16 @@ public class AdminController {
 						&& req.getParameter("inputNXB") != "" && req.getParameter("inputAddress") != "") {
 					String data = "{\"TenNXB\":\"" + req.getParameter("inputNXB") + "\",\"Diachi\":\""
 							+ req.getParameter("inputAddress") + "\",\"DienThoai\":\"" + req.getParameter("inputPhone")
-							+ "\"}";
-					System.out.println(data);
+							+ "\"}";				
 					String linkapi = "https://bookingapiiiii.herokuapp.com/nhaxuatban";
-					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(linkapi, data).toString());
-					System.out.println(json);
+					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(linkapi, data).toString());					
 				}
 
 				if (req.getParameter("inputCategory") != null && req.getParameter("inputCategory") != "") {
 					String dataCategory = "{\"TenChuDe\":\"" + req.getParameter("inputCategory") + "\"}";
 					String apiNewCategory = "https://bookingapiiiii.herokuapp.com/chude";
 					JSONObject json = new JSONObject(
-							JavaWebMVC.API.CallAPI.post(apiNewCategory, dataCategory).toString());
-					System.out.println(json);
+							JavaWebMVC.API.CallAPI.post(apiNewCategory, dataCategory).toString());				
 				}
 
 				if (req.getParameter("inputAuthorName") != null && req.getParameter("inputAuthorName") != ""
@@ -166,15 +163,15 @@ public class AdminController {
 							+ req.getParameter("inputAuthorHist") + "\",\"Dienthoai\":\""
 							+ req.getParameter("inputAuthorPhone") + "\"}";
 					String apiNewAuthor = "https://bookingapiiiii.herokuapp.com/tacgia";
-					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(apiNewAuthor, dataAuthor).toString());
-					System.out.println(json);
+					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(apiNewAuthor, dataAuthor).toString());					
 				}
 
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			ModelAndView mv = new ModelAndView("/admin/setting");
+			
+			ModelAndView mv = new ModelAndView("redirect:/admin/setting");
 			return mv;
 		} else {
 			ModelAndView mv = new ModelAndView("/admin/NoAdmin");

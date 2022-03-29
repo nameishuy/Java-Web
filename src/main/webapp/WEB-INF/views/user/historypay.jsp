@@ -84,11 +84,13 @@
 				return data.json();
 			}).then( res =>{
 				let HistoryPayDetail = document.getElementById("DialogDetailsHistoryPay__infoUser-Details");
-				let TinhTrang = '<span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: red; font-weight: 600;"> Chưa Giao Hàng</span> </span>';
-				if(TinhTrangGiaoHang == true){
-					TinhTrang = '<span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: rgba(12, 134, 1, 0.767); font-weight: 600;">Đã Giao Hàng</span></span>';
-				}
+				let TinhTrang ='';
 				res.forEach(element => {
+					if(element.Tinhtranggiaohang == true){
+						TinhTrang = '<span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: rgba(12, 134, 1, 0.767); font-weight: 600;"> Đã Giao Hàng </span></span>';
+					}else{
+						TinhTrang = '<span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: red; font-weight: 600;"> Chưa Giao Hàng </span> </span>';
+					}
 					HistoryPayDetail.innerHTML='<div class="DialogDetailsHistoryPay__infoUser-Details"> <span> <span style="font-weight: bold;">Tên Khách Hàng: </span>'+element.HoTen+' </span><span> <span style="font-weight: bold;">Mã Đơn Hàng: </span>'+element.id+'</span> <span> <span style="font-weight: bold;">Ngày ĐặtHàng: </span>'+element.Ngaydat+'</span><span> <span style="font-weight: bold;">Tổng Tiền: </span><spanstyle="color: red; font-weight: 600;">'+element.TongTien*1000+' đ</span> </span>'+TinhTrang+'</div>';
 				})
 			});
