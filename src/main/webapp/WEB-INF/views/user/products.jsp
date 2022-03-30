@@ -1,3 +1,7 @@
+<%@page import="Model.Book"%>
+<%@page import="Model.config"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.Pagination"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="JavaWebMVC.Controller.BookController"%>
@@ -34,113 +38,92 @@
 			</form>
 			<div class="Product__List">
 				<%
-				int last = 8, pages = 1;
-				String IDCHUDE = request.getParameter("chude"), keyword = request.getParameter("keyword");
-
-				if (request.getParameter("pages") != null) {
-					if ((int) Integer.parseInt(request.getParameter("pages")) <= 0) {
-						pages = 1;
-					} else {
-						pages = (int) Integer.parseInt(request.getParameter("pages"));
-					}
+				ArrayList<config> cg = new ArrayList<config>();
+				config con = new config();
+				con.setBody(null);
+				con.setApi("PhanTrang");
+				con.setCurrent_page(request.getParameter("pages") != null ? Integer.parseInt(request.getParameter("pages")) : 1);
+				con.setLimit(8);
+				con.setLink_full("?pages={page}");
+				con.setLink_first("/JavaWebMVC/products");
+				if (request.getParameter("chude") != null) {
+					con.setBody(null);
+					con.setApi("PhanTrangChuDe/" + request.getParameter("chude"));
+					con.setLink_full("?pages={page}&chude=" + request.getParameter("chude"));
+					con.setLink_first("/JavaWebMVC/products?chude=" + request.getParameter("chude"));
 				}
+				if (request.getParameter("keyword") != null) {
+					con.setBody(request.getParameter("keyword"));				
+					con.setApi("PhanTrangSearch");
+					con.setLink_full("?pages={page}&keyword=" + request.getParameter("keyword"));
+					con.setLink_first("/JavaWebMVC/products?keyword=" + request.getParameter("keyword"));
+				}
+				con.setRange(3);
+				cg.add(con);
 
-				//Lấy tổng sản phẩm trong
+				Pagination pg = new Pagination();
+				pg.init(cg);
 
-				JSONObject json = new BookController().getList(request, pages, last);			
-				if (!json.has("count")) {
+				ArrayList<Book> list = new ArrayList<Book>();
+
+				if (pg.Getlist() == null) {
+					out.print(
+					"<div class='Cart__Products-Empty'> <div class='Cart__Products-Empty-image'> <img src='https://i.pinimg.com/originals/ec/0c/0c/ec0c0c652f7a9fb965bf08f45c4403fe.gif' alt=''> </div> <span>Not Found</span> </div>");
+				} else {
+					JSONArray data = new JSONArray(pg.Getlist());
+
+					data.forEach(d -> {
+						JSONObject json = (JSONObject) d;
+						Book book = new Book();
+						if (json.has("Messager")) {
+					book.setMessager(json.getString("Messager"));
+						} else {
+					book.setID(json.getString("id"));
+					book.setTensach(json.getString("Tensach"));
+					book.setAnh(json.getString("Anh"));
+					book.setMessager(null);
+					book.setTenTG(json.getString("TenTG"));
+					if (json.has("Mota")) {
+						book.setMota(json.getString("Mota"));
+					} else {
+						book.setMota("");
+					}
+					if (json.has("Giaban")) {
+						book.setGiaban(json.getDouble("Giaban"));
+						;
+					} else {
+						book.setGiaban((double) 0);
+					}
+						}
+						list.add(book);
+					});
+
+					for (Model.Book item : list) {
 				%>
-				<h4>Không Có Sách Này</h4>
+
+				<a class="Book" href="details?id=<%=item.getID()%>">
+					<div class="Book__Img">
+						<img src="<%=item.getAnh()%>" alt="">
+					</div>
+					<div class="Book__Content">
+						<div class="Book__Content-BookName">
+							<h3><%=item.getTensach()%></h3>
+							<p class="Book__Content-Author"><%=item.getTenTG()%></p>
+							<p class="Book__Content-Price">
+								<fmt:formatNumber type="number" pattern="#,###0.000"
+									value="<%=item.getGiaban()%>" />
+								đ
+							</p>
+						</div>
+					</div>
+				</a>
+				<%
+				}
+				}
+				%>
+
 			</div>
-			<%
-			} else if (((JSONArray) json.get("data")).length() == 0) {
-			%>
-			<h4>Không Có Sách Này</h4>
+			<%=pg.html()%>
 		</div>
-		<%
-		} else {
-		int total = (int) json.get("count");
-		JSONArray book1 = (JSONArray) json.get("data");
-
-		List<Model.Book> list = new BookController().GetlistBook(book1);
-
-		for (Model.Book item : list) {
-			if (item.getMessager() != null) {
-		%>
-		<h4><%=item.getMessager()%></h4>
-		<%
-		} else {
-		%>
-
-		<a class="Book" href="details?id=<%=item.getID()%>">
-			<div class="Book__Img">
-				<img src="<%=item.getAnh()%>" alt="">
-			</div>
-			<div class="Book__Content">
-				<div class="Book__Content-BookName">
-					<h3><%=item.getTensach()%></h3>
-					<p class="Book__Content-Author"><%=item.getTenTG()%></p>
-					<p class="Book__Content-Price">
-						<fmt:formatNumber type="number" pattern="#,###0.000"
-							value="<%=item.getGiaban()%>" />
-						đ
-					</p>
-				</div>
-			</div>
-		</a>
-		<%
-		}
-		}
-		%>
-	</div>
-	<ul class="pagination" id="pagination">
-		<%
-		int loop = (int) Math.ceil((double) total / last);
-		//Lap so pages
-		for (int i = 1; i <= loop; i++) {
-		%>
-		<%
-		if (IDCHUDE != null) {
-			if (pages == i) {
-		%>
-		<li class="page-item active"><a class="page-link"
-			href="?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
-		<%
-		} else {
-		%>
-		<li class="page-item"><a class="page-link"
-			href="?pages=<%=i%>&chude=<%=IDCHUDE%>"><%=i%></a></li>
-		<%
-		}
-		} else if (keyword != null) {
-		if (pages == i) {
-		%>
-		<li class="page-item active"><a class="page-link"
-			href="?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
-		<%
-		} else {
-		%>
-		<li class="page-item"><a class="page-link"
-			href="?pages=<%=i%>&keyword=<%=keyword%>"><%=i%></a></li>
-		<%
-		}
-		} else {
-		if (pages == i) {
-		%>
-		<li class="page-item active"><a class="page-link"
-			href="?pages=<%=i%>"><%=i%></a></li>
-		<%
-		} else {
-		%>
-		<li class="page-item"><a class="page-link" href="?pages=<%=i%>"><%=i%></a></li>
-		<%
-		}
-
-		}
-		}
-		}
-		%>
-	</ul>
-	</div>
 	</div>
 </body>

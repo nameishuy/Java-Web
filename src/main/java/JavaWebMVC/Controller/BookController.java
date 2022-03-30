@@ -78,39 +78,4 @@ public class BookController {
 		mv.addObject("keyword", req.getParameter("keyword"));
 		return mv;
 	}
-
-	public JSONObject getList(HttpServletRequest req, int Frist, int Last) throws UnsupportedEncodingException {
-		req.setCharacterEncoding("UTF-8");
-
-		ArrayList<Book> book = new ArrayList<Book>();
-		int post = 0;
-
-		String datapost = null;
-		String linkbook = "https://bookingapiiiii.herokuapp.com/PhanTrang/" + Frist + "/" + Last;
-
-		boolean check = JavaWebMVC.API.CallAPI.Get(linkbook) == null;
-
-		if (req.getParameter("chude") != null) {
-			linkbook = "https://bookingapiiiii.herokuapp.com/PhanTrangChuDe/" + req.getParameter("chude") + "/"
-					+ Frist + "/" + Last;
-
-		} else if (req.getParameter("keyword") != null) {
-			linkbook = "https://bookingapiiiii.herokuapp.com/PhanTrangSearch";
-			datapost = "{\"keyword\":\"" + req.getParameter("keyword") + "\",\"page\":" + Frist + ",\"limit\":" + Last
-					+ "}";
-			check = JavaWebMVC.API.CallAPI.post(linkbook, datapost) == null;
-			post = 1;
-		}
-		JSONObject json = null;
-		if (!check) {
-
-			if (post == 1) {
-				json = new JSONObject(JavaWebMVC.API.CallAPI.post(linkbook, datapost).toString());
-			} else {
-				json = new JSONObject(JavaWebMVC.API.CallAPI.Get(linkbook).toString());
-			}
-		}
-		return json;
-	}
-
 }
