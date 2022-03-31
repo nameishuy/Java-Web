@@ -1,3 +1,5 @@
+<%@page import="service.isNumber"%>
+<%@page import="org.springframework.util.NumberUtils"%>
 <%@page import="Model.Book"%>
 <%@page import="Model.config"%>
 <%@page import="java.util.ArrayList"%>
@@ -42,7 +44,9 @@
 				config con = new config();
 				con.setBody(null);
 				con.setApi("PhanTrang");
-				con.setCurrent_page(request.getParameter("pages") != null ? Integer.parseInt(request.getParameter("pages")) : 1);
+				con.setCurrent_page(request.getParameter("pages") != null && isNumber.isNumeric(request.getParameter("pages"))
+						? Integer.parseInt(request.getParameter("pages"))
+						: 1);
 				con.setLimit(8);
 				con.setLink_full("?pages={page}");
 				con.setLink_first("/JavaWebMVC/products");
@@ -53,7 +57,7 @@
 					con.setLink_first("/JavaWebMVC/products?chude=" + request.getParameter("chude"));
 				}
 				if (request.getParameter("keyword") != null) {
-					con.setBody(request.getParameter("keyword"));				
+					con.setBody(request.getParameter("keyword"));
 					con.setApi("PhanTrangSearch");
 					con.setLink_full("?pages={page}&keyword=" + request.getParameter("keyword"));
 					con.setLink_first("/JavaWebMVC/products?keyword=" + request.getParameter("keyword"));
