@@ -41,27 +41,66 @@
 
 	data.forEach(d -> {
 		JSONObject json = (JSONObject) d;
-		Bill bill = new Bill();		
+		Bill bill = new Bill();
 		String date = json.getString("Ngaydat").substring(0, 10);
 		bill.setDate(date);
 		bill.setId(json.getString("id"));
 		bill.setUsername(json.getString("HoTen"));
 		bill.setTongTien(json.getDouble("TongTien"));
+		bill.setTinhtranggiaohang(json.getBoolean("Tinhtranggiaohang"));
 		listBill.add(bill);
 	});
 	%>
+
 	<c:forEach var="data" items="<%=listBill%>">
 		<div class="Admin__HistoryPay-Details">
-			<div class="Bill__BillID">${data.getId() }</div>
-			<div class="Bill__Username">${data.getUsername() }</div>			
+			<div class="Bill__BillID">${data.getId()
+																					}</div>
+			<div class="Bill__Username">${data.getUsername() }</div>
 			<div class="Bill__DatePay">${data.getDate() }</div>
 
 			<div class="Bill__Setting">
 				<div class="Bill__Setting-details"
-					onclick="showDialog('${data.getId() }','${data.getUsername() }','${data.getDate() }','${data.getTongTien() }')">Chi
-					Tiết</div>
+					onclick="showDialog('${data.getId() }','${data.getUsername() }','${data.getDate() }','${data.getTongTien()}','${data.getTinhtranggiaohang()}')">
+					Chi Tiết</div>
+				<div class="Bill__Setting-status">
+					<c:choose>
+						<c:when test="${data.getTinhtranggiaohang()}">
+							<div class="Status"
+								style="color: rgb(10, 103, 10); font-weight: 700;">Đã Giao
+								Hàng</div>
+						</c:when>
+						<c:otherwise>
+							<select onchange="change('${data.getId() }')"
+								id="Setting__Status">
+								<option selected disabled>Chưa Giao Hàng</option>
+								<option>Đã Giao Hàng</option>
+							</select>
+						</c:otherwise>
+					</c:choose>
+
+
+
+
+				</div>
 			</div>
 		</div>
 	</c:forEach>
 	<%=pg.html()%>
 </div>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript">
+														function change(id) {
+															$.ajax({
+																url: "/JavaWebMVC/admin/bill-pay",
+																data: "id=" + id,
+																type: "POST",
+																success: () => {
+																	document.getElementsByTagName('select').selectedIndex = "0";
+																	location.reload();
+																}
+															})
+
+														}
+													</script>

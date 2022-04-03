@@ -7,6 +7,13 @@ public class Bill {
 	private String date;
 	private String username;
 	private Double TongTien;
+	private Boolean Tinhtranggiaohang;
+	public Boolean getTinhtranggiaohang() {
+		return Tinhtranggiaohang;
+	}
+	public void setTinhtranggiaohang(Boolean tinhtranggiaohang) {
+		Tinhtranggiaohang = tinhtranggiaohang;
+	}
 	public Double getTongTien() {
 		return TongTien;
 	}

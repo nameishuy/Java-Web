@@ -360,8 +360,7 @@
 	width: fit-content;
 }
 
-.Add__Btn,
-.Delete__Btn {
+.Add__Btn, .Delete__Btn {
 	cursor: pointer;
 	padding: 5px;
 	color: white;
@@ -370,13 +369,14 @@
 	border-radius: .3rem;
 	margin: 10px 0;
 }
-.Add__Btn:hover,
-.Delete__Btn:hover{
-  background-color: rgb(255, 166, 0);
-  box-shadow: 0 0 5px 0 rgb(255, 166, 0);
+
+.Add__Btn:hover, .Delete__Btn:hover {
+	background-color: rgb(255, 166, 0);
+	box-shadow: 0 0 5px 0 rgb(255, 166, 0);
 }
-#category{
-  height: 30px;
+
+#category {
+	height: 30px;
 }
 /*                                  */
 .AddNewBook__Container {
@@ -447,9 +447,10 @@
 .page-item {
 	z-index: 0;
 }
-.Delete__Container{
-  display: flex;
-  flex-flow: column nowrap;
+
+.Delete__Container {
+	display: flex;
+	flex-flow: column nowrap;
 }
 
 /* Responsive */
@@ -626,10 +627,14 @@ to {
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
 	<script>
-						function showDialog(id, userName, datePay, Tongtien) {
+						function showDialog(id, userName, datePay, Tongtien,Tinhtranggiaohang) {
 							let detailsContainer = document.getElementById("DialogDetailsPay__Container");
-							let info = document.getElementById("infoUser");
-							info.innerHTML = '<span> <span style="font-weight: bold;">Tên Khách Hàng: </span>' + userName + '</span> <span> <span style="font-weight: bold;">Mã Đơn Hàng: </span>' + id + '</span> <span> <span style="font-weight: bold;">Ngày Đặt Hàng: </span>' + datePay + '</span> <span> <span style="font-weight: bold;">Tổng Tiền: </span><span style="color: red; font-weight: 600;">' + Tongtien + 'đ</span></span> <span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: red; font-weight: 600;"> Chưa Thanh Toán</span></span>';
+							let info = document.getElementById("infoUser");				
+							if (Tinhtranggiaohang=='true') {
+								info.innerHTML = '<span> <span style="font-weight: bold;">Tên Khách Hàng: </span>' + userName + '</span> <span> <span style="font-weight: bold;">Mã Đơn Hàng: </span>' + id + '</span> <span> <span style="font-weight: bold;">Ngày Đặt Hàng: </span>' + datePay + '</span> <span> <span style="font-weight: bold;">Tổng Tiền: </span><span style="color: red; font-weight: 600;">' + Tongtien + 'đ</span></span> <span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: green; font-weight: 600;"> Đã Giao Hàng</span></span>';								
+							} else {										
+								info.innerHTML = '<span> <span style="font-weight: bold;">Tên Khách Hàng: </span>' + userName + '</span> <span> <span style="font-weight: bold;">Mã Đơn Hàng: </span>' + id + '</span> <span> <span style="font-weight: bold;">Ngày Đặt Hàng: </span>' + datePay + '</span> <span> <span style="font-weight: bold;">Tổng Tiền: </span><span style="color: red; font-weight: 600;">' + Tongtien + 'đ</span></span> <span> <span style="font-weight: bold;">Tình Trạng:</span><span style="color: red; font-weight: 600;"> Chưa Giao Hàng</span></span>';
+							}
 							fetch("https://bookingapiiiii.herokuapp.com/CTDonHangbyid/" + id)
 								.then(response => {
 									return response.json();

@@ -21,7 +21,7 @@
 		<%
 		ArrayList<config> cg = new ArrayList<config>();
 		config con = new config();
-		con.setApi("PhanTrang");
+		con.setApi("khachhangforadmin/false");
 		con.setCurrent_page(request.getParameter("pages") != null ? Integer.parseInt(request.getParameter("pages")) : 1);
 		con.setLimit(4);
 		con.setLink_full("?pages={page}");
@@ -33,9 +33,9 @@
 		pg.init(cg);
 
 		ArrayList<User> user = new ArrayList<User>();
-	
+
 		JSONArray data = new JSONArray(pg.Getlist());
-		
+
 		data.forEach(d -> {
 			JSONObject json = (JSONObject) d;
 			User u = new User();
