@@ -64,13 +64,12 @@
 				<c:if test="${data.getRole() == false}">
 					<div class="User__role">Khách</div>
 				</c:if>
-
 				<c:if test="${data.getRole() == true}">
 					<div class="User__role">Admin</div>
 				</c:if>
 				<div class="User__setting">
 					<div class="User__setting-deleteAccount"
-						onclick="showDialogDeleteAccount()">Xóa Tài Khoản</div>
+						onclick="showDialogDeleteAccount('${data.id}','${data.role}}')">Xóa Tài Khoản</div>
 				</div>
 			</div>
 		</c:forEach>
@@ -78,4 +77,10 @@
 		<%=pg.html()%>
 		<div class="UpdateAll__Setting" id="UpdateAll">Cấp Quyền Admin</div>
 	</div>
+	<script >
+	
+
+	
+	
+	</script>
 </body>

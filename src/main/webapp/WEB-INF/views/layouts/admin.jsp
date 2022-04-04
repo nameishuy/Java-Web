@@ -587,8 +587,8 @@ to {
 			</div>
 			<div class="DeleteAccount__Setting">
 				<div
-					class="DeleteAccount__Setting-details DeleteAccount__Setting-YES">
-					Yes</div>
+					class="DeleteAccount__Setting-details DeleteAccount__Setting-YES" onclick="DeleteAccount()">
+					Yes </div>
 				<div class="DeleteAccount__Setting-details"
 					onclick="closeDialogDeleteAccount()">No</div>
 			</div>
@@ -656,10 +656,14 @@ to {
 							let details = document.getElementById("DialogDetailsPay__infoPay-Details");
 							details.innerHTML = '<div class="DialogDetailsPay__infoPay"><div class="DialogDetailsPay__Title-Image">Ảnh</div><div class="DialogDetailsPay__Title-BookName">Tên Sách</div><div class="DialogDetailsPay__Title-Count">Số Lượng</div><div class="DialogDetailsPay__Title-Price">Thành Tiền</div></div>';
 						}
-
-						function showDialogDeleteAccount() {
+						let Role;
+						let userid;
+						function showDialogDeleteAccount(id,role) {
+							
 							let dialog = document.getElementById("Dialog_Messenger");
 							dialog.style.display = "block";
+							 this.userid = id;
+							 this.Role = role;
 						}
 
 						function closeDialogDeleteAccount() {
@@ -690,7 +694,39 @@ to {
 							})
 							if (n > 0) btnUpdate.style.display = "block";
 							else btnUpdate.style.display = "none";
-						}					
+						}	
+						
+						
+						
+						
+						// xoa tai khoan 
+						async function delteleData(url = "") {
+						    let BookingApi = "https://bookingapiiiii.herokuapp.com/";
+						    console.log(BookingApi + url);
+						    const response = await fetch(BookingApi + url, {
+						        method: "DELETE",
+						        cache: "no-cache",
+						        credentials: "same-origin",
+						        headers: {
+						            "Content-Type": "application/json",
+						        },
+						    });
+
+						    return response.json();
+						}
+						function DeleteAccount() {
+							
+						        this.userid;
+						        this.delteleData("khachhangbyid/" + this.userid)
+						            .then((result) => {
+						                alert("Xóa Thành Công");
+						                window.location.href = "/JavaWebMVC/admin/account-manager";
+						            })
+						            .catch((err) => {
+						                alert(err);
+						            });
+						    
+						}
 					</script>
 </body>
 
