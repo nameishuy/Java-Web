@@ -184,12 +184,13 @@ public class HomeController {
 	public ModelAndView getvalue(HttpServletRequest req) {
 
 		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" + req.getParameter("id");
-		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+		StringBuffer check = JavaWebMVC.API.CallAPI.Get(link);
 
 		ArrayList<Book> detail = new ArrayList<Book>();
 		if (check != null) {
-			JSONArray json = new JSONArray(check);
-			json.forEach(data -> {
+			JSONObject json = new JSONObject(check.toString());
+			JSONArray jsonarr = (JSONArray) json.get("data");
+			jsonarr.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book book = new Book();
 				book.setID(jsonobject.getString("id"));
@@ -225,7 +226,7 @@ public class HomeController {
 	public String addCart(HttpServletRequest req, HttpSession sesstion, @PathVariable String id) {
 		Cart cart = new Cart();
 		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" + id;
-		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+		StringBuffer check = JavaWebMVC.API.CallAPI.Get(link);
 		Boolean flag = true;
 		Double TotalPriceInCart = 0.0;
 		if (sesstion.getAttribute("id") == null) {
@@ -243,8 +244,9 @@ public class HomeController {
 				}
 			}
 			if (check != null && flag == true) {
-				JSONArray json = new JSONArray(check);
-				json.forEach(data -> {
+				JSONObject json = new JSONObject(check.toString());
+				JSONArray jsonarr = (JSONArray) json.get("data");
+				jsonarr.forEach(data -> {
 					JSONObject jsonobject = (JSONObject) data;
 					cart.setTotalPrice(jsonobject.getDouble("Giaban"));
 					cart.setPicBook(jsonobject.getString("Anh"));
@@ -269,14 +271,15 @@ public class HomeController {
 	@RequestMapping(value = { "/addmore/{id}" })
 	public String AddMore(HttpServletRequest req, HttpSession sesstion, @PathVariable String id) {
 		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" + id;
-		String check = JavaWebMVC.API.CallAPI.Get(link).toString();
+		StringBuffer check = JavaWebMVC.API.CallAPI.Get(link);
 		Double TotalPriceInCart = 0.0;
 		if (id != null && id != "" && !Cart.isEmpty()) {
 			for (Cart item : Cart) {
 				if (item.getBookId().equalsIgnoreCase(id)) {
 					item.setQuatity(item.getQuatity() + 1);
-					JSONArray json = new JSONArray(check);
-					json.forEach(data -> {
+					JSONObject json = new JSONObject(check.toString());
+					JSONArray jsonarr = (JSONArray) json.get("data");
+					jsonarr.forEach(data -> {
 						JSONObject jsonobject = (JSONObject) data;
 						item.setTotalPrice(item.getQuatity() * jsonobject.getDouble("Giaban"));
 					});
@@ -303,8 +306,9 @@ public class HomeController {
 			for (Cart item : Cart) {
 				if (item.getBookId().equalsIgnoreCase(id) && item.getQuatity() > 1) {
 					item.setQuatity(item.getQuatity() - 1);
-					JSONArray json = new JSONArray(check);
-					json.forEach(data -> {
+					JSONObject json = new JSONObject(check.toString());
+					JSONArray jsonarr = (JSONArray) json.get("data");
+					jsonarr.forEach(data -> {
 						JSONObject jsonobject = (JSONObject) data;
 						item.setTotalPrice(item.getQuatity() * jsonobject.getDouble("Giaban"));
 					});
