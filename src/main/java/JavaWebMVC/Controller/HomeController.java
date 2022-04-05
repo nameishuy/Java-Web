@@ -144,20 +144,18 @@ public class HomeController {
 				JSONObject json = new JSONObject(res);
 				ModelAndView mv = new ModelAndView("/user/profile");
 
+				mv.addObject("HoTen", json.getString("HoTen"));
+				mv.addObject("Anh", json.getString("Anh"));
 				if (json.has("Email") && json.has("Anh") && json.has("DiachiKH") && json.has("DienthoaiKH")
 						&& json.has("Ngaysinh")) {
-					mv.addObject("HoTen", json.getString("HoTen"));
 					mv.addObject("Email", json.getString("Email"));
-					mv.addObject("Anh", json.getString("Anh"));
 					mv.addObject("DiachiKH", json.getString("DiachiKH"));
 					mv.addObject("DienthoaiKH", json.getString("DienthoaiKH"));
 					mv.addObject("Ngaysinh", json.getString("Ngaysinh"));
 					session.setAttribute("Email", json.getString("Email"));
 					session.setAttribute("SDT", json.getString("DienthoaiKH"));
 				} else {
-					mv.addObject("HoTen", "");
 					mv.addObject("Email", "");
-					mv.addObject("Anh", "");
 					mv.addObject("DiachiKH", "");
 					mv.addObject("DienthoaiKH", "");
 					mv.addObject("Ngaysinh", "");
@@ -212,11 +210,7 @@ public class HomeController {
 
 	@RequestMapping(value = { "/my-cart" })
 	public String MyCart(HttpSession sesstion) {
-		if (sesstion.getAttribute("id") == null) {
-			return "redirect:/signin";
-		} else {
-			return "/user/cart";
-		}
+		return "/user/cart";
 	}
 
 	// thêm hàng hóa vào giỏ hàng
@@ -229,43 +223,39 @@ public class HomeController {
 		StringBuffer check = JavaWebMVC.API.CallAPI.Get(link);
 		Boolean flag = true;
 		Double TotalPriceInCart = 0.0;
-		if (sesstion.getAttribute("id") == null) {
-			return "redirect:/signin";
-		} else {
-			for (Cart item : Cart) {
-				if (item.getBookId().equalsIgnoreCase(id)) {
-					flag = false;
-					item.setQuatity(item.getQuatity() + 1);
-					JSONObject json = new JSONObject(check.toString());
-					JSONArray jsonarr = (JSONArray) json.get("data");
-					jsonarr.forEach(data -> {
-						JSONObject jsonobject = (JSONObject) data;
-						item.setTotalPrice(item.getQuatity() * jsonobject.getDouble("Giaban"));
-					});
-				}
-			}
-			if (check != null && flag == true) {
+		for (Cart item : Cart) {
+			if (item.getBookId().equalsIgnoreCase(id)) {
+				flag = false;
+				item.setQuatity(item.getQuatity() + 1);
 				JSONObject json = new JSONObject(check.toString());
 				JSONArray jsonarr = (JSONArray) json.get("data");
 				jsonarr.forEach(data -> {
 					JSONObject jsonobject = (JSONObject) data;
-					cart.setTotalPrice(jsonobject.getDouble("Giaban"));
-					cart.setPicBook(jsonobject.getString("Anh"));
-					cart.setBookName(jsonobject.getString("Tensach"));
-					cart.setBookId(id);
-					cart.setQuatity(1);
-					Cart.add(cart);
+					item.setTotalPrice(item.getQuatity() * jsonobject.getDouble("Giaban"));
 				});
 			}
-			for (Cart item : Cart) {
-				TotalPriceInCart = TotalPriceInCart + item.getTotalPrice();
-			}
-
-			sesstion.setAttribute("ItemCart", Cart);
-			sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
-			sesstion.setAttribute("CountCart", Cart.size());
-			return "redirect:/my-cart";
 		}
+		if (check != null && flag == true) {
+			JSONObject json = new JSONObject(check.toString());
+			JSONArray jsonarr = (JSONArray) json.get("data");
+			jsonarr.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				cart.setTotalPrice(jsonobject.getDouble("Giaban"));
+				cart.setPicBook(jsonobject.getString("Anh"));
+				cart.setBookName(jsonobject.getString("Tensach"));
+				cart.setBookId(id);
+				cart.setQuatity(1);
+				Cart.add(cart);
+			});
+		}
+		for (Cart item : Cart) {
+			TotalPriceInCart = TotalPriceInCart + item.getTotalPrice();
+		}
+
+		sesstion.setAttribute("ItemCart", Cart);
+		sesstion.setAttribute("TotalPriceInCart", TotalPriceInCart);
+		sesstion.setAttribute("CountCart", Cart.size());
+		return "redirect:/my-cart";
 	}
 
 	// phần tăng 1 quatity vào giỏ hàng
@@ -305,6 +295,9 @@ public class HomeController {
 		Double TotalPriceInCart = 0.0;
 		if (id != null && id != "") {
 			for (Cart item : Cart) {
+				if (item.getQuatity() == 1) {
+					Remove(req, sesstion, id);
+				}
 				if (item.getBookId().equalsIgnoreCase(id) && item.getQuatity() > 1) {
 					item.setQuatity(item.getQuatity() - 1);
 					JSONObject json = new JSONObject(check.toString());
@@ -372,6 +365,12 @@ public class HomeController {
 	// Phần đặt hàng
 	@RequestMapping(value = { "/order" })
 	public String Oder(HttpSession sesstion, HttpServletRequest req) {
+		if (sesstion.getAttribute("id") == null) {
+			return "redirect:/signin";
+		}
+		if (sesstion.getAttribute("Email") == null) {
+			return "redirect:/myprofile";
+		}
 		ArrayList<Object> IdInCart = new ArrayList<Object>();
 		ArrayList<Integer> QuatityInCart = new ArrayList<>();
 		Double TotalPriceInCart = 0.0;
