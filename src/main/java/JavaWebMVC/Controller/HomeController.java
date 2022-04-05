@@ -236,8 +236,9 @@ public class HomeController {
 				if (item.getBookId().equalsIgnoreCase(id)) {
 					flag = false;
 					item.setQuatity(item.getQuatity() + 1);
-					JSONArray json = new JSONArray(check);
-					json.forEach(data -> {
+					JSONObject json = new JSONObject(check.toString());
+					JSONArray jsonarr = (JSONArray) json.get("data");
+					jsonarr.forEach(data -> {
 						JSONObject jsonobject = (JSONObject) data;
 						item.setTotalPrice(item.getQuatity() * jsonobject.getDouble("Giaban"));
 					});
