@@ -34,6 +34,7 @@ import Model.Book;
 import Model.Cart;
 import Model.Chude;
 import Model.UserBill;
+import Model.SameCategoryBook;
 
 @Controller
 public class HomeController {
@@ -183,11 +184,21 @@ public class HomeController {
 
 		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" + req.getParameter("id");
 		StringBuffer check = JavaWebMVC.API.CallAPI.Get(link);
-
+		
+		//Create Object detail book
 		ArrayList<Book> detail = new ArrayList<Book>();
+		
+		//Create list same category books
+		ArrayList<SameCategoryBook> listSameCategory = new ArrayList<SameCategoryBook>();
 		if (check != null) {
 			JSONObject json = new JSONObject(check.toString());
+			
+			//Get detail for book from API.
 			JSONArray jsonarr = (JSONArray) json.get("data");
+			//Get list same category books data from API.
+			JSONArray jsonList = (JSONArray) json.get("BookLienQuan");
+			
+			//Add data details book to Object detail book
 			jsonarr.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book book = new Book();
@@ -201,10 +212,24 @@ public class HomeController {
 				book.setSoluongton(jsonobject.getInt("Soluongton"));
 				detail.add(book);
 			});
+			
+			//Add list data to jsonList
+			jsonList.forEach(data -> {
+				JSONObject jsonobject = (JSONObject) data;
+				SameCategoryBook book = new SameCategoryBook();
+				book.set_id(jsonobject.getString("_id"));
+				book.setTensach(jsonobject.getString("Tensach"));
+				book.setAnhbia(jsonobject.getString("Anhbia"));
+				book.setGiaban(jsonobject.getDouble("Giaban"));
+				listSameCategory.add(book);
+ 			});
+			
+			
 		}
 
 		ModelAndView model = new ModelAndView("/user/details");
 		model.addObject("Book", detail);
+		model.addObject("listSameCategory",listSameCategory);
 		return model;
 	}
 
