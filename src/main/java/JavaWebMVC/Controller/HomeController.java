@@ -1,20 +1,9 @@
 package JavaWebMVC.Controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.http.HttpRequest;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import Model.Bill;
 import Model.Book;
 import Model.Cart;
-import Model.Chude;
 import Model.UserBill;
 import Model.SameCategoryBook;
 
@@ -184,21 +169,21 @@ public class HomeController {
 
 		String link = "https://bookingapiiiii.herokuapp.com/sachbyid/" + req.getParameter("id");
 		StringBuffer check = JavaWebMVC.API.CallAPI.Get(link);
-		
-		//Create Object detail book
+
+		// Create Object detail book
 		ArrayList<Book> detail = new ArrayList<Book>();
-		
-		//Create list same category books
+
+		// Create list same category books
 		ArrayList<SameCategoryBook> listSameCategory = new ArrayList<SameCategoryBook>();
 		if (check != null) {
 			JSONObject json = new JSONObject(check.toString());
-			
-			//Get detail for book from API.
+
+			// Get detail for book from API.
 			JSONArray jsonarr = (JSONArray) json.get("data");
-			//Get list same category books data from API.
+			// Get list same category books data from API.
 			JSONArray jsonList = (JSONArray) json.get("BookLienQuan");
-			
-			//Add data details book to Object detail book
+
+			// Add data details book to Object detail book
 			jsonarr.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				Book book = new Book();
@@ -212,8 +197,8 @@ public class HomeController {
 				book.setSoluongton(jsonobject.getInt("Soluongton"));
 				detail.add(book);
 			});
-			
-			//Add list data to jsonList
+
+			// Add list data to jsonList
 			jsonList.forEach(data -> {
 				JSONObject jsonobject = (JSONObject) data;
 				SameCategoryBook book = new SameCategoryBook();
@@ -222,14 +207,13 @@ public class HomeController {
 				book.setAnhbia(jsonobject.getString("Anhbia"));
 				book.setGiaban(jsonobject.getDouble("Giaban"));
 				listSameCategory.add(book);
- 			});
-			
-			
+			});
+
 		}
 
 		ModelAndView model = new ModelAndView("/user/details");
 		model.addObject("Book", detail);
-		model.addObject("listSameCategory",listSameCategory);
+		model.addObject("listSameCategory", listSameCategory);
 		return model;
 	}
 

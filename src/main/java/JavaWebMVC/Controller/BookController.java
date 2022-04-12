@@ -1,7 +1,6 @@
 package JavaWebMVC.Controller;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;

@@ -9,17 +9,13 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import Model.Book;
 import Model.NXB;
 import Model.Tacgia;
-import Model.User;
 import Model.theloai;
-import Model.Bill;
 
 @Controller
 public class AdminController {
@@ -67,10 +63,10 @@ public class AdminController {
 	@RequestMapping(value = { "/admin/bill-pay" }, method = RequestMethod.POST)
 
 	public ModelAndView Bill_Pay1(HttpServletRequest request) {
-		String link ="https://bookingapiiiii.herokuapp.com/DonHang";
+		String link = "https://bookingapiiiii.herokuapp.com/DonHang";
 		String Body = "{\"id\":\"" + request.getParameter("id") + "\",\"Tinhtranggiaohang\":true}";
-		StringBuffer check = JavaWebMVC.API.CallAPI.put(link, Body);
-		
+		JavaWebMVC.API.CallAPI.put(link, Body);
+
 		return null;
 	}
 
@@ -153,14 +149,13 @@ public class AdminController {
 							+ req.getParameter("inputAddress") + "\",\"DienThoai\":\"" + req.getParameter("inputPhone")
 							+ "\"}";
 					String linkapi = "https://bookingapiiiii.herokuapp.com/nhaxuatban";
-					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(linkapi, data).toString());
+					JavaWebMVC.API.CallAPI.post(linkapi, data);
 				}
 
 				if (req.getParameter("inputCategory") != null && req.getParameter("inputCategory") != "") {
 					String dataCategory = "{\"TenChuDe\":\"" + req.getParameter("inputCategory") + "\"}";
 					String apiNewCategory = "https://bookingapiiiii.herokuapp.com/chude";
-					JSONObject json = new JSONObject(
-							JavaWebMVC.API.CallAPI.post(apiNewCategory, dataCategory).toString());
+					JavaWebMVC.API.CallAPI.post(apiNewCategory, dataCategory);
 				}
 
 				if (req.getParameter("inputAuthorName") != null && req.getParameter("inputAuthorName") != ""
@@ -172,7 +167,7 @@ public class AdminController {
 							+ req.getParameter("inputAuthorHist") + "\",\"Dienthoai\":\""
 							+ req.getParameter("inputAuthorPhone") + "\"}";
 					String apiNewAuthor = "https://bookingapiiiii.herokuapp.com/tacgia";
-					JSONObject json = new JSONObject(JavaWebMVC.API.CallAPI.post(apiNewAuthor, dataAuthor).toString());
+					JavaWebMVC.API.CallAPI.post(apiNewAuthor, dataAuthor);
 				}
 
 			} catch (UnsupportedEncodingException e) {
