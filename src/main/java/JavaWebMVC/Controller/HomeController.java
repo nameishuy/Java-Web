@@ -304,9 +304,6 @@ public class HomeController {
 		Double TotalPriceInCart = 0.0;
 		if (id != null && id != "") {
 			for (Cart item : Cart) {
-				if (item.getQuatity() == 1) {
-					Remove(req, sesstion, id);
-				}
 				if (item.getBookId().equalsIgnoreCase(id) && item.getQuatity() > 1) {
 					item.setQuatity(item.getQuatity() - 1);
 					JSONObject json = new JSONObject(check.toString());
