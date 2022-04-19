@@ -60,9 +60,9 @@
 		<div class="Account__Area align-items-center" id="Account_Area">
 			<a
 				class="text-decoration-none link-dark border border-dark rounded-1 pe-3 ps-3 pt-1 pb-1"
-				id="SignIn" href="signin">Sign in</a> / <a
+				id="Đăng Nhập" href="signin">Sign in</a> / <a
 				class="text-decoration-none link-light bg-dark border border-dark rounded-1 pe-3 ps-3 pt-1 pb-1"
-				id="SignUp" href="signup">Sign up</a>
+				id="Đăng Ký" href="signup">Sign up</a>
 		</div>
 		<%
 		}
