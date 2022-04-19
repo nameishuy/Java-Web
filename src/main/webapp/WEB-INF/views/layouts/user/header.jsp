@@ -20,13 +20,13 @@
 			<ul class="navbar-nav text-center p-md-3 mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="home">Trang Chủ</a></li>
-				<li class="nav-item"><a class="nav-link" href="products">Sản Phẩm</a></li>
+				<li class="nav-item"><a class="nav-link" href="products">Sản
+						Phẩm</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Liên Hệ</a></li>
 			</ul>
 		</div>
-		<a class="Cart" href="my-cart">
-			<ion-icon name="cart-outline"></ion-icon>
-			<span id="countCart" class="countCart"  >${CountCart } </span>
+		<a class="Cart" href="my-cart"> <ion-icon name="cart-outline"></ion-icon>
+			<span id="countCart" class="countCart">${CountCart } </span>
 		</a>
 
 
@@ -42,15 +42,23 @@
 				${sessionScope.User }
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-				<li><a class="dropdown-item" id="Item__Account" href="myprofile">Profile</a></li>
-				<li><a class="dropdown-item" id="Item__Account" href="history-pay">History Pay</a></li>
-				<% if(session.getAttribute("Role").toString() == "true"){ %>
-					<li><a class="dropdown-item" id="Item__Account" href="/JavaWebMVC/admin/index">Admin</a></li>
-				<%} %>
+				<li><a class="dropdown-item" id="Item__Account"
+					href="myprofile">Thông Tin Tài Khoản</a></li>
+				<li><a class="dropdown-item" id="Item__Account"
+					href="history-pay">Lịch Sử Mua Hàng</a></li>
+				<%
+				if (session.getAttribute("Role").toString() == "true") {
+				%>
+				<li><a class="dropdown-item" id="Item__Account"
+					href="/JavaWebMVC/admin/index">Admin</a></li>
+				<%
+				}
+				%>
 				<li>
 					<hr class="dropdown-divider">
 				</li>
-				<li><a class="dropdown-item" id="Item__Account" href="signout">Sign Out</a></li>
+				<li><a class="dropdown-item" id="Item__Account" href="signout">Đăng
+						Xuất</a></li>
 			</ul>
 		</div>
 
