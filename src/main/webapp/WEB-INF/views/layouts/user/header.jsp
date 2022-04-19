@@ -19,9 +19,9 @@
 			id="navbarMenu">
 			<ul class="navbar-nav text-center p-md-3 mb-2 mb-lg-0">
 				<li class="nav-item"><a class="nav-link" aria-current="page"
-					href="home">Home</a></li>
-				<li class="nav-item"><a class="nav-link" href="products">Product</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+					href="home">Trang Chủ</a></li>
+				<li class="nav-item"><a class="nav-link" href="products">Sản Phẩm</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Liên Hệ</a></li>
 			</ul>
 		</div>
 		<a class="Cart" href="my-cart">
